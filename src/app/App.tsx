@@ -3,6 +3,6 @@
 
 export function App() {
   return (
-    <div className="text-center bg-app-main">App</div>
+    <div className="text-center bg-app-main box-container ">App</div>
   )
 }
