@@ -1,11 +1,7 @@
-<<<<<<< HEAD
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 @import '@fontsource-variable/geist';
-=======
-@import "tailwindcss";
->>>>>>> 5580e88374abd8c7dcf6cd0fabb02c046397cbeb
 
 /* Font */
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
@@ -46,7 +42,6 @@
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-<<<<<<< HEAD
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
@@ -83,8 +78,6 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-=======
->>>>>>> 5580e88374abd8c7dcf6cd0fabb02c046397cbeb
 }
 
 :root {
@@ -94,7 +87,6 @@
   --app-muted: #555c60;
   --app-gold: #fdc040;
 
-<<<<<<< HEAD
   /* Shadcn */
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -163,36 +155,6 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
-=======
-  --success: #42824d;
-  --error: #a9090c;
-
-  /* ==================== Font ==================== */
-  --font-inter: "Inter", sans-serif;
-
-  /* ==================== Font Sizes ==================== */
-  --font-size-xs: 14px;
-  --font-size-sm: 16px;
-  --font-size-md: 18px;
-  --font-size-lg: 24px;
-  --font-size-xl: 32px;
-
-  /* ==================== Font Weights ==================== */
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-
-
-  /* ==================== Shadcn ==================== */
-  --background: #ffffff;
-  --foreground: #000000;
-
-  --card: #d1d5dc;
-  --card-foreground: #0e1112;
-}
-
->>>>>>> 5580e88374abd8c7dcf6cd0fabb02c046397cbeb
 
 
 
@@ -217,12 +179,7 @@
   .box-container {
     @apply container mx-auto w-full px-5 md:px-2 lg:px-5 2xl:max-w-[85%];
   }
-<<<<<<< HEAD
   html {
     @apply font-sans;
   }
 }
-=======
-
-}
->>>>>>> 5580e88374abd8c7dcf6cd0fabb02c046397cbeb
