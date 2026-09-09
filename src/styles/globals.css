@@ -1,25 +1,52 @@
+<<<<<<< HEAD
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 @import '@fontsource-variable/geist';
+=======
+@import "tailwindcss";
+>>>>>>> 5580e88374abd8c7dcf6cd0fabb02c046397cbeb
 
+/* Font */
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+/* Dark mode */
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* ==================== App Colors ==================== */
   --color-app-main: var(--app-main);
   --color-app-secondary: var(--app-secondary);
-  --color-app-watermelon: var(--app-watermelon);
-  --color-app-yellow: var(--app-yellow);
-  --color-app-grey: var(--app-grey);
+  --color-app-muted: var(--app-muted);
+  --color-gold: var(--app-gold);
 
-  --font-zain: var(--font-zain);
+  --color-success: var(--success);
+  --color-error: var(--error);
 
-  /* Shadcn vars */
+  /* ==================== Font ==================== */
+  --font-inter: var(--font-inter);
 
+  /* ==================== Font Sizes ==================== */
+  --text-xs: var(--font-size-xs);
+  --text-sm: var(--font-size-sm);
+  --text-md: var(--font-size-md);
+  --text-lg: var(--font-size-lg);
+  --text-xl: var(--font-size-xl);
+
+  /* ==================== Font Weights ==================== */
+  --font-weight-regular: var(--font-weight-regular);
+  --font-weight-medium: var(--font-weight-medium);
+  --font-weight-semibold: var(--font-weight-semibold);
+  --font-weight-bold: var(--font-weight-bold);
+
+
+
+  /* ==================== Shadcn ==================== */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+<<<<<<< HEAD
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
@@ -56,15 +83,18 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+=======
+>>>>>>> 5580e88374abd8c7dcf6cd0fabb02c046397cbeb
 }
 
 :root {
-  --app-main: oklch(59.754% 0.11465 170.114);
-  --app-secondary: oklch(77.704% 0.17286 66.053);
-  --app-watermelon: oklch(71.506% 0.17846 27.948);
-  --app-yellow: oklch(86.52% 0.17676 90.387);
-  --app-grey: oklch(73.481% 0.00008 271.152);
+  /* ==================== App Colors ==================== */
+  --app-main: #014162;
+  --app-secondary: #b5b5b5;
+  --app-muted: #555c60;
+  --app-gold: #fdc040;
 
+<<<<<<< HEAD
   /* Shadcn */
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -133,28 +163,66 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+=======
+  --success: #42824d;
+  --error: #a9090c;
 
-@utility flex-center {
-  @apply flex items-center justify-center;
+  /* ==================== Font ==================== */
+  --font-inter: "Inter", sans-serif;
+
+  /* ==================== Font Sizes ==================== */
+  --font-size-xs: 14px;
+  --font-size-sm: 16px;
+  --font-size-md: 18px;
+  --font-size-lg: 24px;
+  --font-size-xl: 32px;
+
+  /* ==================== Font Weights ==================== */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+
+  /* ==================== Shadcn ==================== */
+  --background: #ffffff;
+  --foreground: #000000;
+
+  --card: #d1d5dc;
+  --card-foreground: #0e1112;
 }
 
-@utility box-container {
-  @apply container mx-auto w-full px-5 md:px-2 lg:px-5 2xl:max-w-[85%];
-}
+>>>>>>> 5580e88374abd8c7dcf6cd0fabb02c046397cbeb
 
-@utility form-triggers {
-  @apply !h-14 !w-full !border-none !bg-[#eff1f999];
-}
+
+
+
+
+/* ==================== base ==================== */
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  body {
+    @apply bg-background text-foreground font-inter;
+  }
+}
+
+/* ==================== Utilities ==================== */
+
+@layer utilities {
+  .flex-center {
+    @apply flex items-center justify-center;
+
   }
 
-  body {
-    @apply bg-background text-foreground;
+  .box-container {
+    @apply container mx-auto w-full px-5 md:px-2 lg:px-5 2xl:max-w-[85%];
   }
+<<<<<<< HEAD
   html {
     @apply font-sans;
   }
 }
+=======
+
+}
+>>>>>>> 5580e88374abd8c7dcf6cd0fabb02c046397cbeb
