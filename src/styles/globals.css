@@ -3,7 +3,7 @@
 @import "shadcn/tailwind.css";
 
 /* Font */
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 /* Dark mode */
 @custom-variant dark (&:is(.dark *));
@@ -14,7 +14,7 @@
   --color-app-secondary: var(--app-secondary);
   --color-app-muted: var(--app-muted);
   --color-gold: var(--app-gold);
-
+  --color-app-light-blue: var(--app-light-blue);
   --color-success: var(--success);
   --color-error: var(--error);
 
@@ -27,6 +27,7 @@
   --text-md: var(--font-size-md);
   --text-lg: var(--font-size-lg);
   --text-xl: var(--font-size-xl);
+  --text-2.5xl: var(--font-size-26);
 
   /* ==================== Font Weights ==================== */
   --font-weight-regular: var(--font-weight-regular);
@@ -76,13 +77,15 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 }
-
 :root {
   /* ==================== App Colors ==================== */
   --app-main: #014162;
   --app-secondary: #b5b5b5;
   --app-muted: #555c60;
   --app-gold: #fdc040;
+  --app-light-blue: #08abff;
+  --success: #42824d;
+  --error: #a9090c;
 
   --success: #42824d;
   --error: #a9090c;
@@ -95,6 +98,7 @@
   --font-size-sm: 16px;
   --font-size-md: 18px;
   --font-size-lg: 24px;
+  --font-size-26: 26px;
   --font-size-xl: 32px;
 
   /* ==================== Font Weights ==================== */

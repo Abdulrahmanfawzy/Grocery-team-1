@@ -1,5 +1,11 @@
+import HeroSection from '../components/HeroSection'
+
 const ProductsPage = () => {
-  return <div>ProductsPage</div>
+  return (
+    <>
+      <HeroSection />
+    </>
+  )
 }
 
 export default ProductsPage
