@@ -1,8 +1,13 @@
-// import { AppProviders } from './providers/AppProviders'
-// import { AppRoutes } from './routes'
+import { Outlet } from 'react-router-dom'
 
-export function App() {
+const App = () => {
   return (
-    <div className="text-center bg-app-main">App</div>
+    <div className="text-center bg-app-main">
+      {/* her add your navbar */}
+      <Outlet />
+      {/* her add your Footer */}
+    </div>
   )
 }
+
+export default App
