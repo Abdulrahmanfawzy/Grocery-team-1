@@ -1,18 +1,18 @@
-import redishImg from '../assets/redish.png'
-import potatoesImg from '../assets/potatoes.png'
-import tomatoesImg from '../assets/tomatoes.png'
-import greenBeansImg from '../assets/green-beans.png'
-import broccoliImg from '../assets/broccoli.png'
-import papayasImg from '../assets/papayas.png'
-import peachesImg from '../assets/peaches.png'
-import berriesImg from '../assets/berries.png'
-import applesImg from '../assets/apples.png'
-import persimmonImg from '../assets/persimmon.png'
-import coffeeImg from '../assets/coffee.png'
-import sausageImg from '../assets/sausage.png'
-import teaImg from '../assets/tea.png'
-import onionsImg from '../assets/onions.png'
-import pineappleImg from '../assets/pineapple.png'
+import Img from '@/assets/img.png'
+import potatoesImg from '@/assets/potatoes.png'
+import tomatoesImg from '@/assets/tomatoes.png'
+import greenBeansImg from '@/assets/green-beans.png'
+import broccoliImg from '@/assets/broccoli.png'
+import papayasImg from '@/assets/papayas.png'
+import peachesImg from '@/assets/peaches.png'
+import berriesImg from '@/assets/berries.png'
+import applesImg from '@/assets/apples.png'
+import persimmonImg from '@/assets/persimmon.png'
+import coffeeImg from '@/assets/coffee.png'
+import sausageImg from '@/assets/sausage.png'
+import teaImg from '@/assets/tea.png'
+import onionsImg from '@/assets/onions.png'
+import pineappleImg from '@/assets/pineapple.png'
 
 export type ProductCategory = 'Vegetables' | 'Fruits' | 'Coffe & teas' | 'Meat'
 
@@ -31,7 +31,7 @@ export interface HomeProduct {
 }
 
 export const hotDeals: HomeProduct[] = [
-  { id: 'radish', name: 'Redish 500g', category: 'Vegetables', image: redishImg, price: 12, oldPrice: 15.9, rating: 4, reviews: 4, seller: 'Mr.food' },
+  { id: 'radish', name: 'Redish 500g', category: 'Vegetables', image: Img, price: 12, oldPrice: 15.9, rating: 4, reviews: 4, seller: 'Mr.food' },
   { id: 'potatoes', name: 'Potatos 1g', category: 'Vegetables', image: potatoesImg, price: 20, oldPrice: 25.9, rating: 5, reviews: 6, seller: 'Mr.food' },
   { id: 'tomatoes', name: 'Tomatos 200g', category: 'Vegetables', image: tomatoesImg, price: 24, oldPrice: 28.9, rating: 5, reviews: 3, seller: 'Mr.food' },
   { id: 'green-beans', name: 'Green Beans 350g', category: 'Vegetables', image: greenBeansImg, price: 8, oldPrice: 12.9, rating: 4, reviews: 2, seller: 'Mr.food' },

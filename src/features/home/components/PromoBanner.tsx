@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import deliveryPerson from '../assets/delivery-person.png'
-import organicFruit from '../assets/organic-fruit.png'
+import deliveryPerson from '@/assets/delivery-person.png'
+import organicFruit from '@/assets/organic-fruit.png'
 
 export function PromoBanners() {
   return (
