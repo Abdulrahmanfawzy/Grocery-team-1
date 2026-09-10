@@ -1,74 +1,68 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
-import { cn } from '@/lib/utils'
+import { Button as ButtonPrimitive } from '@base-ui/react/button'
+import { cva, type VariantProps } from 'class-variance-authority'
+import { cn } from 'cn'
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link'
-  size?: 'sm' | 'md' | 'lg' | 'icon'
-  children: ReactNode
-  isLoading?: boolean
-}
+const buttonVariants = cva(
+  "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  {
+    variants: {
+      variant: {
+        default: 'bg-app-main/95 text-white hover:bg-app-main',
 
-const buttonVariants = {
-  primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
-  secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-  destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-  outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
-  ghost: 'hover:bg-accent hover:text-accent-foreground',
-  link: 'text-primary underline-offset-4 hover:underline',
-}
+        outline:
+          'border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50',
 
-const buttonSizes = {
-  sm: 'h-9 px-3',
-  md: 'h-10 px-4 py-2',
-  lg: 'h-11 px-8',
-  icon: 'h-10 w-10',
-}
+        secondary:
+          'bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground',
 
-export function Button({
-  variant = 'primary',
-  size = 'md',
+        ghost:
+          'hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50',
+
+        destructive:
+          'bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40',
+
+        link: 'text-primary underline-offset-4 hover:underline',
+      },
+
+      size: {
+        default: 'h-10 gap-1.5 px-4 text-base',
+
+        xs: 'h-7 gap-1 rounded-md px-2 text-xs [&_svg:not([class*="size-"])]:size-3',
+
+        sm: 'h-8 gap-1 rounded-md px-3 text-sm [&_svg:not([class*="size-"])]:size-3.5',
+
+        lg: 'h-11 gap-2 rounded-lg px-5 text-base',
+
+        icon: 'size-10',
+
+        'icon-xs': 'size-7 rounded-md [&_svg:not([class*="size-"])]:size-3',
+
+        'icon-sm': 'size-8 rounded-md [&_svg:not([class*="size-"])]:size-3.5',
+
+        'icon-lg': 'size-11',
+      },
+    },
+
+    defaultVariants: {
+      variant: 'default',
+      size: 'default',
+    },
+  },
+)
+
+function Button({
   className,
-  children,
-  isLoading,
-  disabled,
+  variant = 'default',
+  size = 'default',
   ...props
-}: ButtonProps) {
+}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
   return (
-    <button
-      className={cn(
-        'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-        'disabled:pointer-events-none disabled:opacity-50',
-        buttonVariants[variant],
-        buttonSizes[size],
-        className,
-      )}
-      disabled={disabled || isLoading}
+    <ButtonPrimitive
+      data-slot="button"
+      className={cn(buttonVariants({ variant, size, className }))}
       {...props}
-    >
-      {isLoading && (
-        <svg
-          className="mr-2 h-4 w-4 animate-spin"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            className="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            strokeWidth="4"
-          />
-          <path
-            className="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-          />
-        </svg>
-      )}
-      {children}
-    </button>
+    />
   )
 }
+
+export { Button, buttonVariants }

@@ -1,8 +1,5 @@
-import { type ClassValue, clsx } from 'clsx'
-
-export function cn(...inputs: ClassValue[]) {
-  return clsx(inputs)
-}
+// handle merge tailwind classes
+export { cn } from 'cn'
 
 export function formatDate(date: string | Date): string {
   return new Intl.DateTimeFormat('en-US', {

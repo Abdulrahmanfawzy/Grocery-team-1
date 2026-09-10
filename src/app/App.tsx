@@ -1,8 +1,11 @@
-// import { AppProviders } from './providers/AppProviders'
-// import { AppRoutes } from './routes'
+import { Outlet } from 'react-router-dom'
+import { MainLayout } from '@/components/layout/MainLayout'
 
-export function App() {
-  return (
-    <div className="text-center bg-app-main">App</div>
-  )
-}
+const App = () => (
+  <MainLayout>
+    <Outlet />
+  </MainLayout>
+)
+
+
+export default App
