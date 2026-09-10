@@ -15,9 +15,14 @@
   --color-app-secondary: var(--app-secondary);
   --color-app-muted: var(--app-muted);
   --color-gold: var(--app-gold);
-
+  --color-app-light-blue: var(--app-light-blue);
   --color-success: var(--success);
   --color-error: var(--error);
+  --color-app-light-gray: var(--app-light-gray);
+  --color-sidebar-color: var(--sidebar-color);
+  --color-border-color: var(--border-color);
+  --color-silver: var(--silver);
+  --shadow-card-shadow: var(--card-shadow);
 
   /* ==================== Font ==================== */
   --font-inter: var(--font-inter);
@@ -71,19 +76,24 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 }
-
 :root {
   /* ==================== App Colors ==================== */
   --app-main: #014162;
   --app-secondary: #b5b5b5;
   --app-muted: #555c60;
   --app-gold: #fdc040;
-
+  --app-light-blue: #08abff;
   --success: #42824d;
   --error: #a9090c;
+  --app-light-gray: #f7fcff;
+  --sidebar-color: #0e1112;
+  --border-color: #dad8d8;
+  --border-color: #dad8d8;
+  --silver: #bcb8b1;
+  --card-shadow: 0px 16px 32px 0px #071c1f1a;
 
   /* ==================== Font ==================== */
-  --font-inter: "Inter", sans-serif;
+  --font-inter: 'Inter', sans-serif;
 
 
   /* ==================== Font Sizes ==================== */
@@ -91,11 +101,14 @@
   --font-size-sm: 16px;
   --font-size-md: 18px;
   --font-size-lg: 24px;
+  --font-size-26: 26px;
   --font-size-xl: 32px;
+  --font-size-20: 20px;
+  --font-size-12: 12px;
 
   /* ==================== Shadcn ==================== */
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: lch(2.74% 0 296.81);
 
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
