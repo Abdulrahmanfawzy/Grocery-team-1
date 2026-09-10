@@ -1,5 +1,5 @@
 import AppBreadcrumb from '@/components/common/AppBreadcrumb'
-import HeroSectionImg from '@/features/products-list/assets/product-hero.jpg'
+import HeroSectionImg from '@/assets/product-hero.jpg'
 
 const HeroSection = () => {
   return (

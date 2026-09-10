@@ -2,13 +2,13 @@ import HeroSection from '../components/HeroSection'
 import ProductsList from '../components/ProductsList'
 import FilterSidbar from '../components/FilterSidbar'
 import { BadgeCheck, CheckCheck, ChevronRight, Star, StarOff, TruckIcon } from 'lucide-react'
-import leftDecoration from '../assets/winter-discoutn-left.svg'
-import rightDecoration from '../assets/winter-discoutn-right.svg'
+import leftDecoration from '@/assets/winter-discoutn-left.svg'
+import rightDecoration from '@/assets/winter-discoutn-right.svg'
 import type { ReactNode } from 'react'
 
 const ProductsPage = (): ReactNode => {
   return (
-    <div className="h-700">
+    <div>
       <HeroSection />
       <div className="box-container">
         <div className="gap-4 grid grid-cols-12 my-24">

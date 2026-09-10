@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@/components/common'
 import { Minus, Plus, ShoppingCart, Star } from 'lucide-react'
-import productImage from '../assets/img.png'
+import productImage from '@/assets/img.png'
 import { useState } from 'react'
 import { Button } from '@/components'
 const ProductCard = () => {
