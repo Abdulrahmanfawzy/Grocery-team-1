@@ -1,5 +1,6 @@
-import facebookIcon from '../assets/facebook-icon.png'
-import googleIcon from '../assets/google icon.png'
+import googleIcon from '@/assets/images/auth/google-icon.png'
+import facebookIcon from '@/assets/images/auth/facebook-icon.png'
+
 import { Link } from 'react-router-dom'
 
 type LinkSocialMediaProps = {

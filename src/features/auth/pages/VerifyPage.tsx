@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp'
 
 import { Button, Card } from '../../../components'
-import OTPImg from '../assets/OTP.png'
+import OTPImg from '@/assets/images/auth/OTP.png'
 import ButtonBack from '../components/ButtonBack'
 
 export default function VerifyPage() {

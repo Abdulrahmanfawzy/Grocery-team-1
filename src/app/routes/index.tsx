@@ -4,10 +4,10 @@ import { createBrowserRouter } from 'react-router-dom'
 import App from '../App'
 import ProductsPage from '@/features/products-list/pages/ProductsPage'
 import { LoginPage } from '@/features/auth/pages/LoginPage'
-import RegisterPage from '../../features/auth/pages/RegisterPage'
-import ForgetPasswordPage from '../../features/auth/pages/ForgetPasswordPage'
-import RestPasswordPage from '../../features/auth/pages/RestPasswordPage'
-import VerifyPage from '../../features/auth/pages/VerifyPage'
+import RegisterPage from '@/features/auth/pages/RegisterPage'
+import ForgetPasswordPage from '@/features/auth/pages/ForgetPasswordPage'
+import RestPasswordPage from '@/features/auth/pages/RestPasswordPage'
+import VerifyPage from '@/features/auth/pages/VerifyPage'
 
 export const routes = createBrowserRouter([
   {

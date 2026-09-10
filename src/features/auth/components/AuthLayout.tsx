@@ -1,6 +1,6 @@
 import { type PropsWithChildren } from 'react'
-import imgIcons from '../../auth/assets/auth-img.png'
-import imgBg from '../../auth/assets/hero-bg.png'
+import imgIcons from '@/assets/images/auth/auth-img.png'
+import imgBg from '@/assets/images/auth/hero-bg.png'
 
 const AuthLayout = ({ children }: PropsWithChildren) => {
   return (
