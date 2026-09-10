@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 
 export type BreadcrumbItemType = {
   label: string
-  href?: string
+  href?: string    
 }
 
 type AppBreadcrumbProps = {
@@ -33,7 +33,7 @@ const AppBreadcrumb = ({ breadcrumbItems }: AppBreadcrumbProps) => {
                 ) : (
                   <Link
                     to={item.href || ''}
-                    className="text-white! text-base font-bold hover:text-app-main"
+                    className="text-app-secondary! text-base font-bold hover:text-app-main"
                   >
                     {item.label}
                   </Link>
@@ -41,7 +41,7 @@ const AppBreadcrumb = ({ breadcrumbItems }: AppBreadcrumbProps) => {
               </BreadcrumbItem>
 
               {!isLast && (
-                <BreadcrumbSeparator className="text-white! [&>svg]:hidden pl-0.5">
+                <BreadcrumbSeparator className="text-app-secondary! [&>svg]:hidden pl-0.5">
                   /
                 </BreadcrumbSeparator>
               )}
