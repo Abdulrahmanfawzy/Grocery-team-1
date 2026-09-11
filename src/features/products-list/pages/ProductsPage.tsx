@@ -2,9 +2,11 @@ import HeroSection from '../components/HeroSection'
 import ProductsList from '../components/ProductsList'
 import FilterSidbar from '../components/FilterSidbar'
 import { BadgeCheck, CheckCheck, ChevronRight, Star, StarOff, TruckIcon } from 'lucide-react'
-import leftDecoration from '@/assets/winter-discoutn-left.svg'
-import rightDecoration from '@/assets/winter-discoutn-right.svg'
+import leftDecoration from '@/assets/images/products/winter-discoutn-left.svg'
+import rightDecoration from '@/assets/images/products/winter-discoutn-right.svg'
 import type { ReactNode } from 'react'
+import SidbarInMobile from '../components/SidbarInMobile'
+import { Button } from '@/components'
 
 const ProductsPage = (): ReactNode => {
   return (
@@ -12,8 +14,13 @@ const ProductsPage = (): ReactNode => {
       <HeroSection />
       <div className="box-container">
         <div className="gap-4 grid grid-cols-12 my-24">
-          {/* Sidbar to filter products */}
-          <div className=" hidden md:block  col-span-3">
+          {/* Sidbar in Mobile */}
+          <div className="col-span-12">
+            <SidbarInMobile />
+          </div>
+
+          {/* Sidbar to filter products in PC */}
+          <div className="hidden md:block  col-span-3">
             <FilterSidbar />
           </div>
 
@@ -48,13 +55,10 @@ const ProductsPage = (): ReactNode => {
 
             <Countdown />
 
-            <button
-              type="button"
-              className="flex items-center gap-1 rounded-md bg-app-main/95 p-2 text-base text-white transition hover:bg-app-main"
-            >
+            <Button type="button" size={'lg'}>
               <span>Shop now</span>
               <ChevronRight />
-            </button>
+            </Button>
           </div>
         </div>
 
