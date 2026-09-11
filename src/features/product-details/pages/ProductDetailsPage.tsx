@@ -6,6 +6,7 @@ import image from '@/assets/images/products/img.png'
 import type { Product } from '@/types/products/products.type'
 import ProductCarousel from '@/components/common/ProductCarousel'
 import ProductCard from '@/components/common/ProductCard'
+import MoreProductContent from '../components/MoreProductContent'
 
 function ProductDetails() {
   // Get Params From URL
@@ -114,17 +115,23 @@ function ProductDetails() {
 
       {/* Product Details Layout */}
       <div className="mb-14 grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
-        {/* ================= LEFT ================= */}
+        {/* ================= LEFT Product Gallery ================= */}
         <div>
           <ProductGallery images={product.images ?? [product.image]} productName={product.name} />
         </div>
 
-        {/* ================= RIGHT ================= */}
+        {/* ================= RIGHT Product Content ================= */}
         <div>
           <ProductContent productObject={product} />
         </div>
       </div>
 
+      {/* More Product Content */}
+      <div className="my-14">
+        <MoreProductContent />
+      </div>
+
+      {/* Curousel 1  */}
       <div className="my-14">
         <h2 className="text-20 text-black pb-4 px-2">Frequently Bought Together</h2>
         <ProductCarousel
@@ -132,7 +139,7 @@ function ProductDetails() {
           element={(product: Product) => <ProductCard product={product} />}
         />
       </div>
-
+      {/* Curousel 2 */}
       <div className="my-14">
         <h2 className="text-20 text-black pb-4 px-2">More To Explore</h2>
         <ProductCarousel
