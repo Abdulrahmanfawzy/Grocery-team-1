@@ -102,7 +102,7 @@ export function Navbar() {
                 <div className="ms-auto hidden items-center gap-4 lg:flex">
                     {/* Cart */}
                     <Link
-                        to="/products"
+                        to="/cart"
                         className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-700 hover:text-app-main"
                     >
                         <ShoppingCart size={16} />

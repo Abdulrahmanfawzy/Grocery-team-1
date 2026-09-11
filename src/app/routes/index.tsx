@@ -48,10 +48,11 @@ export const routes = createBrowserRouter([
         path: '/verify',
         element: <VerifyPage />,
 
-        path: '/cart',
-        element: <CartPage />,
-
       },
+    {
+      path: '/cart',
+      element: <CartPage />,
+    } ,
     ],
   },
 ])
