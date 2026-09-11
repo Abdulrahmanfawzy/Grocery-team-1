@@ -12,12 +12,17 @@ import VerifyPage from '@/features/auth/pages/VerifyPage'
 
 
 import CartPage from '@/features/Cart/pages/CartPage'
+import HomePage from '@/features/home/pages/HomePage'
 
 export const routes = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
       {
         path: '/products',
         element: <ProductsPage />,
