@@ -1,11 +1,7 @@
 import { Outlet } from 'react-router-dom'
-import { MainLayout } from '@/components/layout/MainLayout'
 
-const App = () => (
-  <MainLayout>
-    <Outlet />
-  </MainLayout>
-)
-
+const App = () => {
+  return <Outlet />
+}
 
 export default App
