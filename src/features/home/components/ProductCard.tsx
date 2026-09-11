@@ -15,7 +15,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <span className="text-[10px] text-slate-400 sm:text-xs">{product.category}</span>
         <h3 className="mt-1 truncate text-xs font-medium text-slate-700 sm:text-sm">{product.name}</h3>
         <div className="mt-1 flex items-center gap-1 text-[10px] sm:text-xs">
-          <span className="tracking-[1px] text-app-gold">{'★'.repeat(product.rating)}</span>
+          <span className="tracking-[1px] text-base text-gold">{'★'.repeat(product.rating)}</span>
           <span className="text-slate-300">{'★'.repeat(5 - product.rating)}</span>
           <span className="text-slate-400">({product.reviews})</span>
         </div>

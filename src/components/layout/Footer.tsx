@@ -17,10 +17,10 @@ export function Footer() {
             <a href="#linkedin" aria-label="LinkedIn"><Linkedin size={16} /></a>
             <a href="#facebook" aria-label="Facebook"><Facebook size={16} /></a> */}
           </div>
-          <p className="mt-5 max-w-sm text-[10px] leading-5 text-slate-700">
+          <p className="mt-5 max-w-sm text-[12px] leading-5 text-slate-700">
             Grocery platform offering fresh produce, daily essentials, personalized recommendations, and seamless ordering with secure payments and real-time tracking.
           </p>
-          <div className="mt-5 space-y-3 text-[11px]">
+          <div className="mt-5 space-y-3 text-[12px]">
             <div className="flex items-center gap-2"><MapPin size={14} /> 5th Settlement,New Cairo, Cairo, Egypt</div>
             <div className="flex items-center gap-2"><Mail size={14} /> help@groceryplus.com</div>
           </div>
@@ -30,7 +30,7 @@ export function Footer() {
           <div key={column.title}>
             <h3 className="text-sm font-semibold text-slate-800">{column.title}</h3>
             <ul className="mt-5 space-y-4">
-              {column.links.map((link) => <li key={link}><a href={`#${link.toLowerCase().replaceAll(' ', '-')}`} className="text-[10px] hover:text-app-main">{link}</a></li>)}
+              {column.links.map((link) => <li key={link}><a href={`#${link.toLowerCase().replaceAll(' ', '-')}`} className="text-[12px] hover:text-app-main">{link}</a></li>)}
             </ul>
           </div>
         ))}

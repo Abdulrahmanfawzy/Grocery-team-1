@@ -5,8 +5,8 @@ import MoreToExplore from '../components/MoreToExplore'
 
 const CartPage = () => {
   return (
-<main className="box-container py-8">
-          <AppBreadcrumb
+    <main className="box-container py-8">
+      <AppBreadcrumb
         breadcrumbItems={[
           {
             label: 'Home',

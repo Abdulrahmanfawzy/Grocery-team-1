@@ -1,58 +1,77 @@
-// routes
-
 import { createBrowserRouter } from 'react-router-dom'
+
 import App from '../App'
+
+import { MainLayout } from '@/components/layout/MainLayout'
+
+import HomePage from '@/features/home/pages/HomePage'
 import ProductsPage from '@/features/products-list/pages/ProductsPage'
+import CartPage from '@/features/Cart/pages/CartPage'
 
 import { LoginPage } from '@/features/auth/pages/LoginPage'
 import RegisterPage from '@/features/auth/pages/RegisterPage'
 import ForgetPasswordPage from '@/features/auth/pages/ForgetPasswordPage'
 import RestPasswordPage from '@/features/auth/pages/RestPasswordPage'
 import VerifyPage from '@/features/auth/pages/VerifyPage'
-
-import CartPage from '@/features/Cart/pages/CartPage'
-import HomePage from '@/features/home/pages/HomePage'
-import ProductDetails from '@/features/product-details/pages/ProductDetailsPage'
+import AuthImageLayout from '@/components/layout/AuthImageLayout'
+import AuthLayout from '@/components/layout/AuthLayout'
 
 export const routes = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
+      // Main App
       {
-        index: true,
-        element: <HomePage />,
+        element: <MainLayout />,
+        children: [
+          {
+            index: true,
+            element: <HomePage />,
+          },
+          {
+            path: 'products',
+            element: <ProductsPage />,
+          },
+          {
+            path: 'cart',
+            element: <CartPage />,
+          },
+        ],
       },
-      {
-        path: '/products',
-        element: <ProductsPage />,
-      },
-      {
-        path: '/products/:productId',
-        element: <ProductDetails />,
-      },
-      {
-        path: '/login',
-        element: <LoginPage />,
-      },
-      {
-        path: '/register',
-        element: <RegisterPage />,
-      },
-      {
-        path: '/forget-password',
-        element: <ForgetPasswordPage />,
-      },
-      {
-        path: '/rest-password',
-        element: <RestPasswordPage />,
-      },
-      {
-        path: '/verify',
-        element: <VerifyPage />,
 
-        path: '/cart',
-        element: <CartPage />,
+      // Auth with image
+      {
+        element: <AuthImageLayout />,
+        children: [
+          {
+            path: 'login',
+            element: <LoginPage />,
+          },
+          {
+            path: 'register',
+            element: <RegisterPage />,
+          },
+        ],
+      },
+
+      // Auth without image
+      {
+        element: <AuthLayout />,
+        children: [
+          {
+            path: 'forget-password',
+            element: <ForgetPasswordPage />,
+          },
+          {
+            path: 'rest-password',
+            element: <RestPasswordPage />,
+          },
+          {
+            path: 'verify',
+            element: <VerifyPage />,
+          },
+        ],
       },
     ],
   },
