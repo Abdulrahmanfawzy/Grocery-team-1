@@ -131,8 +131,8 @@ const ExploreProductCard = ({ product }: ExploreProductCardProps) => {
                   size={18}
                   className={
                     star <= Math.round(product.rating)
-                      ? "text-app-gold fill-current"
-                      : "text-app-secondary fill-current"
+                      ? "text-gold fill-current"
+                      : "text-gray-200 fill-current"
                   }
                 />
               ))}
