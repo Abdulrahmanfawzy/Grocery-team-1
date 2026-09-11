@@ -5,18 +5,23 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
+import { cn } from 'cn'
 import { Link } from 'react-router-dom'
 
 export type BreadcrumbItemType = {
   label: string
-  href?: string    
+  href?: string
 }
 
 type AppBreadcrumbProps = {
   breadcrumbItems: BreadcrumbItemType[]
+  lableColor?: string
 }
 
-const AppBreadcrumb = ({ breadcrumbItems }: AppBreadcrumbProps) => {
+const AppBreadcrumb = ({
+  breadcrumbItems,
+  lableColor = 'text-app-light-blue',
+}: AppBreadcrumbProps) => {
   return (
     <Breadcrumb>
       <BreadcrumbList className="flex items-center">
@@ -27,7 +32,7 @@ const AppBreadcrumb = ({ breadcrumbItems }: AppBreadcrumbProps) => {
             <div key={item.label} className="flex items-center">
               <BreadcrumbItem>
                 {isLast ? (
-                  <BreadcrumbPage className="text-app-light-blue! text-base font-bold">
+                  <BreadcrumbPage className={cn(lableColor, 'text-base font-bold')}>
                     {item.label}
                   </BreadcrumbPage>
                 ) : (

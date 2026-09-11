@@ -10,9 +10,9 @@ import ForgetPasswordPage from '@/features/auth/pages/ForgetPasswordPage'
 import RestPasswordPage from '@/features/auth/pages/RestPasswordPage'
 import VerifyPage from '@/features/auth/pages/VerifyPage'
 
-
 import CartPage from '@/features/Cart/pages/CartPage'
 import HomePage from '@/features/home/pages/HomePage'
+import ProductDetails from '@/features/product-details/pages/ProductDetailsPage'
 
 export const routes = createBrowserRouter([
   {
@@ -28,11 +28,14 @@ export const routes = createBrowserRouter([
         element: <ProductsPage />,
       },
       {
+        path: '/products/:productId',
+        element: <ProductDetails />,
+      },
+      {
         path: '/login',
         element: <LoginPage />,
       },
       {
-
         path: '/register',
         element: <RegisterPage />,
       },
@@ -50,7 +53,6 @@ export const routes = createBrowserRouter([
 
         path: '/cart',
         element: <CartPage />,
-
       },
     ],
   },
