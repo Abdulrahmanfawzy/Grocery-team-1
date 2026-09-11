@@ -28,22 +28,12 @@ const FilterSidbar = ({ closeSidBar }: { closeSidBar?: () => void }) => {
           {/* Header */}
           <SectionHeader title="Search Objects" />
           {/* Search Input */}
-          <div className="flex h-15 w-full overflow-hidden rounded-[8px] border-2 border-app-main">
+          <div className="flex h-14 w-full overflow-hidden rounded-[8px] border-2 border-app-main">
             <Input
               type="text"
+              id="products-search"
+              className="focus:rounded-none focus-visible:ring-0  focus-visible:border-none fo"
               placeholder="Search your keyword..."
-              className="
-            h-full
-            flex-1
-            rounded-none
-            border-0
-            bg-[#E5E5E5]
-            px-4
-            font-medium
-            text-[#0B2026]
-            shadow-none
-            focus-visible:ring-0
-          "
             />
 
             <button

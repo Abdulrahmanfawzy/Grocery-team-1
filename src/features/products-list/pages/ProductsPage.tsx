@@ -6,6 +6,7 @@ import leftDecoration from '@/assets/images/products/winter-discoutn-left.svg'
 import rightDecoration from '@/assets/images/products/winter-discoutn-right.svg'
 import type { ReactNode } from 'react'
 import SidbarInMobile from '../components/SidbarInMobile'
+import { Button } from '@/components'
 
 const ProductsPage = (): ReactNode => {
   return (
@@ -54,13 +55,10 @@ const ProductsPage = (): ReactNode => {
 
             <Countdown />
 
-            <button
-              type="button"
-              className="flex items-center gap-1 rounded-md bg-app-main/95 p-2 text-base text-white transition hover:bg-app-main"
-            >
+            <Button type="button" size={'lg'}>
               <span>Shop now</span>
               <ChevronRight />
-            </button>
+            </Button>
           </div>
         </div>
 

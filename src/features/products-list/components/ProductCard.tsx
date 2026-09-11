@@ -49,12 +49,12 @@ const ProductCard = () => {
 
           {/* Actions */}
           <div className="mt-3 flex items-center gap-2">
-            <Button variant={'default'} className="flex-1" size={'default'}>
+            <Button variant={'default'} className="flex-1" size={'lg'}>
               <ShoppingCart />
               Add To Cart
             </Button>
 
-            <div className="flex flex-1 items-center justify-between rounded-xl border border-silver p-2 h-10">
+            <div className="flex flex-1 items-center justify-between rounded-xl border border-silver p-2 h-9">
               <button
                 type="button"
                 onClick={() => {
