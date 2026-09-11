@@ -1,5 +1,5 @@
 import AppBreadcrumb from '@/components/common/AppBreadcrumb'
-import HeroSectionImg from '@/assets/product-hero.jpg'
+import HeroSectionImg from '@/assets/images/products/product-hero.jpg'
 
 const HeroSection = () => {
   return (
@@ -14,7 +14,6 @@ const HeroSection = () => {
 
         {/* Color Layer */}
         <div className="absolute inset-0 bg-linear-to-r from-app-main/95 via-app-main/80 to-app-main/65" />
-
         {/* Content */}
         <div className="box-container absolute inset-0 flex items-center">
           <div className="flex w-full flex-col gap-8 sm:gap-10 md:flex-row md:items-center md:justify-between">

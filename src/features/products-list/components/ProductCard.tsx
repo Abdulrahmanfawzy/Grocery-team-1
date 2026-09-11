@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@/components/common'
 import { Minus, Plus, ShoppingCart, Star } from 'lucide-react'
-import productImage from '@/assets/img.png'
+import productImage from '@/assets/images/products/img.png'
 import { useState } from 'react'
 import { Button } from '@/components'
 const ProductCard = () => {
@@ -49,12 +49,12 @@ const ProductCard = () => {
 
           {/* Actions */}
           <div className="mt-3 flex items-center gap-2">
-            <Button variant={'default'} size={'default'}>
+            <Button variant={'default'} className="flex-1" size={'default'}>
               <ShoppingCart />
               Add To Cart
             </Button>
 
-            <div className="flex flex-1 items-center justify-between rounded-xl border border-silver p-2">
+            <div className="flex flex-1 items-center justify-between rounded-xl border border-silver p-2 h-10">
               <button
                 type="button"
                 onClick={() => {

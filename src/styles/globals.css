@@ -1,9 +1,8 @@
+/* Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
-
-/* Font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 /* Dark mode */
 @custom-variant dark (&:is(.dark *));
@@ -14,9 +13,10 @@
   --color-app-secondary: var(--app-secondary);
   --color-app-muted: var(--app-muted);
   --color-gold: var(--app-gold);
-  --color-app-light-blue: var(--app-light-blue);
   --color-success: var(--success);
   --color-error: var(--error);
+
+  --color-app-light-blue: var(--app-light-blue);
   --color-app-light-gray: var(--app-light-gray);
   --color-sidebar-color: var(--sidebar-color);
   --color-border-color: var(--border-color);
@@ -35,12 +35,6 @@
   --text-2.5xl: var(--font-size-26);
   --text-20: var(--font-size-20);
   --text-12: var(--font-size-12);
-
-  /* ==================== Font Weights ==================== */
-  --font-weight-regular: var(--font-weight-regular);
-  --font-weight-medium: var(--font-weight-medium);
-  --font-weight-semibold: var(--font-weight-semibold);
-  --font-weight-bold: var(--font-weight-bold);
 
   /* ==================== Shadcn ==================== */
   --color-background: var(--background);
@@ -93,6 +87,7 @@
   --app-light-blue: #08abff;
   --success: #42824d;
   --error: #a9090c;
+
   --app-light-gray: #f7fcff;
   --sidebar-color: #0e1112;
   --border-color: #dad8d8;
@@ -112,12 +107,6 @@
   --font-size-xl: 32px;
   --font-size-20: 20px;
   --font-size-12: 12px;
-
-  /* ==================== Font Weights ==================== */
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
 
   /* ==================== Shadcn ==================== */
   --background: oklch(1 0 0);

@@ -1,9 +1,9 @@
 import { Input } from '@/components'
 import { Slider } from '@/components/ui/slider'
-import { Apple, Croissant, Fish, Milk, Drumstick, Search } from 'lucide-react'
+import { Apple, Croissant, Fish, Milk, Drumstick, Search, X } from 'lucide-react'
 import { useState } from 'react'
 
-const FilterSidbar = () => {
+const FilterSidbar = ({ closeSidBar }: { closeSidBar?: () => void }) => {
   const [priceRange, setPriceRange] = useState([100, 1000])
   const handlePriceChange = (value: number | readonly number[]) => {
     if (Array.isArray(value)) {
@@ -11,7 +11,12 @@ const FilterSidbar = () => {
     }
   }
   return (
-    <aside className="rounded-md w-full bg-app-light-gray ">
+    <aside className="md:rounded-md w-full bg-app-light-gray">
+      {/* icon for close Sidbar in mobile */}
+      <button onClick={closeSidBar} className="md:hidden cursor-pointer absolute right-2 top-2">
+        <X className="text-app-main " strokeWidth={'3'} width={'30'} height={'30'} />
+      </button>
+
       <CategoryFilter />
       <div className="space-y-5 mt-7 p-4">
         <BrandFilter />
