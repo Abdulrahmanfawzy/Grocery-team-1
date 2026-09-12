@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Button } from '@/components'
 import type { Product } from '@/types/products/products.type'
 import { Link } from 'react-router-dom'
-import { Badge } from '@/components/ui/Badge'
+import { Badge } from '@/components/ui/badge'
 
 interface ProductCardProps {
   product: Product
@@ -33,7 +33,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <Link to={`/products/${product.id}`}>
           <div className="mt-0 h-50 flex items-center justify-center">
             <img
-              src={product.images?.[0]}
+              src={product.images?.[0] ?? product.image}
               alt={product.name}
               className="h-full w-full object-cover"
             />
