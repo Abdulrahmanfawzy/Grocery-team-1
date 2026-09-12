@@ -18,6 +18,7 @@ import ProductDetails from '@/features/product-details/pages/ProductDetailsPage'
 
 // Protected
 import CartPage from '@/features/Cart/pages/CartPage'
+
 import CheckoutPage from '@/features/Checkout/pages/CheckoutPage'
 
 // Profile
@@ -70,6 +71,14 @@ export const routes = createBrowserRouter([
           {
             path: 'products/:productId',
             element: <ProductDetails />,
+          },
+          {
+            path: 'cart',
+            element: <CartPage />,
+          },
+          {
+            path: 'checkout',
+            element: <CheckoutPage />,
           },
 
           // -------------------------
