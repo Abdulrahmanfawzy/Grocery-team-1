@@ -15,6 +15,7 @@ import RestPasswordPage from '@/features/auth/pages/RestPasswordPage'
 import VerifyPage from '@/features/auth/pages/VerifyPage'
 import AuthImageLayout from '@/components/layout/AuthImageLayout'
 import AuthLayout from '@/components/layout/AuthLayout'
+import ProductDetails from '@/features/product-details/pages/ProductDetailsPage'
 
 export const routes = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const routes = createBrowserRouter([
           {
             path: 'products',
             element: <ProductsPage />,
+          },
+          {
+            path: 'products/:productId',
+            element: <ProductDetails />,
           },
           {
             path: 'cart',
