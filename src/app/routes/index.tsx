@@ -6,6 +6,7 @@ import { MainLayout } from '@/components/layout/MainLayout'
 
 import HomePage from '@/features/home/pages/HomePage'
 import ProductsPage from '@/features/products-list/pages/ProductsPage'
+import CategoryPage from '@/features/categories/pages/CategoryPage'
 import CartPage from '@/features/Cart/pages/CartPage'
 
 import { LoginPage } from '@/features/auth/pages/LoginPage'
@@ -33,6 +34,10 @@ export const routes = createBrowserRouter([
           {
             path: 'products',
             element: <ProductsPage />,
+          },
+           {
+            path: 'categories',
+            element: <CategoryPage />,
           },
           {
             path: 'products/:productId',
