@@ -1,10 +1,11 @@
 import { Card, CardContent } from '@/components/common'
-import { Minus, Plus, ShoppingCart, Star } from 'lucide-react'
+import { ShoppingCart, Star } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '@/components'
 import type { Product } from '@/types/products/products.type'
 import { Link } from 'react-router-dom'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '../ui/Badge'
+import QuantitySelector from './QuantitySelector'
 
 interface ProductCardProps {
   product: Product
@@ -45,7 +46,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <div className="flex items-center justify-center gap-2">
             <h3 className="text-base font-normal text-sidebar-color">{product.name}</h3>
 
-            <span className="text-base text-sidbar-color">£ {product.price}</span>
+            <span className="text-base text-sidebar-color">£ {product.price}</span>
 
             <span className="text-base text-silver line-through">£ {product.oldPrice}</span>
           </div>
@@ -72,32 +73,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
               <ShoppingCart />
               Add To Cart
             </Button>
-
-            <Button
-              variant={'outline'}
-              className="flex h-9 flex-1 items-center justify-between rounded-xl border border-silver p-2"
-            >
-              <button
-                type="button"
-                onClick={() => handleProductCountChange(productCount - 1)}
-                disabled={productCount === 1}
-                aria-label="Remove"
-                className="cursor-pointer text-app-main disabled:text-silver"
-              >
-                <Minus className="size-6" />
-              </button>
-
-              <span className="text-20">{productCount}</span>
-
-              <button
-                type="button"
-                onClick={() => handleProductCountChange(productCount + 1)}
-                aria-label="Increase quantity"
-                className="cursor-pointer text-app-main"
-              >
-                <Plus className="size-7" />
-              </button>
-            </Button>
+            {/* Quantity Selector  */}
+            <QuantitySelector countChange={handleProductCountChange} productCount={productCount} />
           </div>
         </div>
       </CardContent>
