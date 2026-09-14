@@ -1,6 +1,5 @@
 import { Card, CardContent } from '@/components/common'
 import { ShoppingCart, Star } from 'lucide-react'
-import { useState } from 'react'
 import { Button } from '@/components'
 import type { Product } from '@/types/products/products.type'
 import { Link } from 'react-router-dom'
@@ -12,12 +11,6 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const [productCount, setProductCount] = useState(1)
-
-  const handleProductCountChange = (count: number) => {
-    setProductCount(count)
-  }
-
   return (
     <Card className="w-full overflow-hidden rounded-md border border-border-color bg-white p-0 shadow-none">
       <CardContent className="p-3">
@@ -74,7 +67,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               Add To Cart
             </Button>
             {/* Quantity Selector  */}
-            <QuantitySelector countChange={handleProductCountChange} productCount={productCount} />
+            <QuantitySelector />
           </div>
         </div>
       </CardContent>
