@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Check, X } from 'lucide-react'
+import { Check } from 'lucide-react'
 
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { useNavigate } from 'react-router-dom'
-import { DialogTrigger } from '../../../components/ui/dialog'
-import { Button } from '../../../components'
 
 interface SignupSuccessModalProps {
   open: boolean
@@ -39,12 +37,12 @@ export default function ModelAuth({ open, onOpenChange, redirect, time }: Signup
   }, [open, redirect, onOpenChange])
 
   return (
-    <Dialog open={open}  onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         className="
-          w-[422px]
+          w-105.5
           max-w-[calc(100vw-32px)]
-          min-h-[436px]
+          min-h-109
           rounded-[32px]
           border-0
           bg-white
@@ -52,15 +50,15 @@ export default function ModelAuth({ open, onOpenChange, redirect, time }: Signup
           shadow-2xl
         "
       >
-        <div className="flex min-h-[436px] flex-col items-center justify-center px-8">
+        <div className="flex min-h-109 flex-col items-center justify-center px-8">
           {/* Success Icon */}
           <div
             className="
               relative
               mb-7
               flex
-              h-[145px]
-              w-[145px]
+              h-136.5
+              w-136.5
               items-center
               justify-center
               bg-[#064f6b]
@@ -90,11 +88,11 @@ export default function ModelAuth({ open, onOpenChange, redirect, time }: Signup
           <DialogDescription
             className="
               mt-2
-              max-w-[290px]
+              max-w-72.5
               text-center
               text-[15px]
               font-normal
-              leading-[19px]
+              leading-4.75
               text-neutral-400
             "
           >

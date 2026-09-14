@@ -5,9 +5,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Input } from '../../../components'
 import { Checkbox } from '../../../components/ui/checkbox'
 
-import AuthLayout from '../../../components/layout/AuthLayout'
-import LinkSocialMedia from '../components/linkSocialMedia'
+import LinkSocialMedia from '../components/LinkSocialMedia'
 import { registerSchema, type RegisterFormValues } from '../schemas/auth.schema'
+import PasswordInput from '../components/PasswordInput'
+import AuthHeader from '../components/AuthHeader'
 
 export default function RegisterPage() {
   const form = useForm<RegisterFormValues>({
@@ -28,11 +29,8 @@ export default function RegisterPage() {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="w-full ">
       {/* Header */}
-      <div>
-        <h1 className="text-xl font-semibold">Create your account!</h1>
 
-        <p className="my-6 font-semibold">Enter your Full Details</p>
-      </div>
+      <AuthHeader title="Create your account!" description="Enter your Full Details" />
 
       {/* Inputs */}
       <div className="flex flex-col gap-6">
@@ -105,10 +103,9 @@ export default function RegisterPage() {
           control={form.control}
           render={({ field, fieldState }) => (
             <div>
-              <Input
+              <PasswordInput
                 {...field}
                 id="password"
-                type="password"
                 placeholder="Enter your password"
                 Icon={<LockKeyhole size={19} />}
               />
