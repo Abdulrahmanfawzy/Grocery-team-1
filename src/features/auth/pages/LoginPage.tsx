@@ -5,9 +5,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Button, Input } from '../../../components'
 import { loginSchema, type LoginFormValues } from '../schemas/auth.schema'
-import LinkSocialMedia from '../components/linkSocialMedia'
+import LinkSocialMedia from '../components/LinkSocialMedia'
+import PasswordInput from '../components/PasswordInput'
+import AuthHeader from '../components/AuthHeader'
 
-export const LoginPage = () => {
+export default function LoginPage() {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -23,11 +25,8 @@ export const LoginPage = () => {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="w-full ">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-semibold">Login your account!</h1>
 
-        <p className="my-6 font-semibold">Welcome to Grocery Plus</p>
-      </div>
+      <AuthHeader title="Login your account!" description="Welcome to Grocery Plus" />
 
       {/* Inputs */}
       <div className="flex flex-col gap-6">
@@ -58,10 +57,9 @@ export const LoginPage = () => {
           control={form.control}
           render={({ field, fieldState }) => (
             <div>
-              <Input
+              <PasswordInput
                 {...field}
                 id="password"
-                type="password"
                 placeholder="Enter your password"
                 Icon={<LockKeyhole size={19} />}
               />

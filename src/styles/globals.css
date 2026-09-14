@@ -29,6 +29,9 @@
   --font-inter: var(--font-inter);
 
   /* ==================== Font Sizes ==================== */
+
+  --text-xss: var(--font-size-xss);
+  --text-xxs: var(--font-size-xxs);
   --text-xs: var(--font-size-xs);
   --text-sm: var(--font-size-sm);
   --text-md: var(--font-size-md);
@@ -80,6 +83,7 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 }
+
 :root {
   /* ==================== App Colors ==================== */
   --app-main: #014162;
@@ -102,6 +106,8 @@
 
 
   /* ==================== Font Sizes ==================== */
+  --font-size-xss: 9;
+  --font-size-xxs: 12px;
   --font-size-xs: 14px;
   --font-size-sm: 16px;
   --font-size-md: 18px;
