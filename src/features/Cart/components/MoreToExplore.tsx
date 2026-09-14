@@ -1,21 +1,16 @@
 import { useState } from "react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/common/Card";
 import { Button } from "@/components/ui/Button";
 import { Star, ShoppingCart, Plus, Trash2, Minus } from "lucide-react";
-
+import ProductCarousel from "@/components/common/ProductCarousel";
+import type { Product } from "@/types/products/products.type";
+import { Badge } from "@/components/ui/Badge";
 import Water from "@/assets/water.png";
 import Vcola from "@/assets/vcola.png";
 import Soda from "@/assets/soda.png";
 import teaImage from "@/assets/tea.png";
 
-const products = [
+const products: Product[] = [
   {
     id: 1,
     name: "Spiro Spathis Lemon",
@@ -23,7 +18,7 @@ const products = [
     oldPrice: 11,
     image: Soda,
     inStock: true,
-    discount: "Save 20%",
+    discount: 20,
     isNew: true,
     rating: 3.8,
   },
@@ -31,30 +26,36 @@ const products = [
     id: 2,
     name: "V7 Cola - 300Ml",
     price: 15,
+    oldPrice: 15,
     image: Vcola,
     inStock: true,
+    isNew: false,
     rating: 4,
   },
   {
     id: 3,
     name: "Nestlé Pure Life 6 L",
     price: 60,
+    oldPrice: 60,
     image: Water,
     inStock: true,
+    isNew: false,
     rating: 5,
   },
   {
     id: 4,
     name: "Black Tea",
     price: 10,
+    oldPrice: 10,
     image: teaImage,
     inStock: true,
+    isNew: false,
     rating: 4,
   },
 ];
 
 interface ExploreProductCardProps {
-  product: (typeof products)[number];
+  product: Product;
 }
 
 const ExploreProductCard = ({ product }: ExploreProductCardProps) => {
@@ -72,32 +73,22 @@ const ExploreProductCard = ({ product }: ExploreProductCardProps) => {
     <Card className="overflow-hidden border-border shadow-none">
       <CardContent className="p-2">
         {/* Product Image */}
-        <div className="relative flex h-[220px] items-center justify-center">
+        <div className="relative flex h-55 items-center justify-center">
           <img
             src={product.image}
             alt={product.name}
-            className="h-[150px] w-[150px] object-contain"
+            className="h-37.5 w-37.5 object-contain"
           />
 
           {/* Badges */}
-          <div className="absolute left-2 top-2 flex items-center gap-1.5">
-            {product.inStock && (
-              <span className="rounded-t-lg rounded-br-lg bg-gradient-to-b from-app-main to-app-main/70 px-2 py-1 text-[10px] font-regular text-white">
-                In Stock
-              </span>
-            )}
+          <div className="absolute left-2 top-2 flex items-center gap-1.5 ">
+            {product.inStock && <Badge>In Stock</Badge>}
 
             {product.discount && (
-              <span className="rounded-t-lg rounded-br-lg bg-gradient-to-b from-app-main to-app-main/70 px-2 py-1 text-[10px] font-regular text-white">
-                {product.discount}
-              </span>
+              <Badge>Save {product.discount}%</Badge>
             )}
 
-            {product.isNew && (
-              <span className="rounded-t-lg rounded-br-lg bg-gradient-to-b from-app-main to-app-main/70 px-2 py-1 text-[10px] font-regular text-white">
-                New
-              </span>
-            )}
+            {product.isNew && <Badge>New</Badge>}
           </div>
         </div>
 
@@ -114,7 +105,7 @@ const ExploreProductCard = ({ product }: ExploreProductCardProps) => {
                 £ {product.price.toFixed(2)}
               </span>
 
-              {product.oldPrice && (
+              {product.discount && (
                 <span className="text-sm text-app-secondary line-through">
                   £ {product.oldPrice}
                 </span>
@@ -131,8 +122,8 @@ const ExploreProductCard = ({ product }: ExploreProductCardProps) => {
                   size={18}
                   className={
                     star <= Math.round(product.rating)
-                      ? "text-gold fill-current"
-                      : "text-gray-200 fill-current"
+                      ? "fill-current text-gold"
+                      : "fill-current text-gray-200"
                   }
                 />
               ))}
@@ -200,29 +191,11 @@ const MoreToExplore = () => {
         </h2>
       </div>
 
-      {/* Carousel */}
-      <Carousel
-        opts={{
-          align: "start",
-        }}
-        className="mx-auto w-full max-w-[1100px]"
-      >
-        <CarouselContent className="-ml-3">
-          {products.map((product) => (
-            <CarouselItem
-              key={product.id}
-              className="basis-full pl-3 sm:basis-1/2 lg:basis-[28%]"
-            >
-              <div className="h-full">
-                <ExploreProductCard product={product} />
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
+      {/* Common Product Carousel */}
+      <ProductCarousel
+        products={products}
+        element={(product) => <ExploreProductCard product={product} />}
+      />
     </section>
   );
 };

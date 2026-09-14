@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
 import { useCart } from "../hooks/useCart";
-
+import { useNavigate } from "react-router-dom";
 const CartSummary = () => {
   const { data } = useCart();
+  const navigate = useNavigate();
 
   const [promoCode, setPromoCode] = useState("Save10");
   const [address, setAddress] = useState("");
 
-useEffect(() => {
-  if (data?.address) {
-    setAddress(data.address);
-  }
-}, [data?.address]);
+  useEffect(() => {
+    if (data?.address) {
+      setAddress(data.address);
+    }
+  }, [data?.address]);
 
+  const handleGoToCheckout = () => {
+    navigate("/checkout");
+  };
   const subtotal =
     data?.items.reduce(
       (total, item) => total + item.price * item.quantity,
@@ -49,11 +53,12 @@ useEffect(() => {
           </div>
 
           <button
-            type="button"
-            className="mt-4 h-10 w-full rounded-md bg-app-main text-sm text-white transition hover:bg-[#004762]"
-          >
-            Go To Checkout
-          </button>
+  type="button"
+  onClick={handleGoToCheckout}
+  className="mt-4 h-10 w-full rounded-md bg-app-main text-sm text-white transition hover:bg-app-main/90"
+>
+  Go To Checkout
+</button>
         </div>
       </div>
 
@@ -81,7 +86,7 @@ useEffect(() => {
 
               <button
                 type="button"
-                className=" w-[153px] rounded-md bg-gray-300 px-5 text-sm text-app-main"
+                className=" w-38.25 rounded-md bg-gray-300 px-5 text-sm text-app-main"
               >
                 Apply Code
               </button>
@@ -105,7 +110,7 @@ useEffect(() => {
 
               <button
                 type="button"
-                className="w-[153px] rounded-md bg-gray-300 px-5 text-sm text-app-main"
+                className="w-38.25 rounded-md bg-gray-300 px-5 text-sm text-app-main"
               >
                 
                 Edit

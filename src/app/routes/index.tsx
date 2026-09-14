@@ -16,7 +16,7 @@ import VerifyPage from '@/features/auth/pages/VerifyPage'
 import AuthImageLayout from '@/components/layout/AuthImageLayout'
 import AuthLayout from '@/components/layout/AuthLayout'
 import ProductDetails from '@/features/product-details/pages/ProductDetailsPage'
-
+import CheckoutPage from '@/features/Checkout/pages/CheckoutPage'
 export const routes = createBrowserRouter([
   {
     path: '/',
@@ -42,6 +42,10 @@ export const routes = createBrowserRouter([
             path: 'cart',
             element: <CartPage />,
           },
+          {
+  path: 'checkout',
+  element: <CheckoutPage />,
+},
         ],
       },
 

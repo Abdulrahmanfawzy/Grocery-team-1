@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/Badge";
 import type { CartItem as CartItemType } from "../types/cart.types";
 
 interface CartItemProps {
@@ -31,7 +31,7 @@ const CartItem = ({ item }: CartItemProps) => {
           />
         </div>
 
-        <Badge className="mt-2 rounded-t-lg rounded-br-lg bg-foreground text-background text-[10px]">
+        <Badge className="mt-2 bg-foreground text-background text-[10px]">
           {item.inStock ? "In Stock" : "Out Of Stock"}
         </Badge>
       </div>

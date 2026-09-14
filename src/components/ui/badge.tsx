@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from 'cn'
 
 const badgeVariants = cva(
-  'rounded-tl-xl rounded-br-xl bg-linear-to-b from-app-main via-app-main/80 to-app-main/50 px-2 py-1 text-12 text-white',
+  'whitespace-nowrap rounded-tl-xl rounded-br-xl bg-linear-to-b from-app-main via-app-main/80 to-app-main/50 px-2 py-1 text-[12px] text-white',
 )
 
 function Badge({
