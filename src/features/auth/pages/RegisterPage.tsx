@@ -1,50 +1,86 @@
-import { LockKeyhole, Mail, Phone, UserRound } from 'lucide-react'
+import { LockKeyhole, Mail, Phone, UserRound, CheckCircle2 } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { Button, Input } from '../../../components'
 import { Checkbox } from '../../../components/ui/checkbox'
 
 import LinkSocialMedia from '../components/LinkSocialMedia'
-import { registerSchema, type RegisterFormValues } from '../schemas/auth.schema'
 import PasswordInput from '../components/PasswordInput'
 import AuthHeader from '../components/AuthHeader'
 
+import { registerSchema, type RegisterFormValues } from '../schemas/auth.schema'
+
+import { useRegister } from '../hooks/useRegister'
+import { useDispatch } from 'react-redux'
+import { register } from '../store/authSlice'
+
 export default function RegisterPage() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const { mutate: registerApi, isPending } = useRegister()
+  const defaultValues = {
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+    password_confirmation: '',
+    terms: false,
+  }
+
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
-    defaultValues: {
-      username: '',
-      email: '',
-      phone: '',
-      password: '',
-      remember: false,
-    },
+    defaultValues,
   })
 
   const onSubmit = (data: RegisterFormValues) => {
-    console.log(data)
+    registerApi(
+      {
+        ...data,
+        device_name: 'Grocery Plus Web',
+      },
+      {
+        onSuccess: (response) => {
+          dispatch(
+            register({
+              user: response.data.user,
+              token: response.data.token,
+            }),
+          )
+
+          toast.success(response.message)
+
+          navigate('/')
+        },
+
+        onError: (error: any) => {
+          toast.error(error?.response?.data?.message || 'Something went wrong. Please try again.')
+        },
+      },
+    )
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="w-full ">
+    <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
       {/* Header */}
-
       <AuthHeader title="Create your account!" description="Enter your Full Details" />
 
       {/* Inputs */}
       <div className="flex flex-col gap-6">
-        {/* Username */}
+        {/* Name */}
         <Controller
-          name="username"
+          name="name"
           control={form.control}
           render={({ field, fieldState }) => (
             <div>
               <Input
                 {...field}
-                id="username"
+                id="name"
                 type="text"
-                placeholder="Username"
+                placeholder="Full Name"
                 Icon={<UserRound size={19} />}
               />
 
@@ -86,7 +122,7 @@ export default function RegisterPage() {
                 {...field}
                 id="phone"
                 type="tel"
-                placeholder="Phone"
+                placeholder="Phone Number"
                 Icon={<Phone size={19} />}
               />
 
@@ -117,22 +153,50 @@ export default function RegisterPage() {
           )}
         />
 
-        {/* Remember Me */}
+        {/* Confirm Password */}
         <Controller
-          name="remember"
+          name="password_confirmation"
           control={form.control}
-          render={({ field }) => (
-            <div className="flex items-center gap-3">
-              <Checkbox id="remember" checked={field.value} onCheckedChange={field.onChange} />
+          render={({ field, fieldState }) => (
+            <div>
+              <PasswordInput
+                {...field}
+                id="password_confirmation"
+                placeholder="Confirm your password"
+                Icon={<CheckCircle2 size={19} />}
+              />
 
-              <label htmlFor="remember">Remember me</label>
+              {fieldState.error && (
+                <p className="mt-1 text-sm text-destructive">{fieldState.error.message}</p>
+              )}
             </div>
           )}
         />
 
-        {/* Register Button */}
-        <Button type="submit" size="xl">
-          Continue
+        {/* Terms */}
+        <Controller
+          name="terms"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <div>
+              <div className="flex items-center gap-3">
+                <Checkbox id="terms" checked={field.value} onCheckedChange={field.onChange} />
+
+                <label htmlFor="terms" className="cursor-pointer text-sm text-slate-700">
+                  I agree to the Terms & Conditions
+                </label>
+              </div>
+
+              {fieldState.error && (
+                <p className="mt-1 text-sm text-destructive">{fieldState.error.message}</p>
+              )}
+            </div>
+          )}
+        />
+
+        {/* Submit */}
+        <Button type="submit" size="xl" disabled={isPending} isLoading={isPending}>
+          {isPending ? 'Creating account...' : 'Continue'}
         </Button>
       </div>
 
@@ -140,7 +204,7 @@ export default function RegisterPage() {
       <LinkSocialMedia
         namePage="Login"
         path="/login"
-        switchTitle="Already have an account?  "
+        switchTitle="Already have an account? "
         title="Sign Up With"
       />
     </form>
