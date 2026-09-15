@@ -102,10 +102,53 @@ export const routes = createBrowserRouter([
           },
         ],
       },
-    {
-      path: '/cart',
-      element: <CartPage />,
-    } ,
+
+      // Profile
+          {
+            path: 'profile',
+            element: <ProfileLayout />,
+            children: [
+              {
+                index: true,
+                element: <DashboardPage />,
+              },
+              {
+                path: 'personal-info',
+                element: <PersonalInfoPage />,
+              },
+              {
+                path: 'payment-wallet',
+                element: <PaymentWalletPage />,
+              },
+              {
+                path: 'order-history',
+                element: <OrderHistoryPage />,
+              },
+              {
+                path: 'smart-lists',
+                element: <SmartListsPage />,
+              },
+              {
+                path: 'addresses',
+                element: <AddressesPage />,
+              },
+              {
+                path: 'security-login',
+                element: <SecurityLoginPage />,
+              },
+              {
+                path: 'loyalty-rewards',
+                element: <LoyaltyRewardsPage />,
+              },
+              {
+                path: 'help-support',
+                element: <HelpSupportPage />,
+              },
+              {
+                path: 'settings',
+                element: <SettingsPage />,
+              },
+            ],
     ],
   },
 ])
