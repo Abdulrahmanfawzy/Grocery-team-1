@@ -2,12 +2,16 @@ import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { ChevronDown, Grid2X2, Menu, Search, ShoppingCart, UserRound, X } from 'lucide-react'
 
+import { useAppSelector } from '@/app/hook'
+
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   `inline-flex items-center gap-1 text-xs font-medium transition-colors ${
     isActive ? 'text-app-main' : 'text-slate-700 hover:text-app-main'
   }`
 
 export function Navbar() {
+  const { user } = useAppSelector((store) => store.auth)
+
   const [menuOpen, setMenuOpen] = useState(false)
   const [language, setLanguage] = useState<'EN' | 'AR'>('EN')
   const [search, setSearch] = useState('')
@@ -91,16 +95,16 @@ export function Navbar() {
           </div>
         </form>
 
-                {/* Desktop actions */}
-                <div className="ms-auto hidden items-center gap-4 lg:flex">
-                    {/* Cart */}
-                    <Link
-                        to="/cart"
-                        className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-700 hover:text-app-main"
-                    >
-                        <ShoppingCart size={16} />
-                        My cart
-                    </Link>
+        {/* Desktop actions */}
+        <div className="ms-auto hidden items-center gap-4 lg:flex">
+          {/* Cart */}
+          <Link
+            to="/cart"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-700 hover:text-app-main"
+          >
+            <ShoppingCart size={16} />
+            My cart
+          </Link>
 
           {/* Language */}
           <button
@@ -118,7 +122,7 @@ export function Navbar() {
             className="inline-flex items-center gap-1.5 rounded-md bg-app-main px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-app-main/90"
           >
             <UserRound size={14} />
-            Sarah's Profile
+             Abdo
           </Link>
         </div>
 
