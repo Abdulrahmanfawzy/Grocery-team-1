@@ -15,12 +15,12 @@ export type BreadcrumbItemType = {
 
 type AppBreadcrumbProps = {
   breadcrumbItems: BreadcrumbItemType[]
-  lableColor?: string
+  labelColor?: string
 }
 
 const AppBreadcrumb = ({
   breadcrumbItems,
-  lableColor = 'text-app-light-blue',
+  labelColor = 'text-app-light-blue',
 }: AppBreadcrumbProps) => {
   return (
     <Breadcrumb>
@@ -32,7 +32,7 @@ const AppBreadcrumb = ({
             <div key={item.label} className="flex items-center">
               <BreadcrumbItem>
                 {isLast ? (
-                  <BreadcrumbPage className={cn(lableColor, 'text-base font-bold')}>
+                  <BreadcrumbPage className={cn(labelColor, 'text-base font-bold')}>
                     {item.label}
                   </BreadcrumbPage>
                 ) : (
