@@ -91,16 +91,16 @@ export function Navbar() {
           </div>
         </form>
 
-        {/* Desktop actions */}
-        <div className="ms-auto hidden items-center gap-4 lg:flex">
-          {/* Cart */}
-          <Link
-            to="/cart"
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-700 hover:text-app-main"
-          >
-            <ShoppingCart size={16} />
-            My cart
-          </Link>
+                {/* Desktop actions */}
+                <div className="ms-auto hidden items-center gap-4 lg:flex">
+                    {/* Cart */}
+                    <Link
+                        to="/cart"
+                        className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-700 hover:text-app-main"
+                    >
+                        <ShoppingCart size={16} />
+                        My cart
+                    </Link>
 
           {/* Language */}
           <button

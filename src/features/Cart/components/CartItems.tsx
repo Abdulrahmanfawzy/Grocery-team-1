@@ -12,7 +12,7 @@ const CartItems = () => {
           Products In Cart
         </h2>
 
-        <Card className="flex h-[484px] items-center justify-center">
+        <Card className="flex h-121 items-center justify-center">
           <p className="text-sm text-app-muted">
             Loading cart...
           </p>
@@ -28,7 +28,7 @@ const CartItems = () => {
           Products In Cart
         </h2>
 
-        <Card className="flex h-[484px] items-center justify-center">
+        <Card className="flex h-121 items-center justify-center">
           <p className="text-sm text-error">
             Failed to load cart.
           </p>
@@ -44,7 +44,7 @@ const CartItems = () => {
       </h2>
 
       <Card className="gap-0 overflow-hidden py-0">
-        <div className="h-[484px] overflow-y-auto">
+        <div className="h-121 overflow-y-auto">
           <div className="grid grid-cols-1 md:grid-cols-2">
             {data?.items.map((item, idx) => (
               <div

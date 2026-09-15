@@ -18,6 +18,7 @@ import VerifyPage from '@/features/auth/pages/VerifyPage'
 import AuthImageLayout from '@/components/layout/AuthImageLayout'
 import AuthLayout from '@/components/layout/AuthLayout'
 import ProductDetails from '@/features/product-details/pages/ProductDetailsPage'
+import CheckoutPage from '@/features/Checkout/pages/CheckoutPage'
 
 // Profile
 import ProfileLayout from '@/components/layout/ProfileLayout'
@@ -61,53 +62,9 @@ export const routes = createBrowserRouter([
             path: 'cart',
             element: <CartPage />,
           },
-
-          // Profile
           {
-            path: 'profile',
-            element: <ProfileLayout />,
-            children: [
-              {
-                index: true,
-                element: <DashboardPage />,
-              },
-              {
-                path: 'personal-info',
-                element: <PersonalInfoPage />,
-              },
-              {
-                path: 'payment-wallet',
-                element: <PaymentWalletPage />,
-              },
-              {
-                path: 'order-history',
-                element: <OrderHistoryPage />,
-              },
-              {
-                path: 'smart-lists',
-                element: <SmartListsPage />,
-              },
-              {
-                path: 'addresses',
-                element: <AddressesPage />,
-              },
-              {
-                path: 'security-login',
-                element: <SecurityLoginPage />,
-              },
-              {
-                path: 'loyalty-rewards',
-                element: <LoyaltyRewardsPage />,
-              },
-              {
-                path: 'help-support',
-                element: <HelpSupportPage />,
-              },
-              {
-                path: 'settings',
-                element: <SettingsPage />,
-              },
-            ],
+            path: 'checkout',
+            element: <CheckoutPage />,
           },
         ],
       },
@@ -145,6 +102,10 @@ export const routes = createBrowserRouter([
           },
         ],
       },
+    {
+      path: '/cart',
+      element: <CartPage />,
+    } ,
     ],
   },
 ])
