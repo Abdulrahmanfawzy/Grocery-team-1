@@ -1,51 +1,58 @@
 import { Card, CardContent } from '@/components/common'
 import { ShoppingCart, Star } from 'lucide-react'
 import { Button } from '@/components'
-import type { Product } from '@/types/products/products.type'
 import { Link } from 'react-router-dom'
-import { Badge } from '../ui/Badge'
+import { Badge } from '../ui/badge'
 import QuantitySelector from './QuantitySelector'
+import type { ProductsResponse } from '@/types/products.type'
+import { useState } from 'react'
 
-interface ProductCardProps {
-  product: Product
-}
+const ProductCard = ({ product }: { product: ProductsResponse['data'][0] }) => {
+  const [productCount, setProductCount] = useState(1)
 
-const ProductCard = ({ product }: ProductCardProps) => {
+  const ProductQuantityChange = (count: number) => {
+    setProductCount(count)
+  }
+
+  // Calc Product Discount
+  const discount = () => {
+    const discount = Number(product.price) - Number(product.discount_price)
+
+    const discountPercent = (discount / Number(product.price)) * 100
+
+    return Math.round(discountPercent)
+  }
+
   return (
     <Card className="w-full overflow-hidden rounded-md border border-border-color bg-white p-0 shadow-none">
       <CardContent className="p-3">
         {/* Badges */}
         <div className="flex items-center gap-2">
-          {product.inStock && <Badge>In Stock</Badge>}
-
-          {product.discount && <Badge>Save {product.discount}%</Badge>}
-
-          {product.isNew && <Badge>New</Badge>}
+          {product.quantity !== 0 && <Badge>In Stock</Badge>}
+          {product.discount_price && <Badge>Save {discount()}%</Badge>}
         </div>
 
         {/* Product Image */}
         <Link to={`/products/${product.id}`}>
           <div className="mt-0 h-50 flex items-center justify-center">
-            <img
-              src={product.images?.[0] ?? product.image}
-              alt={product.name}
-              className="h-full w-full object-cover"
-            />
+            <img src={product.image} alt={product.name} className="h-full w-full object-cover" />
           </div>
         </Link>
 
         {/* Product Info */}
         <div className="mt-8">
-          <div className="flex items-center justify-center gap-2">
+          <div className="flex flex-col items-center justify-center gap-2">
             <h3 className="text-base font-normal text-sidebar-color">{product.name}</h3>
 
-            <span className="text-base text-sidebar-color">£ {product.price}</span>
+            <div className="flex items-center gap-2">
+              <span className="text-base text-sidebar-color">£ {product.price}</span>
 
-            <span className="text-base text-silver line-through">£ {product.oldPrice}</span>
+              <span className="text-base text-silver line-through">£ {product.discount_price}</span>
+            </div>
           </div>
 
           {/* Rating */}
-          <div className="mt-2 flex items-center justify-center gap-1">
+          {/* <div className="mt-2 flex items-center justify-center gap-1">
             {[1, 2, 3, 4, 5].map((star) => (
               <Star
                 key={star}
@@ -58,7 +65,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             ))}
 
             <span className="ml-1 text-xs text-silver">({product.rating}/5)</span>
-          </div>
+          </div> */}
 
           {/* Actions */}
           <div className="mt-3 flex items-center gap-2">
@@ -67,7 +74,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               Add To Cart
             </Button>
             {/* Quantity Selector  */}
-            <QuantitySelector />
+            <QuantitySelector countChange={ProductQuantityChange} productCount={productCount} />
           </div>
         </div>
       </CardContent>

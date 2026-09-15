@@ -1,12 +1,11 @@
 import { Minus, Plus } from 'lucide-react'
-import { useState } from 'react'
 
-const QuantitySelector = () => {
-  const [productCount, setProductCount] = useState(1)
+type QuantitySelectorProps = {
+  countChange: (count: number) => void
+  productCount: number
+}
 
-  const countChange = (count: number) => {
-    setProductCount(count)
-  }
+const QuantitySelector = ({ countChange, productCount }: QuantitySelectorProps) => {
   return (
     <div className="flex h-9 flex-1 items-center justify-between rounded-xl border border-silver p-2">
       <button
