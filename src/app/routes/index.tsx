@@ -50,7 +50,7 @@ export const routes = createBrowserRouter([
             path: 'products',
             element: <ProductsPage />,
           },
-           {
+          {
             path: 'categories',
             element: <CategoryPage />,
           },
@@ -66,44 +66,8 @@ export const routes = createBrowserRouter([
             path: 'checkout',
             element: <CheckoutPage />,
           },
-        ],
-      },
 
-      // Auth with image
-      {
-        element: <AuthImageLayout />,
-        children: [
-          {
-            path: 'login',
-            element: <LoginPage />,
-          },
-          {
-            path: 'register',
-            element: <RegisterPage />,
-          },
-        ],
-      },
-
-      // Auth without image
-      {
-        element: <AuthLayout />,
-        children: [
-          {
-            path: 'forget-password',
-            element: <ForgetPasswordPage />,
-          },
-          {
-            path: 'rest-password',
-            element: <RestPasswordPage />,
-          },
-          {
-            path: 'verify',
-            element: <VerifyPage />,
-          },
-        ],
-      },
-
-      // Profile
+          // Profile
           {
             path: 'profile',
             element: <ProfileLayout />,
@@ -149,6 +113,46 @@ export const routes = createBrowserRouter([
                 element: <SettingsPage />,
               },
             ],
+          }
+
+        ],
+      },
+
+      // Auth with image
+      {
+        element: <AuthImageLayout />,
+        children: [
+          {
+            path: 'login',
+            element: <LoginPage />,
+          },
+          {
+            path: 'register',
+            element: <RegisterPage />,
+          },
+        ],
+      },
+
+      // Auth without image
+      {
+        element: <AuthLayout />,
+        children: [
+          {
+            path: 'forget-password',
+            element: <ForgetPasswordPage />,
+          },
+          {
+            path: 'rest-password',
+            element: <RestPasswordPage />,
+          },
+          {
+            path: 'verify',
+            element: <VerifyPage />,
+          },
+        ],
+      },
+
+
     ],
   },
 ])
