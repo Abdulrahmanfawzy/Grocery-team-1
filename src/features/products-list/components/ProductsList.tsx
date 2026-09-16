@@ -3,12 +3,15 @@ import ProductCard from '../../../components/common/ProductCard'
 import type { ProductsResponse } from '@/types/products.type'
 import ProductsPagination from './ProductsPagination'
 import { useSearchParams } from 'react-router-dom'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import ProductSkeleton from '@/components/common/ProductSkeleton'
 import { toast } from 'react-toastify'
+import { useAddToCart } from '@/hooks/useAddToCart'
+import type { AddToCartType } from '@/services/products.service'
 
 const ProductsList = () => {
   const productsListRef = useRef(null)
+
   const handleScrollToProductsList = () => {
     productsListRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
@@ -25,8 +28,30 @@ const ProductsList = () => {
   // Get Data from API
   const { data, isLoading, isSuccess, isError, error } = useProducts(Number(page))
 
-  if (isError) {
-    toast.error(error.message || 'Something went wrong while fetching products.')
+  // if (isError) {
+  //   toast.error(error.message || 'Something went wrong while fetching products.')
+  // }
+
+  // Handle Add Product to cart
+  const [addingProductId, setAddingProductId] = useState<number | null>(null)
+  const { mutate, isPending } = useAddToCart()
+
+  const handleAddToCart = (data: AddToCartType) => {
+    if (data) {
+      setAddingProductId(data.product_id)
+      mutate(data, {
+        onSuccess: (data) => {
+          toast.success(data.message)
+        },
+        onError: (error) => {
+          console.log(error)
+          toast.error(error.message)
+        },
+        onSettled() {
+          setAddingProductId(null)
+        },
+      })
+    }
   }
 
   return (
@@ -41,7 +66,12 @@ const ProductsList = () => {
         {/* Success */}
         {isSuccess &&
           data?.data.map((product: ProductsResponse['data'][0]) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard
+              isAddToCart={addingProductId === product.id}
+              handleAddToCart={handleAddToCart}
+              key={product.id}
+              product={product}
+            />
           ))}
       </div>
       {isSuccess && (

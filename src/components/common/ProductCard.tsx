@@ -6,8 +6,17 @@ import { Badge } from '../ui/badge'
 import QuantitySelector from './QuantitySelector'
 import type { ProductsResponse } from '@/types/products.type'
 import { useState } from 'react'
+import type { AddToCartType } from '@/services/products.service'
 
-const ProductCard = ({ product }: { product: ProductsResponse['data'][0] }) => {
+const ProductCard = ({
+  product,
+  handleAddToCart,
+  isAddToCart,
+}: {
+  product: ProductsResponse['data'][0]
+  handleAddToCart: (data: AddToCartType) => void
+  isAddToCart: boolean
+}) => {
   const [productCount, setProductCount] = useState(1)
 
   const ProductQuantityChange = (count: number) => {
@@ -69,9 +78,27 @@ const ProductCard = ({ product }: { product: ProductsResponse['data'][0] }) => {
 
           {/* Actions */}
           <div className="mt-3 flex items-center gap-2">
-            <Button variant="default" className="flex-1" size="lg">
-              <ShoppingCart />
-              Add To Cart
+            <Button
+              onClick={() => {
+                handleAddToCart({
+                  product_id: product.id,
+                  quantity: productCount,
+                })
+                setProductCount(1)
+              }}
+              variant="default"
+              className="flex-1"
+              size="lg"
+              disabled={isAddToCart}
+            >
+              {isAddToCart ? (
+                'Loading...'
+              ) : (
+                <>
+                  <ShoppingCart />
+                  Add To Cart
+                </>
+              )}
             </Button>
             {/* Quantity Selector  */}
             <QuantitySelector countChange={ProductQuantityChange} productCount={productCount} />

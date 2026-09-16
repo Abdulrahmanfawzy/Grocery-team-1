@@ -10,3 +10,13 @@ export const getProducts = async (page: number): Promise<ProductsResponse> => {
 
   return axiosRes.data.data.data
 }
+
+export interface AddToCartType {
+  product_id: number
+  quantity: number
+}
+
+export const addToCart = async (data: AddToCartType) => {
+  const axiosRes = await api.post('/cart/items', data)
+  return axiosRes.data
+}
