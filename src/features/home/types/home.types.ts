@@ -1,13 +1,6 @@
-export interface HomeProduct {
-  id: string
-  name: string
-  category: string
-  quantity: string
-  price: number
-  oldPrice?: number
-  image: string
-  badge?: string
-}
+import type { Product } from '@/types/products/products.type'
+
+export interface HomeProduct extends Product {}
 
 export interface ProductSectionProps {
   title: string
