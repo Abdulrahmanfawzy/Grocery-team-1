@@ -19,8 +19,11 @@ interface Product {
   category_id: number
   name: string
   descreption: string
+  description: string
   how_to_use: string | null
   image: string
+  ratings: rating[]
+  average_rating: number
   quantity: number
   price: string
   discount_price: string | null
@@ -32,4 +35,12 @@ interface PaginationLink {
   label: string
   page: number | null
   active: boolean
+}
+
+interface rating {
+  comment: string
+  created_at: null | string
+  id: number
+  stars: number
+  user: { name: string; avatar: null | string }
 }
