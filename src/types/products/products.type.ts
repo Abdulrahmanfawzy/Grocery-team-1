@@ -1,14 +1,15 @@
-interface Product {
+
+export interface Product {
   id: number
+  category_id: number
   name: string
-  price: number
-  oldPrice: number
-  rating: number
-  inStock: boolean
-  isNew: boolean
+  descreption: string
+  how_to_use: string | null
   image: string
-  images?: string[]
-  discount?: number
+  quantity: number
+  price: string
+  discount_price: string | null
+  created_at: string | null
+  updated_at: string | null
 }
 
-export type { Product }
