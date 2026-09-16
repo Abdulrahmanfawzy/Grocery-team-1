@@ -3,7 +3,7 @@ import ProductCard from '../../../components/common/ProductCard'
 import type { ProductsResponse } from '@/types/products.type'
 import ProductsPagination from './ProductsPagination'
 import { useSearchParams } from 'react-router-dom'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ProductSkeleton from '@/components/common/ProductSkeleton'
 import { toast } from 'react-toastify'
 import { useAddToCart } from '@/hooks/useAddToCart'
@@ -27,14 +27,15 @@ const ProductsList = () => {
 
   // Get Data from API
   const { data, isLoading, isSuccess, isError, error } = useProducts(Number(page))
-
-  // if (isError) {
-  //   toast.error(error.message || 'Something went wrong while fetching products.')
-  // }
+  useEffect(() => {
+    if (isError) {
+      toast.error(error.message || 'Something went wrong while fetching products.')
+    }
+  }, [error, isError])
 
   // Handle Add Product to cart
   const [addingProductId, setAddingProductId] = useState<number | null>(null)
-  const { mutate, isPending } = useAddToCart()
+  const { mutate } = useAddToCart()
 
   const handleAddToCart = (data: AddToCartType) => {
     if (data) {
