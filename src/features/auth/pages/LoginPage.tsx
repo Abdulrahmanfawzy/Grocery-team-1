@@ -1,31 +1,75 @@
 import { LockKeyhole, Mail } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'react-toastify'
 
 import { Button, Input } from '../../../components'
+
 import { loginSchema, type LoginFormValues } from '../schemas/auth.schema'
+
 import LinkSocialMedia from '../components/LinkSocialMedia'
 import PasswordInput from '../components/PasswordInput'
 import AuthHeader from '../components/AuthHeader'
 
+import { useLogin } from '../hooks/useLogin'
+import { useDispatch } from 'react-redux'
+import { login } from '../store/authSlice'
+
 export default function LoginPage() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const { mutate: loginApi, isPending } = useLogin()
+
+  const defaultValues = {
+    email: '',
+    password: '',
+  }
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
+    defaultValues,
   })
 
-  const onSubmit = (data: LoginFormValues) => {
-    console.log(data)
+  const onSubmit = (values: LoginFormValues) => {
+    loginApi(
+      {
+        ...values,
+        device_name: 'Grocery Plus Web',
+      },
+      {
+        onSuccess: async (response) => {
+          try {
+            // Save auth data in Redux
+            dispatch(
+              login({
+                token: response.token,
+              }),
+            )
+
+            toast.success(response.message)
+
+            navigate('/')
+          } catch {
+            localStorage.removeItem('auth_token')
+
+            toast.error('Login succeeded, but we could not load your account.')
+          }
+        },
+
+        onError: (error: any) => {
+          toast.error(
+            'Invalid email or password ',
+            // || error?.response?.data?.message
+          )
+        },
+      },
+    )
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="w-full ">
+    <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
       {/* Header */}
-
       <AuthHeader title="Login your account!" description="Welcome to Grocery Plus" />
 
       {/* Inputs */}
@@ -77,7 +121,7 @@ export default function LoginPage() {
         </Link>
 
         {/* Login */}
-        <Button type="submit" size="xl">
+        <Button type="submit" size="xl" isLoading={isPending} disabled={isPending}>
           Continue
         </Button>
       </div>

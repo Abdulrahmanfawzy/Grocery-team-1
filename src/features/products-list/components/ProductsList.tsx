@@ -5,6 +5,7 @@ import ProductsPagination from './ProductsPagination'
 import { useSearchParams } from 'react-router-dom'
 import { useRef } from 'react'
 import ProductSkeleton from '@/components/common/ProductSkeleton'
+import { toast } from 'react-toastify'
 
 const ProductsList = () => {
   const productsListRef = useRef(null)
@@ -25,7 +26,7 @@ const ProductsList = () => {
   const { data, isLoading, isSuccess, isError, error } = useProducts(Number(page))
 
   if (isError) {
-    return <h1>{error.message}</h1>
+    toast.error(error.message || 'Something went wrong while fetching products.')
   }
 
   return (

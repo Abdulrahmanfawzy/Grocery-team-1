@@ -1,27 +1,26 @@
+
 import { createBrowserRouter } from 'react-router-dom'
 
 import App from '../App'
 
 import { MainLayout } from '@/components/layout/MainLayout'
+import AuthImageLayout from '@/components/layout/AuthImageLayout'
+import AuthLayout from '@/components/layout/AuthLayout'
+import ProfileLayout from '@/components/layout/ProfileLayout'
 
+
+
+// Public
 import HomePage from '@/features/home/pages/HomePage'
 import ProductsPage from '@/features/products-list/pages/ProductsPage'
 import CategoryPage from '@/features/categories/pages/CategoryPage'
-import CartPage from '@/features/Cart/pages/CartPage'
-
-import LoginPage from '@/features/auth/pages/LoginPage'
-import RegisterPage from '@/features/auth/pages/RegisterPage'
-import ForgetPasswordPage from '@/features/auth/pages/ForgetPasswordPage'
-import RestPasswordPage from '@/features/auth/pages/RestPasswordPage'
-import VerifyPage from '@/features/auth/pages/VerifyPage'
-
-import AuthImageLayout from '@/components/layout/AuthImageLayout'
-import AuthLayout from '@/components/layout/AuthLayout'
 import ProductDetails from '@/features/product-details/pages/ProductDetailsPage'
+
+// Protected
+import CartPage from '@/features/Cart/pages/CartPage'
 import CheckoutPage from '@/features/Checkout/pages/CheckoutPage'
 
 // Profile
-import ProfileLayout from '@/components/layout/ProfileLayout'
 import SettingsPage from '@/features/profile/pages/SettingsPage'
 import DashboardPage from '@/features/profile/pages/DashboardPage'
 import PersonalInfoPage from '@/features/profile/pages/PersonalInfoPage'
@@ -33,15 +32,29 @@ import SecurityLoginPage from '@/features/profile/pages/SecurityLoginPage'
 import HelpSupportPage from '@/features/profile/pages/HelpSupportPage'
 import LoyaltyRewardsPage from '@/features/profile/pages/LoyaltyRewardsPage'
 
+// Auth
+import LoginPage from '@/features/auth/pages/LoginPage'
+import RegisterPage from '@/features/auth/pages/RegisterPage'
+import ForgetPasswordPage from '@/features/auth/pages/ForgetPasswordPage'
+import RestPasswordPage from '@/features/auth/pages/RestPasswordPage'
+import VerifyPage from '@/features/auth/pages/VerifyPage'
+import ProtectedRoute from './ProtectedRoute'
+import GuestRoute from './GuestRoute'
+
 export const routes = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
-      // Main App
+      // =====================================================
+      // MAIN LAYOUT
+      // =====================================================
       {
         element: <MainLayout />,
         children: [
+          // -------------------------
+          // Public Routes
+          // -------------------------
           {
             index: true,
             element: <HomePage />,
@@ -58,101 +71,117 @@ export const routes = createBrowserRouter([
             path: 'products/:productId',
             element: <ProductDetails />,
           },
-          {
-            path: 'cart',
-            element: <CartPage />,
-          },
-          {
-            path: 'checkout',
-            element: <CheckoutPage />,
-          },
 
-          // Profile
+          // -------------------------
+          // Protected Routes
+          // -------------------------
           {
-            path: 'profile',
-            element: <ProfileLayout />,
+            element: <ProtectedRoute />,
             children: [
               {
-                index: true,
-                element: <DashboardPage />,
+                path: 'cart',
+                element: <CartPage />,
               },
               {
-                path: 'personal-info',
-                element: <PersonalInfoPage />,
+                path: 'checkout',
+                element: <CheckoutPage />,
               },
+
+              // Profile
               {
-                path: 'payment-wallet',
-                element: <PaymentWalletPage />,
-              },
-              {
-                path: 'order-history',
-                element: <OrderHistoryPage />,
-              },
-              {
-                path: 'smart-lists',
-                element: <SmartListsPage />,
-              },
-              {
-                path: 'addresses',
-                element: <AddressesPage />,
-              },
-              {
-                path: 'security-login',
-                element: <SecurityLoginPage />,
-              },
-              {
-                path: 'loyalty-rewards',
-                element: <LoyaltyRewardsPage />,
-              },
-              {
-                path: 'help-support',
-                element: <HelpSupportPage />,
-              },
-              {
-                path: 'settings',
-                element: <SettingsPage />,
+                path: 'profile',
+                element: <ProfileLayout />,
+                children: [
+                  {
+                    index: true,
+                    element: <DashboardPage />,
+                  },
+                  {
+                    path: 'personal-info',
+                    element: <PersonalInfoPage />,
+                  },
+                  {
+                    path: 'payment-wallet',
+                    element: <PaymentWalletPage />,
+                  },
+                  {
+                    path: 'order-history',
+                    element: <OrderHistoryPage />,
+                  },
+                  {
+                    path: 'smart-lists',
+                    element: <SmartListsPage />,
+                  },
+                  {
+                    path: 'addresses',
+                    element: <AddressesPage />,
+                  },
+                  {
+                    path: 'security-login',
+                    element: <SecurityLoginPage />,
+                  },
+                  {
+                    path: 'loyalty-rewards',
+                    element: <LoyaltyRewardsPage />,
+                  },
+                  {
+                    path: 'help-support',
+                    element: <HelpSupportPage />,
+                  },
+                  {
+                    path: 'settings',
+                    element: <SettingsPage />,
+                  },
+                ],
               },
             ],
-          }
-
+          },
         ],
       },
 
-      // Auth with image
+      // =====================================================
+      // GUEST ROUTES - AUTH WITH IMAGE
+      // =====================================================
       {
-        element: <AuthImageLayout />,
+        element: <GuestRoute />,
         children: [
           {
-            path: 'login',
-            element: <LoginPage />,
+            element: <AuthImageLayout />,
+            children: [
+              {
+                path: 'login',
+                element: <LoginPage />,
+              },
+              {
+                path: 'register',
+                element: <RegisterPage />,
+              },
+            ],
           },
+
+          // =====================================================
+          // GUEST ROUTES - AUTH WITHOUT IMAGE
+          // =====================================================
           {
-            path: 'register',
-            element: <RegisterPage />,
+            element: <AuthLayout />,
+            children: [
+              {
+                path: 'forget-password',
+                element: <ForgetPasswordPage />,
+              },
+              {
+                path: 'rest-password',
+                element: <RestPasswordPage />,
+              },
+              {
+                path: 'verify',
+                element: <VerifyPage />,
+              },
+            ],
           },
         ],
       },
-
-      // Auth without image
-      {
-        element: <AuthLayout />,
-        children: [
-          {
-            path: 'forget-password',
-            element: <ForgetPasswordPage />,
-          },
-          {
-            path: 'rest-password',
-            element: <RestPasswordPage />,
-          },
-          {
-            path: 'verify',
-            element: <VerifyPage />,
-          },
-        ],
-      },
-
-
     ],
   },
 ])
+
