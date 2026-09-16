@@ -9,8 +9,4 @@ export default function App() {
       <ToastContainer position="top-right" autoClose={3000} />
     </>
   )
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 2c6e7dd194a8f77286fc47ff35e658347ec93820
