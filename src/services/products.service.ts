@@ -8,7 +8,7 @@ export const getProducts = async (page: number): Promise<ProductsResponse> => {
     },
   })
 
-  return axiosRes.data.data.data
+  return axiosRes.data
 }
 
 export interface AddToCartType {
