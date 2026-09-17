@@ -16,7 +16,7 @@ export interface Product {
   price: string
   discount_price: string | null
   average_rating: number
-  ratings: Rating[]
+  ratings?: Rating[]
 }
 
 export interface Rating {
