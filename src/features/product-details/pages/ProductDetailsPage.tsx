@@ -15,6 +15,7 @@ function ProductDetails() {
   const { productId } = useParams()
 
   const { data: product, isLoading, isSuccess } = useProductDetails(Number(productId))
+  console.log('ProductDetails', product)
 
   if (isLoading) {
     return (

@@ -36,12 +36,30 @@ const ProductContent = ({ productObject }: { productObject: ProductsResponse['da
     setProductCount(count)
   }
 
+  const totalPrice = (productCount: number, price: number) => {
+    return productCount * price
+  }
+
   return (
     <div className="flex flex-col px-8 py-3 gap-5">
       <h1 className="text-app-main text-2xl font-semibold">{productObject.name}</h1>
-      <p className="text-12 font-normal">£ {productObject.price} | KG</p>
+      <div className="flex  items-center gap-2">
+        <p className="text-12 font-normal">
+          £ {productObject.discount_price || productObject.price} | KG
+        </p>
 
-      <p className="text-md font-normal">£ {productObject.discount_price || productObject.price}</p>
+        {productObject.discount_price && (
+          <p className="text-12 font-normal text-gray-500 line-through">
+            £ {productObject.price} | KG
+          </p>
+        )}
+      </div>
+
+      {/* Total */}
+
+      <p className="text-md font-normal">
+        £ {totalPrice(productCount, Number(productObject.discount_price || productObject.price))}
+      </p>
 
       <div className="w-70  border-silver border" />
 

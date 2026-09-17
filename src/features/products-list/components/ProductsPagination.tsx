@@ -9,8 +9,8 @@ import {
 import type { ProductsResponse } from '@/types/products.type'
 
 type ProductsPaginationProps = {
-  current_page: ProductsResponse['current_page']
-  last_page: ProductsResponse['last_page']
+  current_page: ProductsResponse['pagination']['current_page']
+  last_page: ProductsResponse['pagination']['last_page']
   goToPage: (page: number) => void
   scrollToProductsList: () => void
 }
@@ -24,7 +24,7 @@ const ProductsPagination = ({
   return (
     <>
       <Pagination>
-        <PaginationContent className="border border-gray-200 rounded-xl">
+        <PaginationContent className="border flex-wrap max-sm:gap-3 gap-2  border-gray-200 rounded-xl">
           {/* Previous */}
           <PaginationItem>
             <PaginationPrevious
@@ -40,29 +40,27 @@ const ProductsPagination = ({
               className={
                 current_page === 1
                   ? 'bg-gray-200 cursor-not-allowed  '
-                  : 'hover:bg-app-main hover:text-white'
+                  : 'hover:bg-app-main border! border-app-main  hover:text-white'
               }
             />
           </PaginationItem>
 
           {/* Page Numbers */}
-          {Array.from({ length: last_page }, (_, index) => index + 1).map((page) => {
+          {Array.from({ length: last_page }, (_, index) => index + 1).map((page, index) => {
             return (
-              <>
-                <PaginationItem key={page}>
-                  <PaginationLink
-                    onClick={(e) => {
-                      e.preventDefault()
-                      scrollToProductsList()
-                      goToPage(page)
-                    }}
-                    className={`hover:bg-app-main hover:text-white ${page === current_page && 'bg-app-main text-white'}`}
-                    isActive={page === current_page}
-                  >
-                    {page}
-                  </PaginationLink>
-                </PaginationItem>
-              </>
+              <PaginationItem key={index}>
+                <PaginationLink
+                  onClick={(e) => {
+                    e.preventDefault()
+                    scrollToProductsList()
+                    goToPage(page)
+                  }}
+                  className={`hover:bg-app-main border! border-app-main hover:text-white ${page === current_page && 'bg-app-main text-white'}`}
+                  isActive={page === current_page}
+                >
+                  {page}
+                </PaginationLink>
+              </PaginationItem>
             )
           })}
 
@@ -79,7 +77,7 @@ const ProductsPagination = ({
               className={
                 current_page === last_page
                   ? 'bg-gray-200 cursor-not-allowed'
-                  : 'hover:bg-app-main hover:text-white'
+                  : 'hover:bg-app-main border! border-app-main  hover:text-white'
               }
             />
           </PaginationItem>

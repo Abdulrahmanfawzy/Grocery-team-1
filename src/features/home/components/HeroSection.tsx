@@ -5,10 +5,10 @@ export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-app-main">
       <div className="absolute inset-0 bg-[url('/src/features/home/assets/hero-produce.png')] 
-      bg-[length:0]"  aria-hidden="true" />
+      bg-size-[0]"  aria-hidden="true" />
       
-      <div className="box-container relative flex min-h-[280px] items-center 
-       sm:min-h-[330px] sm:py-14 md:min-h-[360px]">
+      <div className="box-container relative flex min-h-70 items-center 
+       sm:min-h-82.5 sm:py-14 md:min-h-90">
         <div className="max-w-xl">
           <p className="text-sm font-bold text-white sm:text-base">Don’t miss our daily</p>
           <h1 className="mt-1 text-4xl font-bold leading-[1.08] text-white 

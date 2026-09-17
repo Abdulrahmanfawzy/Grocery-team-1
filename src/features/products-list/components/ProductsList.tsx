@@ -27,6 +27,7 @@ const ProductsList = () => {
 
   // Get Data from API
   const { data, isLoading, isSuccess, isError, error } = useProducts(Number(page))
+
   useEffect(() => {
     if (isError) {
       toast.error(error.message || 'Something went wrong while fetching products.')
@@ -45,8 +46,7 @@ const ProductsList = () => {
           toast.success(data.message)
         },
         onError: (error) => {
-          console.log(error)
-          toast.error(error.message)
+          toast.error(error?.response?.data?.message)
         },
         onSettled() {
           setAddingProductId(null)
@@ -80,8 +80,8 @@ const ProductsList = () => {
           <ProductsPagination
             scrollToProductsList={handleScrollToProductsList}
             goToPage={goToPage}
-            current_page={data?.current_page}
-            last_page={data?.last_page}
+            current_page={data?.pagination?.current_page}
+            last_page={data?.pagination?.last_page}
           />
         </div>
       )}

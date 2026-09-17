@@ -24,7 +24,7 @@ const BrandFilter = () => {
       <div className="space-y-3">
         {brandList.map(({ label }) => {
           return (
-            <label className="flex items-center gap-2">
+            <label key={label} className="flex items-center gap-2">
               <input type="checkbox" className="size-4 accent-app-main" />
               <span>{label}</span>
             </label>
