@@ -1,35 +1,50 @@
 export interface ProductsResponse {
+  success: boolean
+  message: string
   data: Product[]
-  current_page: number
-  last_page: number
-  first_page_url: string
-  from: number
-  last_page_url: string
-  links: PaginationLink[]
-  next_page_url: string | null
-  path: string
-  per_page: number
-  prev_page_url: string | null
-  to: number
-  total: number
+  pagination: Pagination
 }
 
-interface Product {
+export interface Product {
   id: number
   category_id: number
   name: string
-  descreption: string
+  description: string
   how_to_use: string | null
   image: string
   quantity: number
   price: string
   discount_price: string | null
-  created_at: string | null
-  updated_at: string | null
+  average_rating: number
+  ratings: Rating[]
 }
-interface PaginationLink {
-  url: string | null
-  label: string
-  page: number | null
-  active: boolean
+
+export interface Rating {
+  id: number
+  comment: string
+  stars: number
+  created_at: string | null
+  user: RatingUser
+}
+
+export interface RatingUser {
+  name: string
+  avatar: string | null
+}
+
+export interface Pagination {
+  current_page: number
+  last_page: number
+  per_page: number
+  total: number
+  from: number
+  to: number
+  links: PaginationLinks
+}
+
+export interface PaginationLinks {
+  first: string
+  last: string
+  prev: string | null
+  next: string | null
 }
