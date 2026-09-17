@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
+import { Badge } from "@/components/ui/badge";
+import { useCart } from "../hooks/useCart";
 import type { CartItem as CartItemType } from "../types/cart.types";
 
 interface CartItemProps {
@@ -9,54 +9,87 @@ interface CartItemProps {
 }
 
 const CartItem = ({ item }: CartItemProps) => {
-  const [quantity, setQuantity] = useState(item.quantity);
+  const {
+    updateItem,
+    deleteItem,
+    isUpdatingItem,
+    isDeletingItem,
+  } = useCart();
+
+  const isLoading = isUpdatingItem || isDeletingItem;
+
+  const product = item.product;
+
+  const price = Number(product.price);
+
+  const discountPrice = product.discount_price
+    ? Number(product.discount_price)
+    : null;
+
+  const displayPrice =
+    discountPrice !== null && discountPrice < price
+      ? discountPrice
+      : price;
 
   const increaseQuantity = () => {
-    setQuantity((prev) => prev + 1);
+    updateItem({
+      id: item.id,
+      data: {
+        quantity: item.quantity + 1,
+      },
+    });
   };
 
   const decreaseQuantity = () => {
-    setQuantity((prev) => Math.max(1, prev - 1));
+    if (item.quantity === 1) {
+      deleteItem(item.id);
+      return;
+    }
+
+    updateItem({
+      id: item.id,
+      data: {
+        quantity: item.quantity - 1,
+      },
+    });
   };
 
   return (
     <div className="flex gap-4 p-5">
-      {/* Image + Stock */}
       <div className="flex w-16 shrink-0 flex-col items-center">
         <div className="flex h-16 w-16 items-center justify-center overflow-hidden bg-muted">
           <img
-            src={item.image}
-            alt={item.name}
+            src={product.image}
+            alt={product.name}
             className="h-full w-full object-contain"
           />
         </div>
 
         <Badge className="mt-2 bg-foreground text-background text-[10px]">
-          {item.inStock ? "In Stock" : "Out Of Stock"}
+          In Stock
         </Badge>
       </div>
 
-      {/* Product Details */}
       <div className="flex min-w-0 flex-1 flex-col">
         <p className="line-clamp-2 text-sm font-medium">
-          {item.name}
+          {product.name}
         </p>
 
-        {/* Quantity + Price */}
-        <div className="mt-3 flex items-center justify-between">
+        <div className="mt-3 flex items-center justify-between gap-3">
           <div className="flex items-center overflow-hidden rounded-md border border-border">
             <Button
               type="button"
               variant="ghost"
               size="icon-xs"
-              className="rounded-md "
+              className="rounded-md"
               onClick={decreaseQuantity}
+              disabled={isLoading}
             >
-              {quantity === 1 ? <Trash2 /> : <Minus />}
+              {item.quantity === 1 ? <Trash2 /> : <Minus />}
             </Button>
 
             <span className="w-7 text-center text-sm font-medium">
-              {quantity}
+              {item.quantity}
             </span>
 
             <Button
@@ -65,14 +98,24 @@ const CartItem = ({ item }: CartItemProps) => {
               size="icon-xs"
               className="rounded-md"
               onClick={increaseQuantity}
+              disabled={isLoading}
             >
               <Plus />
             </Button>
           </div>
 
-          <span className="text-sm font-semibold">
-            £ {(item.price * quantity).toFixed(2)}
-          </span>
+          <div className="flex flex-col items-end">
+            <span className="text-sm font-semibold">
+              £ {(displayPrice * item.quantity).toFixed(2)}
+            </span>
+
+            {discountPrice !== null &&
+              discountPrice < price && (
+                <span className="text-xs text-app-secondary line-through">
+                  £ {(price * item.quantity).toFixed(2)}
+                </span>
+              )}
+          </div>
         </div>
       </div>
     </div>
