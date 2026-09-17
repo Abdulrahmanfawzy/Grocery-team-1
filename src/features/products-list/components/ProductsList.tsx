@@ -8,6 +8,7 @@ import ProductSkeleton from '@/components/common/ProductSkeleton'
 import { toast } from 'react-toastify'
 import { useAddToCart } from '@/hooks/useAddToCart'
 import type { AddToCartType } from '@/services/products.service'
+import EmptyProducts from '@/components/common/EmptyProducts'
 
 const ProductsList = () => {
   const productsListRef = useRef(null)
@@ -17,17 +18,33 @@ const ProductsList = () => {
   }
 
   const [searchParams, setSearchParams] = useSearchParams()
-  // Get Page from URL Params
-  const page = searchParams.get('page') || '1'
 
-  // Set Page in URL Params
-  const goToPage = (page: number) => {
-    setSearchParams({ page: String(page) })
+  // Get params from URL Params
+  const params = {
+    page: Number(searchParams.get('page')) || undefined,
+    per_page: Number(searchParams.get('per_page')) || undefined,
+    min_price: Number(searchParams.get('min_price')) || undefined,
+    max_price: Number(searchParams.get('max_price')) || undefined,
+    category: Number(searchParams.get('category')) || undefined,
+    brand: searchParams.get('brand') || undefined,
+    availability: searchParams.get('availability') || undefined,
+    type: searchParams.get('type') || undefined,
   }
 
   // Get Data from API
-  const { data, isLoading, isSuccess, isError, error } = useProducts(Number(page))
+  const { data, isLoading, isSuccess, isError, error } = useProducts(params)
+  console.log('prodcuts list', data)
 
+  // Set Page in URL Params
+  const goToPage = (page: number) => {
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev)
+
+      params.set('page', String(page))
+
+      return params
+    })
+  }
   useEffect(() => {
     if (isError) {
       toast.error(error.message || 'Something went wrong while fetching products.')
@@ -75,6 +92,9 @@ const ProductsList = () => {
             />
           ))}
       </div>
+      {/* If No Products */}
+      {isError && <EmptyProducts />}
+
       {isSuccess && (
         <div className="my-4">
           <ProductsPagination

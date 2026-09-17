@@ -1,4 +1,4 @@
-import { Badge } from '@/components/ui/Badge'
+import { Badge } from '@/components/ui/badge'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import { useState } from 'react'
 
@@ -29,7 +29,7 @@ const ProductGallery = ({ images, productName }: ProductGalleryProps) => {
       </div>
 
       {/* Small Images Carousel */}
-      {/* <div className="relative mt-4 px-10">
+      <div className="relative mt-4 px-10">
         <Carousel
           opts={{
             align: 'start',
@@ -56,7 +56,7 @@ const ProductGallery = ({ images, productName }: ProductGalleryProps) => {
             ))}
           </CarouselContent>
         </Carousel>
-      </div> */}
+      </div>
     </div>
   )
 }

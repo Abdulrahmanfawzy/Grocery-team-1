@@ -1,3 +1,4 @@
+import { useCategories } from '@/hooks/useCategories'
 import { Apple, Croissant, Fish, Milk, Drumstick } from 'lucide-react'
 
 const categories = [
@@ -23,6 +24,8 @@ const categories = [
   },
 ]
 const CategoryFilter = () => {
+  const { data } = useCategories()
+
   return (
     <div className="w-full">
       {/* Header */}
