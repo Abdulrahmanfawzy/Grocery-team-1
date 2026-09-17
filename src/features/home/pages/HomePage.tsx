@@ -1,19 +1,28 @@
+import { useHomeProducts } from '../hooks/useHomeProducts'
 import { BestSellersSection } from '../components/BestSellersSection'
 import { HeroSection } from '../components/HeroSection'
 import { ProductSection } from '../components/ProductSection'
 import { PromoBanners } from '../components/PromoBanner'
 import { TrustFeatures } from '../components/TrustFeatures'
-import { hotDeals, newProducts } from '../data/home.data'
 
 export default function HomePage() {
+  const { data: rawData, isLoading, isError } = useHomeProducts()
+  const products = Array.isArray(rawData) ? rawData : []
+
+
   return (
     <div className="bg-white">
       <HeroSection />
-      <ProductSection title="Hot Deals" products={hotDeals} />
-      <ProductSection title="New Product" products={newProducts} />
+      <ProductSection title="Hot Deals" products={products} isLoading={isLoading} />
+      <ProductSection title="New Products" products={products} isLoading={isLoading} />
       <PromoBanners />
-      <BestSellersSection />
+      <BestSellersSection products={products} isLoading={isLoading} />
       <TrustFeatures />
+      {isError && (
+        <p className="text-center text-sm text-red-500 py-4">
+          Failed to load products. Please try again.
+        </p>
+      )}
     </div>
   )
 }
