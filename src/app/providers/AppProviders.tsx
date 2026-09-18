@@ -9,7 +9,8 @@ import AuthInitializer from '@/features/auth/components/AuthInitializer'
 const AppProviders = ({ children }: { children: ReactNode }) => {
   return (
     <Provider store={store}>
-      <QueryClientProvider client={queryClient}>{children}
+      <QueryClientProvider client={queryClient}>
+        {children}
         <AuthInitializer />
       </QueryClientProvider>
     </Provider>

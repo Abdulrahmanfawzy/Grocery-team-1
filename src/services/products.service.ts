@@ -7,9 +7,10 @@ export interface GetProductsParams {
   min_price?: number | undefined
   max_price?: number | undefined
   availability?: string | undefined
-  category?: number | undefined
+  category_id?: number | undefined
   brand?: string | undefined
   type?: string | undefined
+  search: string | undefined
 }
 
 export const getProducts = async (params?: GetProductsParams): Promise<ProductsResponse> => {

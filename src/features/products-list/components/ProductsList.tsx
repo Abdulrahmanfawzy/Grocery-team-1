@@ -16,8 +16,11 @@ const ProductsList = () => {
   const handleScrollToProductsList = () => {
     productsListRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
-
   const [searchParams, setSearchParams] = useSearchParams()
+
+  useEffect(() => {
+    handleScrollToProductsList()
+  }, [searchParams])
 
   // Get params from URL Params
   const params = {
@@ -25,15 +28,15 @@ const ProductsList = () => {
     per_page: Number(searchParams.get('per_page')) || undefined,
     min_price: Number(searchParams.get('min_price')) || undefined,
     max_price: Number(searchParams.get('max_price')) || undefined,
-    category: Number(searchParams.get('category')) || undefined,
+    category_id: Number(searchParams.get('category_id')) || undefined,
     brand: searchParams.get('brand') || undefined,
     availability: searchParams.get('availability') || undefined,
     type: searchParams.get('type') || undefined,
+    search: searchParams.get('search') || undefined,
   }
 
   // Get Data from API
   const { data, isLoading, isSuccess, isError, error } = useProducts(params)
-  console.log('prodcuts list', data)
 
   // Set Page in URL Params
   const goToPage = (page: number) => {
@@ -45,9 +48,14 @@ const ProductsList = () => {
       return params
     })
   }
+
   useEffect(() => {
     if (isError) {
-      toast.error(error.message || 'Something went wrong while fetching products.')
+      toast.error(
+        error?.response.data.message ||
+          error.message ||
+          'Something went wrong while fetching products.',
+      )
     }
   }, [error, isError])
 

@@ -1,31 +1,22 @@
 import { useCategories } from '@/hooks/useCategories'
-import { Apple, Croissant, Fish, Milk, Drumstick } from 'lucide-react'
+import { useSearchParams } from 'react-router-dom'
 
-const categories = [
-  {
-    name: 'Fruits',
-    icon: Apple,
-  },
-  {
-    name: 'Dairy & Eggs',
-    icon: Milk,
-  },
-  {
-    name: 'Bakery',
-    icon: Croissant,
-  },
-  {
-    name: 'Seafood',
-    icon: Fish,
-  },
-  {
-    name: 'Meats',
-    icon: Drumstick,
-  },
-]
 const CategoryFilter = () => {
-  const { data } = useCategories()
+  const { data, isSuccess } = useCategories()
+  const [searchParams, setSearchParams] = useSearchParams()
 
+  const handleCategoryFilter = (category_id: number) => {
+    const params = new URLSearchParams(searchParams)
+
+    if (category_id) {
+      params.set('category_id', String(category_id))
+      params.set('page', '1')
+    } else {
+      params.delete('category_id', String(category_id))
+      params.set('page', '1')
+    }
+    setSearchParams(params)
+  }
   return (
     <div className="w-full">
       {/* Header */}
@@ -33,22 +24,24 @@ const CategoryFilter = () => {
 
       {/* Categories */}
       <div className="flex flex-col">
-        {categories.map(({ name, icon: Icon }) => (
-          <button
-            key={name}
-            type="button"
-            className="group p-4 flex items-center hover:bg-white   gap-4 text-left"
-          >
-            <Icon
-              className="size-6 text-sidebar-color transition-colors group-hover:text-primary"
-              strokeWidth={1.5}
-            />
+        {isSuccess &&
+          data?.data.map((category) => (
+            <button
+              key={category.id}
+              type="button"
+              onClick={() => handleCategoryFilter(category.id)}
+              className={`group cursor-pointer p-4 flex items-center hover:bg-white ${searchParams.get('category_id') === String(category.id) && 'bg-white'} gap-4 text-left`}
+            >
+              <img
+                src={category.image}
+                className="size-6 text-sidebar-color transition-colors group-hover:text-primary"
+              />
 
-            <span className="text-base text-sidebar-color transition-colors group-hover:text-primary">
-              {name}
-            </span>
-          </button>
-        ))}
+              <span className="text-base text-sidebar-color transition-colors group-hover:text-primary">
+                {category.name_en}
+              </span>
+            </button>
+          ))}
       </div>
     </div>
   )
