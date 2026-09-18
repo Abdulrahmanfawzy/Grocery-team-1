@@ -6,7 +6,7 @@ import { ChevronRight } from 'lucide-react'
 
 const WinterDiscountCard = () => {
   return (
-    <div className="relative w-full overflow-hidden rounded-md bg-app-main/90 p-10">
+    <div className="relative   overflow-hidden rounded-md bg-app-main/90 p-10">
       {/* Left decoration */}
       <img
         src={leftDecoration}

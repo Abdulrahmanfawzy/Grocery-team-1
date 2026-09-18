@@ -6,7 +6,7 @@ import { Badge } from '../ui/badge'
 import QuantitySelector from './QuantitySelector'
 import type { ProductsResponse } from '@/types/products.type'
 import { useState } from 'react'
-import type { AddToCartType } from '@/services/products.service'
+import type { AddCartItemRequest } from '@/features/Cart/types/cart.types'
 
 const ProductCard = ({
   product,
@@ -14,7 +14,7 @@ const ProductCard = ({
   isAddToCart,
 }: {
   product: ProductsResponse['data'][0]
-  handleAddToCart: (data: AddToCartType) => void
+  handleAddToCart: (data: AddCartItemRequest) => void
   isAddToCart: boolean
 }) => {
   const [productCount, setProductCount] = useState(1)
@@ -44,7 +44,11 @@ const ProductCard = ({
         {/* Product Image */}
         <Link to={`/products/${product.id}`}>
           <div className="mt-0 h-50 flex items-center justify-center">
-            <img src={product.image} alt={product.name} className="h-full w-full object-cover" />
+            <img
+              src={product.images[0]}
+              alt={product.name}
+              className="h-full w-full object-cover"
+            />
           </div>
         </Link>
 
@@ -55,26 +59,28 @@ const ProductCard = ({
 
             <div className="flex items-center gap-2">
               <span className="text-base text-sidebar-color">£ {product.price}</span>
-
-              <span className="text-base text-silver line-through">£ {product.discount_price}</span>
+              {product.discount_price && (
+                <span className="text-base text-silver line-through">
+                  £ {product.discount_price}
+                </span>
+              )}
             </div>
           </div>
 
           {/* Rating */}
-          {/* <div className="mt-2 flex items-center justify-center gap-1">
+          <div className="mt-2 flex items-center justify-center gap-1">
             {[1, 2, 3, 4, 5].map((star) => (
               <Star
                 key={star}
                 className={
-                  star <= Math.round(product.rating)
-                    ? 'size-6 fill-gold text-gold'
-                    : 'size-6 fill-silver text-silver'
+                  star <= product.average_rating
+                    ? 'size-4 fill-gold text-gold'
+                    : 'size-4 text-silver'
                 }
               />
             ))}
-
-            <span className="ml-1 text-xs text-silver">({product.rating}/5)</span>
-          </div> */}
+            <span className="ml-1 text-xs text-silver">({product.average_rating}/5)</span>
+          </div>
 
           {/* Actions */}
           <div className="mt-3 flex items-center gap-2">

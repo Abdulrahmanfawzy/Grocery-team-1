@@ -7,16 +7,24 @@ export interface ProductsResponse {
 
 export interface Product {
   id: number
-  category_id: number
+  category: ProductCategory
   name: string
   description: string
   how_to_use: string | null
-  image: string
+  images: string[]
   quantity: number
   price: string
   discount_price: string | null
   average_rating: number
   ratings?: Rating[]
+  type: string
+  brand: string
+}
+
+export interface ProductCategory {
+  id: number
+  name_en: string
+  name_ar: string
 }
 
 export interface Rating {

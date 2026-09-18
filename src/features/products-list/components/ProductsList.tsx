@@ -6,8 +6,9 @@ import { useSearchParams } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import ProductSkeleton from '@/components/common/ProductSkeleton'
 import { toast } from 'react-toastify'
-import { useAddToCart } from '@/hooks/useAddToCart'
-import type { AddToCartType } from '@/services/products.service'
+import EmptyProducts from '@/components/common/EmptyProducts'
+import { useCart } from '@/features/Cart/hooks/useCart'
+import type { AddCartItemRequest } from '@/features/Cart/types/cart.types'
 
 const ProductsList = () => {
   const productsListRef = useRef(null)
@@ -15,38 +16,65 @@ const ProductsList = () => {
   const handleScrollToProductsList = () => {
     productsListRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
-
   const [searchParams, setSearchParams] = useSearchParams()
-  // Get Page from URL Params
-  const page = searchParams.get('page') || '1'
 
-  // Set Page in URL Params
-  const goToPage = (page: number) => {
-    setSearchParams({ page: String(page) })
+  useEffect(() => {
+    handleScrollToProductsList()
+  }, [searchParams])
+
+  // Get params from URL Params
+  const params = {
+    page: Number(searchParams.get('page')) || undefined,
+    per_page: Number(searchParams.get('per_page')) || undefined,
+    min_price: Number(searchParams.get('min_price')) || undefined,
+    max_price: Number(searchParams.get('max_price')) || undefined,
+    category_id: Number(searchParams.get('category_id')) || undefined,
+    brand: searchParams.get('brand') || undefined,
+    availability: searchParams.get('availability') || undefined,
+    type: searchParams.get('type') || undefined,
+    search: searchParams.get('search') || undefined,
   }
 
   // Get Data from API
-  const { data, isLoading, isSuccess, isError, error } = useProducts(Number(page))
+  const { data, isLoading, isSuccess, isError, error } = useProducts(params)
+
+  // Set Page in URL Params
+  const goToPage = (page: number) => {
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev)
+
+      params.set('page', String(page))
+
+      return params
+    })
+  }
+
   useEffect(() => {
     if (isError) {
-      toast.error(error.message || 'Something went wrong while fetching products.')
+      toast.error(
+        error?.response.data.message ||
+          error.message ||
+          'Something went wrong while fetching products.',
+      )
     }
   }, [error, isError])
 
   // Handle Add Product to cart
   const [addingProductId, setAddingProductId] = useState<number | null>(null)
-  const { mutate } = useAddToCart()
+  const { addItem } = useCart()
 
-  const handleAddToCart = (data: AddToCartType) => {
+  const handleAddToCart = (data: AddCartItemRequest) => {
     if (data) {
       setAddingProductId(data.product_id)
-      mutate(data, {
+      addItem(data, {
         onSuccess: (data) => {
-          toast.success(data.message)
+          console.log('addItem', data)
+
+          // toast.success(data.message)
         },
         onError: (error) => {
-          console.log(error)
-          toast.error(error.message)
+          console.log('addItem', error.response)
+          toast.error(error?.response?.data?.message)
         },
         onSettled() {
           setAddingProductId(null)
@@ -75,13 +103,16 @@ const ProductsList = () => {
             />
           ))}
       </div>
+      {/* If No Products */}
+      {isError && <EmptyProducts />}
+
       {isSuccess && (
         <div className="my-4">
           <ProductsPagination
             scrollToProductsList={handleScrollToProductsList}
             goToPage={goToPage}
-            current_page={data?.current_page}
-            last_page={data?.last_page}
+            current_page={data?.pagination?.current_page}
+            last_page={data?.pagination?.last_page}
           />
         </div>
       )}
