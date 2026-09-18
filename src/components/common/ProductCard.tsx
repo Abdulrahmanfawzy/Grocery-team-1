@@ -6,7 +6,7 @@ import { Badge } from '../ui/badge'
 import QuantitySelector from './QuantitySelector'
 import type { ProductsResponse } from '@/types/products.type'
 import { useState } from 'react'
-import type { AddToCartType } from '@/services/products.service'
+import type { AddCartItemRequest } from '@/features/Cart/types/cart.types'
 
 const ProductCard = ({
   product,
@@ -14,7 +14,7 @@ const ProductCard = ({
   isAddToCart,
 }: {
   product: ProductsResponse['data'][0]
-  handleAddToCart: (data: AddToCartType) => void
+  handleAddToCart: (data: AddCartItemRequest) => void
   isAddToCart: boolean
 }) => {
   const [productCount, setProductCount] = useState(1)

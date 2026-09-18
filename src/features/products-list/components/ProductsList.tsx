@@ -6,9 +6,9 @@ import { useSearchParams } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import ProductSkeleton from '@/components/common/ProductSkeleton'
 import { toast } from 'react-toastify'
-import { useAddToCart } from '@/hooks/useAddToCart'
-import type { AddToCartType } from '@/services/products.service'
 import EmptyProducts from '@/components/common/EmptyProducts'
+import { useCart } from '@/features/Cart/hooks/useCart'
+import type { AddCartItemRequest } from '@/features/Cart/types/cart.types'
 
 const ProductsList = () => {
   const productsListRef = useRef(null)
@@ -61,16 +61,19 @@ const ProductsList = () => {
 
   // Handle Add Product to cart
   const [addingProductId, setAddingProductId] = useState<number | null>(null)
-  const { mutate } = useAddToCart()
+  const { addItem } = useCart()
 
-  const handleAddToCart = (data: AddToCartType) => {
+  const handleAddToCart = (data: AddCartItemRequest) => {
     if (data) {
       setAddingProductId(data.product_id)
-      mutate(data, {
+      addItem(data, {
         onSuccess: (data) => {
-          toast.success(data.message)
+          console.log('addItem', data)
+
+          // toast.success(data.message)
         },
         onError: (error) => {
+          console.log('addItem', error.response)
           toast.error(error?.response?.data?.message)
         },
         onSettled() {

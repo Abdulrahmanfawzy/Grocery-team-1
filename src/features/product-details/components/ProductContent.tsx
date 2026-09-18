@@ -1,7 +1,8 @@
 import { Button } from '@/components'
 import QuantitySelector from '@/components/common/QuantitySelector'
-import { useAddToCart } from '@/hooks/useAddToCart'
-import type { AddToCartType } from '@/services/products.service'
+import { useCart } from '@/features/Cart/hooks/useCart'
+import type { AddCartItemRequest } from '@/features/Cart/types/cart.types'
+
 import type { ProductsResponse } from '@/types/products.type'
 
 import { ChevronRight, Heart, ShoppingCart } from 'lucide-react'
@@ -12,14 +13,14 @@ const ProductContent = ({ productObject }: { productObject: ProductsResponse['da
   const [addingProductId, setAddingProductId] = useState<number | null>(null)
   const [productCount, setProductCount] = useState(1)
 
-  const { mutate } = useAddToCart()
+  const { addItem } = useCart()
 
-  const handleAddToCart = (data: AddToCartType) => {
+  const handleAddToCart = (data: AddCartItemRequest) => {
     if (data) {
       setAddingProductId(data.product_id)
-      mutate(data, {
+      addItem(data, {
         onSuccess: (data) => {
-          toast.success(data.message)
+          toast.success('product store success')
         },
         onError: (error) => {
           console.log(error)
