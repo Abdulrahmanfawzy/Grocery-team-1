@@ -1,14 +1,47 @@
+export interface CartProduct {
+  id: number;
+  category_id: number;
+  type: string;
+  name: string;
+  brand: string;
+  descreption: string;
+  how_to_use: string | null;
+  image: string;
+  quantity: number;
+  price: string;
+  discount_price: string | null;
+  created_at: string | null;
+  updated_at: string | null;
+}
+
 export interface CartItem {
   id: number;
-  name: string;
-  image: string;
-  price: number;
+  cart_id: number;
+  product_id: number;
   quantity: number;
-  inStock: boolean;
+  created_at: string;
+  updated_at: string;
+  product: CartProduct;
 }
 
 export interface Cart {
+  id: number;
+  user_id: number;
+  created_at: string;
   items: CartItem[];
-  shipping: number;
-  address: string;
+}
+
+export interface CartResponse {
+  success: boolean;
+  message: string;
+  data: Cart;
+}
+
+export interface AddCartItemRequest {
+  product_id: number;
+  quantity: number;
+}
+
+export interface UpdateCartItemRequest {
+  quantity: number;
 }
