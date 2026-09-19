@@ -1,8 +1,7 @@
 import { LockKeyhole, Mail } from 'lucide-react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { toast } from 'react-toastify'
 
 import { Button, Input } from '../../../components'
 
@@ -13,14 +12,9 @@ import PasswordInput from '../components/PasswordInput'
 import AuthHeader from '../components/AuthHeader'
 
 import { useLogin } from '../hooks/useLogin'
-import { useDispatch } from 'react-redux'
-import { login } from '../store/authSlice'
 
 export default function LoginPage() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-
-  const { mutate: loginApi, isPending } = useLogin()
+  const { mutate: login, isPending } = useLogin()
 
   const defaultValues = {
     email: '',
@@ -32,39 +26,10 @@ export default function LoginPage() {
   })
 
   const onSubmit = (values: LoginFormValues) => {
-    loginApi(
-      {
-        ...values,
-        device_name: 'Grocery Plus Web',
-      },
-      {
-        onSuccess: async (response) => {
-          try {
-            // Save auth data in Redux
-            dispatch(
-              login({
-                token: response.token,
-              }),
-            )
-
-            toast.success(response.message)
-
-            navigate('/')
-          } catch {
-            localStorage.removeItem('auth_token')
-
-            toast.error('Login succeeded, but we could not load your account.')
-          }
-        },
-
-        onError: (error: any) => {
-          toast.error(
-            'Invalid email or password ',
-            // || error?.response?.data?.message
-          )
-        },
-      },
-    )
+    login({
+      ...values,
+      device_name: 'Grocery Plus Web',
+    })
   }
 
   return (

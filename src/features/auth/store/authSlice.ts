@@ -36,20 +36,7 @@ const authSlice = createSlice({
       localStorage.setItem(TOKEN_KEY, action.payload.token)
     },
 
-    // Register: save token + user
-    register: (
-      state,
-      action: PayloadAction<{
-        token: string
-        user: User
-      }>,
-    ) => {
-      state.token = action.payload.token
-      state.user = action.payload.user
-      state.isAuthenticated = true
 
-      localStorage.setItem(TOKEN_KEY, action.payload.token)
-    },
 
     // Save authenticated user
     setUser: (state, action: PayloadAction<User>) => {
@@ -70,7 +57,6 @@ const authSlice = createSlice({
 
 export const {
   login,
-  register,
   setUser,
   logout,
 } = authSlice.actions

@@ -1,21 +1,22 @@
 import api from '@/lib/axios'
 import type {
-    ForgotPasswordRequest,
-    GoogleLoginRequest,
+
     LoginRequest,
     LoginResponse,
     RegisterRequest,
     RegisterResponse,
-    ResendOtpRequest,
+
     ResetPasswordRequest,
+
     User,
-    VerifyOtpRequest,
+    VerifyOtpPayload,
+    VerifyOtpResponse,
 } from '../types/auth.types'
 
 export const authApi = {
 
 
-
+    // register
     register: async (
         data: RegisterRequest,
     ): Promise<RegisterResponse> => {
@@ -26,9 +27,18 @@ export const authApi = {
         return response.data
     },
 
-
-
-
+    // otp register
+    verifyOtp: async (data: VerifyOtpPayload): Promise<VerifyOtpResponse> => {
+        const response = await api.post<VerifyOtpResponse>("/auth/register/verify", data);
+        return response.data;
+    }
+    ,
+    forgotPasswordVerifyOtp: async (data: VerifyOtpPayload): Promise<VerifyOtpResponse> => {
+        const response = await api.post<VerifyOtpResponse>("/auth/password/verify-otp", data);
+        return response.data;
+    }
+    ,
+    // login
     login: async (data: LoginRequest) => {
         const response = await api.post<LoginResponse>(
             '/auth/login',
@@ -40,37 +50,42 @@ export const authApi = {
 
     getAuthUser: async () => {
         const response = await api.get<User>('/user')
-        console.log(response.data);
-        
         return response.data
     },
 
-    forgotPassword: async (data: ForgotPasswordRequest) => {
+
+
+    forgotPassword: async (email: string) => {
         const response = await api.post(
             '/auth/password/forgot',
-            data,
+            { email },
         )
 
         return response.data
     },
 
-    resendOtp: async (data: ResendOtpRequest) => {
+    resendPasswordForgotOtp: async (
+        challenge_id: string
+    ) => {
         const response = await api.post(
             '/auth/password/resend-otp',
-            data,
+            { challenge_id },
         )
 
         return response.data
     },
-
-    verifyOtp: async (data: VerifyOtpRequest) => {
+    resendPasswordRegisterOtp: async (
+        challenge_id: string
+    ) => {
         const response = await api.post(
-            '/auth/password/verify-otp',
-            data,
+            '/auth/register/resend-otp',
+            { challenge_id },
         )
 
         return response.data
     },
+
+
 
     resetPassword: async (data: ResetPasswordRequest) => {
         const response = await api.post(
@@ -81,13 +96,13 @@ export const authApi = {
         return response.data
     },
 
-    googleLogin: async (data: GoogleLoginRequest) => {
-        const response = await api.post(
-            '/auth/google',
-            data,
-        )
+    // googleLogin: async (data: GoogleLoginRequest) => {
+    //     const response = await api.post(
+    //         '/auth/google',
+    //         data,
+    //     )
 
-        return response.data
-    },
+    //     return response.data
+    // },
 }
 
