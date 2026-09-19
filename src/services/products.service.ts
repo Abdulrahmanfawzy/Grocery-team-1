@@ -10,7 +10,7 @@ export interface GetProductsParams {
   category_id?: number | undefined
   brand?: string | undefined
   type?: string | undefined
-  search: string | undefined
+  search?: string | undefined
 }
 
 export const getProducts = async (params?: GetProductsParams): Promise<ProductsResponse> => {

@@ -2,13 +2,17 @@ import AppBreadcrumb from '@/components/common/AppBreadcrumb'
 import { useParams } from 'react-router-dom'
 import ProductGallery from '../components/ProductGallery'
 import ProductContent from '../components/ProductContent'
-// import image from '@/assets/images/products/img.png'
-// import type { Product } from '@/types/products/products.type'
-// import ProductCarousel from '@/components/common/ProductCarousel'
-// import ProductCard from '@/components/common/ProductCard'
+import ProductCarousel from '@/components/common/ProductCarousel'
+import ProductCard from '@/components/common/ProductCard'
 import ProductTabs from '../components/ProductTabs'
 import useProductDetails from '../hooks/useProductDetails'
-import { LoadingSpinner } from '@/components'
+import ProductDetailsSkeleton from '../components/ProductDetailsSkeleton'
+import { useProducts } from '@/hooks/useProducts'
+import type { ProductsResponse } from '@/types/products.type'
+import type { AddCartItemRequest } from '@/features/Cart/types/cart.types'
+import { useCart } from '@/features/Cart/hooks/useCart'
+import { useState } from 'react'
+import ProductSkeleton from '@/components/common/ProductSkeleton'
 
 function ProductDetails() {
   // Get Params From URL
@@ -16,10 +20,36 @@ function ProductDetails() {
 
   const { data: product, isLoading, isSuccess } = useProductDetails(Number(productId))
 
+  const { data: products, isLoading: isProductsLoading } = useProducts({ per_page: 5 })
+  console.log('from page details', products)
+
+  const [addingProductId, setAddingProductId] = useState<number | null>(null)
+  const { addItem } = useCart()
+
+  const handleAddToCart = (data: AddCartItemRequest) => {
+    if (data) {
+      setAddingProductId(data.product_id)
+      addItem(data, {
+        onSuccess: (data) => {
+          console.log('addItem', data)
+
+          // toast.success(data.message)
+        },
+        onError: (error) => {
+          console.log('addItem', error.response)
+          toast.error(error?.response?.data?.message)
+        },
+        onSettled() {
+          setAddingProductId(null)
+        },
+      })
+    }
+  }
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <LoadingSpinner size="lg" />
+        <ProductDetailsSkeleton />
       </div>
     )
   }
@@ -67,22 +97,43 @@ function ProductDetails() {
         </div>
 
         {/* Carousel 1  */}
-        {/* <div className="my-14">
-        <h2 className="text-20 text-black pb-4 px-2">Frequently Bought Together</h2>
-        <ProductCarousel
-          products={products}
-          element={(product: Product) => <ProductCard product={product} />}
-        />
-      </div> */}
+        <div className="my-14">
+          <h2 className="text-20 text-black pb-4 px-2">Frequently Bought Together</h2>
+          {isProductsLoading ? (
+            Array.from({ length: 6 }).map((_, index) => <ProductSkeleton key={index} />)
+          ) : (
+            <ProductCarousel
+              products={products && products?.data}
+
+              element={(product: ProductsResponse['data'][0]) => (
+                <ProductCard
+                  handleAddToCart={handleAddToCart}
+                  isAddToCart={addingProductId === product.id}
+                  product={product}
+                />
+              )}
+            />
+          )}
+        </div>
 
         {/* Carousel 2 */}
-        {/* <div className="my-14">
-        <h2 className="text-20 text-black pb-4 px-2">More To Explore</h2>
-        <ProductCarousel
-          products={products}
-          element={(product: Product) => <ProductCard product={product} />}
-        />
-      </div> */}
+        <div className="my-14">
+          <h2 className="text-20 text-black pb-4 px-2">Frequently Bought Together</h2>
+          {isProductsLoading ? (
+            Array.from({ length: 6 }).map((_, index) => <ProductSkeleton key={index} />)
+          ) : (
+            <ProductCarousel
+              products={products && products?.data}
+              element={(product: ProductsResponse['data'][0]) => (
+                <ProductCard
+                  handleAddToCart={handleAddToCart}
+                  isAddToCart={addingProductId === product.id}
+                  product={product}
+                />
+              )}
+            />
+          )}
+        </div>
       </div>
     )
   )
