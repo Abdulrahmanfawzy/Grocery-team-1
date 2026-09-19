@@ -9,14 +9,14 @@ import OTPImg from '@/assets/images/auth/OTP.png'
 import ButtonBack from '../components/ButtonBack'
 import { verifySchema, type VerifyFormValues } from '../schemas/auth.schema'
 import { useSearchParams } from 'react-router-dom'
-import { useRegisterVerifyOtp } from '../hooks/useRegisterVerifyOtp'
-import { useRegisterResendOtp } from '../hooks/useRegisterResendOtp'
+import { useVerifyOtp } from '../hooks/useVerifyOtp'
+import { useForgetResendOtp } from '../hooks/useForgetResendOtp'
 
-export default function VerifyPage() {
+export default function VerifyForgetPasswordPage() {
   const [searchParams] = useSearchParams()
   const challengeId = searchParams.get('challenge_id')
-  const { mutate: verifyOtp, isPending } = useRegisterVerifyOtp()
-  const { mutate: resendOtp } = useRegisterResendOtp()
+  const { mutate: verifyOtp, isPending } = useVerifyOtp()
+  const { mutate: resendOtp } = useForgetResendOtp()
   const [timeLeft, setTimeLeft] = useState(90)
 
   const form = useForm<VerifyFormValues>({
@@ -81,7 +81,7 @@ export default function VerifyPage() {
           <h1 className="text-xl font-semibold text-neutral-800">Enter verification code</h1>
 
           {/* Phone */}
-          <p className="mt-1 text-xs text-neutral-500">We sent a code to (+20) 1163982057</p>
+          <p className="mt-1 text-xs text-neutral-500">We sent a code to Your Email</p>
 
           {/* Form */}
           <form onSubmit={form.handleSubmit(onSubmit)}>
