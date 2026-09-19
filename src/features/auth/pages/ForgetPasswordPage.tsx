@@ -5,17 +5,19 @@ import { Phone } from 'lucide-react'
 import { Button, Card, Input } from '../../../components'
 import ButtonBack from '../components/ButtonBack'
 import { forgetPasswordSchema, type ForgetPasswordFormValues } from '../schemas/auth.schema'
+import { useForgotPassword } from '../hooks/useForgotPassword'
 
 export default function ForgetPasswordPage() {
+  const { mutate: forgetPassword, isPending } = useForgotPassword()
   const form = useForm<ForgetPasswordFormValues>({
     resolver: zodResolver(forgetPasswordSchema),
     defaultValues: {
-      phone: '',
+      email: '',
     },
   })
 
   const onSubmit = (data: ForgetPasswordFormValues) => {
-    console.log(data)
+    forgetPassword(data.email)
   }
 
   return (
@@ -31,20 +33,20 @@ export default function ForgetPasswordPage() {
           <div className="mb-12">
             <h1 className="text-lg font-semibold lg:text-xl">Password Recovery</h1>
 
-            <p className="mt-1 px-10 text-xs">Enter your Mobile Number to recover your password</p>
+            <p className="mt-1 px-10 text-xs">Enter your email address to recover your password</p>
           </div>
 
-          {/* Phone */}
+          {/* Email */}
           <Controller
-            name="phone"
+            name="email"
             control={form.control}
             render={({ field, fieldState }) => (
               <div className="text-left">
                 <Input
                   {...field}
-                  id="phone"
-                  type="tel"
-                  placeholder="Enter your Number"
+                  id="email"
+                  type="email"
+                  placeholder="Enter your Email"
                   Icon={<Phone size={19} />}
                 />
 
@@ -56,7 +58,13 @@ export default function ForgetPasswordPage() {
           />
 
           {/* Submit */}
-          <Button type="submit" className="mt-6 w-full" size="xl">
+          <Button
+            disabled={isPending}
+            isLoading={isPending}
+            type="submit"
+            className="mt-6 w-full"
+            size="xl"
+          >
             Verify
           </Button>
         </form>

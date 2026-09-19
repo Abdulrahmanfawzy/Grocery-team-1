@@ -14,12 +14,9 @@ import AuthHeader from '../components/AuthHeader'
 import { registerSchema, type RegisterFormValues } from '../schemas/auth.schema'
 
 import { useRegister } from '../hooks/useRegister'
-import { useDispatch } from 'react-redux'
-import { register } from '../store/authSlice'
 
 export default function RegisterPage() {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const { mutate: registerApi, isPending } = useRegister()
   const defaultValues = {
@@ -44,16 +41,8 @@ export default function RegisterPage() {
       },
       {
         onSuccess: (response) => {
-          dispatch(
-            register({
-              user: response.data.user,
-              token: response.data.token,
-            }),
-          )
-
           toast.success(response.message)
-
-          navigate('/')
+          navigate(`/verify?challenge_id=${response.data.challenge_id}`)
         },
 
         onError: (error: any) => {

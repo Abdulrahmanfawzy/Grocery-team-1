@@ -1,4 +1,10 @@
 
+export type ErrorResponse = {
+  message: string
+  success: boolean
+
+}
+
 // user types
 export type AuthUserResponse = {
   data: User[]
@@ -28,16 +34,15 @@ export type RegisterResponse = {
   message: string
   data: {
     user: User
-    token: string
-    token_type: string
+    verification_required: boolean,
+    challenge_id: string,
+    channel: string,
+    destination: string,
+    expires_at: string
+
   }
+
 }
-
-// export type ApiValidationError = {
-//   message: string
-//   errors?: Record<string, string[]>
-// }
-
 
 
 // login request and response types
@@ -53,5 +58,30 @@ export type LoginResponse = {
   mfa_required: boolean
   token: string
   token_type: string
+  user: User
+
 }
 
+
+
+
+// otp  registration verification request and response types
+export type VerifyOtpPayload = {
+  challenge_id: string
+  otp: string
+
+}
+
+export type VerifyOtpResponse = {
+  success: boolean,
+  message: string
+}
+
+// reset password request and response types
+
+export type ResetPasswordRequest = {
+  challenge_id: string
+  reset_token: string
+  password: string
+  password_confirmation: string
+}

@@ -1,8 +1,19 @@
 import { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import { ChevronDown, Grid2X2, Menu, Search, ShoppingCart, UserRound, X } from 'lucide-react'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import {
+  ChevronDown,
+  Grid2X2,
+  LogOut,
+  Menu,
+  Search,
+  ShoppingCart,
+  UserRound,
+  X,
+} from 'lucide-react'
 
-import { useAppSelector } from '@/app/hook'
+import { useAppDispatch, useAppSelector } from '@/app/hook'
+import { Button } from '../ui'
+import { logout } from '@/features/auth/store/authSlice'
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   `inline-flex items-center gap-1 text-xs font-medium transition-colors ${
@@ -10,7 +21,10 @@ const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   }`
 
 export function Navbar() {
-  const { user } = useAppSelector((store) => store.auth)
+  // auth
+  const navigate = useNavigate()
+  const { user, isAuthenticated } = useAppSelector((store) => store.auth)
+  const dispatch = useAppDispatch()
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [language, setLanguage] = useState<'EN' | 'AR'>('EN')
@@ -85,13 +99,14 @@ export function Navbar() {
             />
 
             {/* Search button */}
-            <button
+            <Link
+              to={isAuthenticated ? `/profile` : '/login'}
               type="submit"
               aria-label="Search"
               className="flex w-10 shrink-0 items-center justify-center bg-app-main text-white transition-colors hover:bg-app-main/90"
             >
               <Search size={16} />
-            </button>
+            </Link>
           </div>
         </form>
 
@@ -118,14 +133,34 @@ export function Navbar() {
 
           {/* Profile */}
           <Link
-            to="/login"
+            to={isAuthenticated ? `/profile` : '/login'}
             className="inline-flex items-center gap-1.5 rounded-md bg-app-main px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-app-main/90"
           >
-            <UserRound size={14} />
-             Abdo
+            {isAuthenticated ? (
+              <>
+                {' '}
+                <UserRound size={14} /> {user?.name}
+              </>
+            ) : (
+              'Login'
+            )}
           </Link>
         </div>
+        {/* logout */}
 
+        {isAuthenticated && (
+          <Button
+            onClick={() => {
+              dispatch(logout())
+              navigate('/login')
+            }}
+            variant={'destructive'}
+            size="sm"
+            className={'h-10 text-xs'}
+          >
+            <LogOut size={14} /> logout
+          </Button>
+        )}
         {/* Mobile menu button */}
         <button
           type="button"
@@ -216,7 +251,7 @@ export function Navbar() {
                 className="inline-flex w-fit items-center gap-1.5 rounded-md bg-app-main px-3 py-2 text-xs font-medium text-white"
               >
                 <UserRound size={14} />
-                Sarah's Profile
+                {user?.name || 'Abdelrahman'}
               </Link>
             </div>
           </div>

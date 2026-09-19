@@ -4,21 +4,43 @@ import { CheckCircle2, ShieldCheck } from 'lucide-react'
 
 import { Button, Card } from '../../../components'
 
-import ButtonBack from '../components/ButtonBack'
 import { resetPasswordSchema, type ResetPasswordFormValues } from '../schemas/auth.schema'
 import PasswordInput from '../components/PasswordInput'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useResetPassword } from '../hooks/useResetPassword'
+import { toast } from 'react-toastify'
 
 export default function ResetPasswordPage() {
+  const [searchParams] = useSearchParams()
+  const challengeId = searchParams.get('challenge_id')
+  const resetToken = searchParams.get('reset_token')
+
+  const { mutate: restPassword, isPending } = useResetPassword()
+  const navigate = useNavigate()
+
   const form = useForm<ResetPasswordFormValues>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
       password: '',
-      confirmPassword: '',
+      password_confirmation: '',
     },
   })
 
   const onSubmit = (data: ResetPasswordFormValues) => {
-    console.log(data)
+    restPassword(
+      {
+        challenge_id: challengeId || '',
+        reset_token: resetToken || '',
+        password: data.password,
+        password_confirmation: data.password_confirmation,
+      },
+      {
+        onSuccess: (response) => {
+          toast.success(response.message)
+          navigate('/login')
+        },
+      },
+    )
   }
 
   return (
@@ -37,11 +59,6 @@ export default function ResetPasswordPage() {
     >
       <div className="flex min-h-152.5 items-center justify-center">
         <div className="w-full max-w-md px-4 md:px-0">
-          {/* Back Button */}
-          <div className="hidden lg:block">
-            <ButtonBack path="/forget-password" />
-          </div>
-
           {/* Header */}
           <div className="mb-6 lg:text-center">
             <h1
@@ -94,12 +111,12 @@ export default function ResetPasswordPage() {
             />
             {/* Confirm Password */}
             <Controller
-              name="confirmPassword"
+              name="password_confirmation"
               control={form.control}
               render={({ field, fieldState }) => (
                 <div className="mb-5">
                   <label
-                    htmlFor="confirmPassword"
+                    htmlFor="password_confirmation"
                     className="
                       mb-2
                       block
@@ -112,7 +129,7 @@ export default function ResetPasswordPage() {
                   </label>
                   <PasswordInput
                     {...field}
-                    id="confirmPassword"
+                    id="password_confirmation"
                     placeholder="Confirm your password"
                     Icon={<CheckCircle2 size={19} />}
                   />
@@ -151,7 +168,13 @@ export default function ResetPasswordPage() {
             </div>
 
             {/* Submit */}
-            <Button type="submit" size="xl" className="w-full">
+            <Button
+              disabled={isPending}
+              isLoading={isPending}
+              type="submit"
+              size="xl"
+              className="w-full"
+            >
               Done
             </Button>
           </form>
