@@ -1,14 +1,16 @@
 import { useSearchParams } from 'react-router-dom'
 import FilterHeaderTitle from './FilterHeaderTitle'
 import { Slider } from '@/components/ui/slider'
+import { useState } from 'react'
+import { Button } from '@/components'
 
 const FilterByPrice = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const minPrice = Number(searchParams.get('min_price')) || 10
-  const maxPrice = Number(searchParams.get('max_price')) || 500
-
-  const priceRange = [minPrice, maxPrice]
+  const [priceRange, setPriceRange] = useState([
+    Number(searchParams.get('min_price')) || 10,
+    Number(searchParams.get('max_price')) || 500,
+  ])
 
   const handlePriceChange = (value: number[]) => {
     const newParams = new URLSearchParams(searchParams)
@@ -36,12 +38,13 @@ const FilterByPrice = () => {
       <Slider
         value={priceRange}
         onValueChange={(e) => {
-          handlePriceChange(e as number[])
+          setPriceRange(e as number[])
         }}
         min={0}
         max={500}
         step={5}
       />
+      <Button onClick={() => handlePriceChange(priceRange)}>Filter by price</Button>
     </div>
   )
 }
