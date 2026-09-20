@@ -9,9 +9,9 @@ export interface Product {
   id: number
   category: ProductCategory
   name: string
-  description: string
+  description: string | null
   how_to_use: string | null
-  images: string[]
+  image: string[]
   quantity: number
   price: string
   discount_price: string | null
@@ -23,8 +23,7 @@ export interface Product {
 
 export interface ProductCategory {
   id: number
-  name_en: string
-  name_ar: string
+  name: string
 }
 
 export interface Rating {
