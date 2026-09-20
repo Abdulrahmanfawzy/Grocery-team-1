@@ -1,16 +1,11 @@
 import { Button } from '@/components'
 import { Download, Trash2 } from 'lucide-react'
+import { useDownloadSetting } from '../../hooks/setting/useDownloadSetting'
+import { useDeleteSetting } from '../../hooks/setting/useDeleteSetting'
 
 export default function DataManagementSection() {
-  const handleDownloadData = () => {
-    // TODO:
-    // call your download data API here
-  }
-
-  const handleDeleteAccount = () => {
-    // TODO:
-    // Open confirmation dialog before deleting.
-  }
+  const { mutate: downloadSetting, isPending: isPendingDownload } = useDownloadSetting()
+  const { mutate: deletSetting, isPending: isPendingDelete } = useDeleteSetting()
 
   return (
     <section className="rounded-md border border-gray-200 bg-card px-4 py-7">
@@ -21,9 +16,11 @@ export default function DataManagementSection() {
         <Button
           type="button"
           variant="outline"
-          onClick={handleDownloadData}
+          onClick={() => { downloadSetting() }}
           size={'lg'}
           className={'w-full h-18 px-6'}
+          disabled={isPendingDownload}
+          isLoading={isPendingDownload}
         >
           <div className="flex flex-col items-start">
             <span className="text-xs font-medium text-foreground">Download Your Data</span>
@@ -40,7 +37,9 @@ export default function DataManagementSection() {
         <Button
           type="button"
           variant="destructive"
-          onClick={handleDeleteAccount}
+          onClick={() => { deletSetting() }}
+          disabled={isPendingDelete}
+          isLoading={isPendingDelete}
           className={'w-full h-18 px-6 flex  justify-start'}
         >
           <Trash2 size={25} />
