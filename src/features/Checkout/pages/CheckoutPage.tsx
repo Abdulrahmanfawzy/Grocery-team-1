@@ -56,7 +56,7 @@ const CheckoutPage = () => {
     defaultAddressId,
     isLoading: isLoadingAddresses,
     isError: isAddressError,
-  } = useAddresses();
+  } = useAddresses(currentStep === 3);
 
   const handleConfirmOrder = async () => {
     try {
@@ -179,7 +179,7 @@ const CheckoutPage = () => {
             Address Error
         ========================= */}
 
-        {isAddressError && (
+        {isAddressError && currentStep === 3 && (
           <div className="mx-auto mb-6 max-w-4xl rounded-lg border border-error/20 bg-red-50 p-4 text-sm text-error">
             Failed to load your address.
           </div>

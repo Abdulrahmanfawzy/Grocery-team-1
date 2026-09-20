@@ -6,12 +6,14 @@ const OrderSummary = () => {
 
   const subtotal =
     cartData?.items?.reduce(
-      (total, item) =>
-        total + item.price * item.quantity,
+      (total, item) => {
+        const price = Number(item.product.discount_price || item.product.price)
+        return total + price * item.quantity
+      },
       0,
     ) ?? 0;
 
-  const shipping = cartData?.shipping ?? 0;
+  const shipping = Number((cartData as any)?.shipping ?? 0);
 
   const total = subtotal + shipping;
 

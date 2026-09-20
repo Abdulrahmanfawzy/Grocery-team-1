@@ -3,7 +3,7 @@ import { authApi } from '../services/auth.service'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { login, setUser } from '../store/authSlice'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import type { AxiosError } from 'axios'
 
 interface ErrorResponse {

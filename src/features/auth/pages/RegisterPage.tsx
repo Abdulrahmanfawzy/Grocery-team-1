@@ -2,7 +2,7 @@ import { LockKeyhole, Mail, Phone, UserRound, CheckCircle2 } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 
 import { Button, Input } from '../../../components'
 import { Checkbox } from '../../../components/ui/checkbox'

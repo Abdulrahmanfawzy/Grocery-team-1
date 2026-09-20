@@ -19,11 +19,14 @@ const CartSummary = () => {
   };
   const subtotal =
     data?.items.reduce(
-      (total, item) => total + item.price * item.quantity,
+      (total, item) => {
+        const price = Number(item.product.discount_price || item.product.price)
+        return total + price * item.quantity
+      },
       0
     ) ?? 0;
 
-  const shipping = data?.shipping ?? 0;
+  const shipping = Number((data as any)?.shipping ?? 0);
   const total = subtotal + shipping;
 
   return (

@@ -5,10 +5,11 @@ import {
   getAddressById,
 } from "@/services/address.service";
 
-export const useAddresses = () => {
+export const useAddresses = (enabled = true) => {
   const addressesQuery = useQuery({
     queryKey: ["addresses"],
     queryFn: getAddresses,
+    enabled,
   });
 
   const defaultAddress = addressesQuery.data?.find(
