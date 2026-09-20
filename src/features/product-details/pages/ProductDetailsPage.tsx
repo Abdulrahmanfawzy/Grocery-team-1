@@ -9,13 +9,9 @@ import useProductDetails from '../hooks/useProductDetails'
 import ProductDetailsSkeleton from '../components/ProductDetailsSkeleton'
 import { useProducts } from '@/hooks/useProducts'
 import type { ProductsResponse } from '@/types/products.type'
-import type { AddCartItemRequest } from '@/features/Cart/types/cart.types'
-import { useCart } from '@/features/Cart/hooks/useCart'
-import { useState } from 'react'
+
 import ProductSkeleton from '@/components/common/ProductSkeleton'
-import { toast } from 'react-toastify'
 import { useProductsBoughtTogether } from '@/hooks/useProductsBoughtTogether'
-import { useAddToCart } from '@/hooks/useAddToCart'
 
 function ProductDetails() {
   // Get Params From URL
@@ -30,9 +26,6 @@ function ProductDetails() {
 
   // Fetch More Products
   const { data: products, isLoading: isProductsLoading } = useProducts({})
-
-  // Add To Cart Hook
-  const { handleAddToCart, addingProductId } = useAddToCart()
 
   // Loading State
   if (isLoading) {
@@ -93,13 +86,7 @@ function ProductDetails() {
           ) : (
             <ProductCarousel
               products={productsBoughtTogether && productsBoughtTogether?.data}
-              element={(product: ProductsResponse['data'][0]) => (
-                <ProductCard
-                  handleAddToCart={handleAddToCart}
-                  isAddToCart={addingProductId === product.id}
-                  product={product}
-                />
-              )}
+              element={(product: ProductsResponse['data'][0]) => <ProductCard product={product} />}
             />
           )}
         </div>
@@ -112,13 +99,7 @@ function ProductDetails() {
           ) : (
             <ProductCarousel
               products={products && products?.data}
-              element={(product: ProductsResponse['data'][0]) => (
-                <ProductCard
-                  handleAddToCart={handleAddToCart}
-                  isAddToCart={addingProductId === product.id}
-                  product={product}
-                />
-              )}
+              element={(product: ProductsResponse['data'][0]) => <ProductCard product={product} />}
             />
           )}
         </div>

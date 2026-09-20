@@ -6,15 +6,10 @@ import { Badge } from '../ui/badge'
 import QuantitySelector from './QuantitySelector'
 import { useState } from 'react'
 import type { ProductsResponse } from '@/types/products.type'
-import { useCart } from '@/features/Cart/hooks/useCart'
+import { useAddToCart } from '@/hooks/useAddToCart'
 
-const ProductCard = ({
-  product,
-}: {
-  product: ProductsResponse['data'][0]
-}) => {
+const ProductCard = ({ product }: { product: ProductsResponse['data'][0] }) => {
   const [productCount, setProductCount] = useState(1)
-  const { isAddingItem, addItem } = useCart()
 
   const handleQuantityChange = (count: number) => {
     setProductCount(count)
@@ -23,23 +18,14 @@ const ProductCard = ({
   const discount = () => {
     if (!product.discount_price) return 0
 
-    const discountAmount =
-      Number(product.price) - Number(product.discount_price)
+    const discountAmount = Number(product.price) - Number(product.discount_price)
 
-    const discountPercent =
-      (discountAmount / Number(product.price)) * 100
+    const discountPercent = (discountAmount / Number(product.price)) * 100
 
     return Math.round(discountPercent)
   }
 
-  const handleAddToCart = () => {
-    addItem({
-      product_id: product.id,
-      quantity: productCount,
-    })
-
-    setProductCount(1)
-  }
+  const { handleAddToCart, isAddingItem } = useAddToCart()
 
   return (
     <Card className="w-full overflow-hidden rounded-md border border-border-color bg-white p-0 shadow-none">
@@ -47,31 +33,21 @@ const ProductCard = ({
         <div className="flex items-center gap-2">
           {product.quantity !== 0 && <Badge>In Stock</Badge>}
 
-          {product.discount_price && (
-            <Badge>Save {discount()}%</Badge>
-          )}
+          {product.discount_price && <Badge>Save {discount()}%</Badge>}
         </div>
 
         <Link to={`/products/${product.id}`}>
           <div className="mt-0 flex h-50 items-center justify-center">
-            <img
-              src={product.image[0]}
-              alt={product.name}
-              className="h-full w-full object-cover"
-            />
+            <img src={product.image[0]} alt={product.name} className="h-full w-full object-cover" />
           </div>
         </Link>
 
         <div className="mt-8">
           <div className="flex flex-col items-center justify-center gap-2">
-            <h3 className="text-base font-normal text-sidebar-color">
-              {product.name}
-            </h3>
+            <h3 className="text-base font-normal text-sidebar-color">{product.name}</h3>
 
             <div className="flex items-center gap-2">
-              <span className="text-base text-sidebar-color">
-                £ {product.price}
-              </span>
+              <span className="text-base text-sidebar-color">£ {product.price}</span>
 
               {product.discount_price && (
                 <span className="text-base text-silver line-through">
@@ -93,14 +69,15 @@ const ProductCard = ({
               />
             ))}
 
-            <span className="ml-1 text-xs text-silver">
-              ({product.average_rating}/5)
-            </span>
+            <span className="ml-1 text-xs text-silver">({product.average_rating}/5)</span>
           </div>
 
           <div className="mt-3 flex items-center gap-2">
             <Button
-              onClick={handleAddToCart}
+              onClick={() => {
+                handleAddToCart({ product_id: product.id, quantity: productCount })
+                handleQuantityChange(1)
+              }}
               variant="default"
               className="flex-1"
               size="lg"
@@ -116,10 +93,7 @@ const ProductCard = ({
               )}
             </Button>
 
-            <QuantitySelector
-              countChange={handleQuantityChange}
-              productCount={productCount}
-            />
+            <QuantitySelector countChange={handleQuantityChange} productCount={productCount} />
           </div>
         </div>
       </CardContent>

@@ -75,12 +75,7 @@ const ProductsList = () => {
         {/* Success */}
         {isSuccess &&
           data?.data.map((product: ProductsResponse['data'][0]) => (
-            <ProductCard
-              isAddToCart={addingProductId === product.id}
-              handleAddToCart={handleAddToCart}
-              key={product.id}
-              product={product}
-            />
+            <ProductCard key={product.id} product={product} />
           ))}
       </div>
       {/* If No Products */}

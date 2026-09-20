@@ -1,7 +1,7 @@
 import { useBestSellers } from '../hooks/useHomeProducts'
 
 import { Countdown } from './CountDown'
-import  ProductCard  from '@/components/common/ProductCard'
+import ProductCard from '@/components/common/ProductCard'
 
 export function BestSellersSection() {
   const { data, isLoading, isError } = useBestSellers(1)
@@ -19,21 +19,15 @@ export function BestSellersSection() {
       </div>
 
       {isLoading && (
-        <div className="py-8 text-center text-sm text-slate-400">
-          Loading best sellers...
-        </div>
+        <div className="py-8 text-center text-sm text-slate-400">Loading best sellers...</div>
       )}
 
       {isError && (
-        <div className="py-8 text-center text-sm text-red-500">
-          Failed to load best sellers.
-        </div>
+        <div className="py-8 text-center text-sm text-red-500">Failed to load best sellers.</div>
       )}
 
       {!isLoading && !isError && products.length === 0 && (
-        <div className="py-8 text-center text-sm text-slate-400">
-          No best sellers available.
-        </div>
+        <div className="py-8 text-center text-sm text-slate-400">No best sellers available.</div>
       )}
 
       {!isLoading && !isError && products.length > 0 && (
@@ -41,15 +35,11 @@ export function BestSellersSection() {
           {products.slice(0, 5).map((product) => (
             <div key={product.id} className="relative min-w-0">
               <ProductCard product={product} />
-
               <div className="px-3 pb-2">
                 <div className="h-1 overflow-hidden rounded-full bg-slate-100">
                   <div className="h-full w-1/2 bg-app-main" />
                 </div>
-
-                <p className="mt-1 text-[9px] text-slate-500">
-                  Sold: {product.total_sold ?? 0}
-                </p>
+                <p className="mt-1 text-[9px] text-slate-500">Sold: {product.total_sold ?? 0}</p>
               </div>
             </div>
           ))}

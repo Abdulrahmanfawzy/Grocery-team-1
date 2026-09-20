@@ -8,7 +8,7 @@ import { useState } from 'react'
 const ProductContent = ({ productObject }: { productObject: ProductsResponse['data'][0] }) => {
   const [productCount, setProductCount] = useState(1)
 
-  const { handleAddToCart, addingProductId } = useAddToCart()
+  const { handleAddToCart, isAddingItem } = useAddToCart()
 
   const ProductQuantityChange = (count: number) => {
     setProductCount(count)
@@ -51,7 +51,7 @@ const ProductContent = ({ productObject }: { productObject: ProductsResponse['da
       {/* Actions (Add to Cart) , (Add to favorite ) */}
       <div className="flex items-center gap-4">
         <Button
-          disabled={addingProductId === productObject.id}
+          disabled={isAddingItem}
           onClick={() => {
             handleAddToCart({
               product_id: productObject.id,
@@ -62,7 +62,7 @@ const ProductContent = ({ productObject }: { productObject: ProductsResponse['da
           size={'xl'}
           className="flex items-center gap-3"
         >
-          {addingProductId === productObject.id ? (
+          {isAddingItem ? (
             'Loading...'
           ) : (
             <>
