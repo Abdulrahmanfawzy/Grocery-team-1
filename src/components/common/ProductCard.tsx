@@ -44,11 +44,7 @@ const ProductCard = ({
         {/* Product Image */}
         <Link to={`/products/${product.id}`}>
           <div className="mt-0 h-50 flex items-center justify-center">
-            <img
-              src={product.images[0]}
-              alt={product.name}
-              className="h-full w-full object-cover"
-            />
+            <img src={product.image} alt={product.name} className="h-full w-full object-cover" />
           </div>
         </Link>
 
