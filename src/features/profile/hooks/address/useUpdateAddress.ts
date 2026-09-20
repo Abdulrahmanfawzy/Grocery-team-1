@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { addressApi } from "../../services/Address.service"
 import type { Address } from "../../types/address.types"
-import { toast } from "react-toastify"
+import { toast } from "sonner"
 import type { EditAddressFormValues } from "../../schema/address.schema"
 
 export default function useUpdateAddress() {
