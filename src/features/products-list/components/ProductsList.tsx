@@ -3,12 +3,11 @@ import ProductCard from '../../../components/common/ProductCard'
 import type { ProductsResponse } from '@/types/products.type'
 import ProductsPagination from './ProductsPagination'
 import { useSearchParams } from 'react-router-dom'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import ProductSkeleton from '@/components/common/ProductSkeleton'
 import { toast } from 'sonner'
 import EmptyProducts from '@/components/common/EmptyProducts'
-import { useCart } from '@/features/Cart/hooks/useCart'
-import type { AddCartItemRequest } from '@/features/Cart/types/cart.types'
+
 import { useAddToCart } from '@/hooks/useAddToCart'
 
 const ProductsList = () => {
