@@ -28,7 +28,7 @@ import type {
     CheckoutData,
     PaymentInfo,
 } from "../../types/checkout.types";
-
+import { useAddresses } from "../../hooks/useAddresses";
 interface PaymentStepsProps {
     data: CheckoutData;
     onChange: (data: CheckoutData) => void;
@@ -101,7 +101,7 @@ export const PaymentSteps = ({
     onContinue,
 }: PaymentStepsProps) => {
     const { data: cartData } = useCart();
-
+const { defaultAddress } = useAddresses();
     const form = useForm<PaymentFormValues>({
         resolver: zodResolver(paymentSchema),
         defaultValues: {
@@ -125,15 +125,17 @@ export const PaymentSteps = ({
     const paymentMethod = form.watch("paymentMethod");
     const selectedCard = form.watch("selectedCard");
 
-    const subtotal =
-        cartData?.items?.reduce(
-            (total, item) => total + item.price * item.quantity,
-            0,
-        ) ?? 0;
+   const subtotal =
+  cartData?.items?.reduce(
+    (total, item) =>
+      total +
+      Number(item.product.discount_price || item.product.price) *
+        item.quantity,
+    0,
+  ) ?? 0;
 
-    const shipping = cartData?.shipping ?? 0;
-    const total = subtotal + shipping;
-
+const shipping = 0;
+const total = subtotal + shipping;
     const handleSubmit = (values: PaymentFormValues) => {
         onChange({
             ...data,
@@ -592,9 +594,10 @@ export const PaymentSteps = ({
                                     </p>
 
                                     <p>
-                                        {cartData?.address ||
-                                            "Villa 14, Street 23, District 5, New Cairo, Cairo 11835"}
-                                    </p>
+  {defaultAddress
+    ? `${defaultAddress.address}, ${defaultAddress.city}, ${defaultAddress.provenance}, ${defaultAddress.postal_code}`
+    : "No address found"}
+</p>
                                 </div>
                             </div>
                         </div>

@@ -9,6 +9,7 @@ import { toast } from 'react-toastify'
 import EmptyProducts from '@/components/common/EmptyProducts'
 import { useCart } from '@/features/Cart/hooks/useCart'
 import type { AddCartItemRequest } from '@/features/Cart/types/cart.types'
+import { useAddToCart } from '@/hooks/useAddToCart'
 
 const ProductsList = () => {
   const productsListRef = useRef(null)
@@ -60,28 +61,7 @@ const ProductsList = () => {
   }, [error, isError])
 
   // Handle Add Product to cart
-  const [addingProductId, setAddingProductId] = useState<number | null>(null)
-  const { addItem } = useCart()
-
-  const handleAddToCart = (data: AddCartItemRequest) => {
-    if (data) {
-      setAddingProductId(data.product_id)
-      addItem(data, {
-        onSuccess: (data) => {
-          console.log('addItem', data)
-
-          // toast.success(data.message)
-        },
-        onError: (error) => {
-          console.log('addItem', error.response)
-          toast.error(error?.response?.data?.message)
-        },
-        onSettled() {
-          setAddingProductId(null)
-        },
-      })
-    }
-  }
+  const { handleAddToCart, addingProductId } = useAddToCart()
 
   return (
     <>

@@ -1,37 +1,14 @@
 import { Button } from '@/components'
 import QuantitySelector from '@/components/common/QuantitySelector'
-import { useCart } from '@/features/Cart/hooks/useCart'
-import type { AddCartItemRequest } from '@/features/Cart/types/cart.types'
-
+import { useAddToCart } from '@/hooks/useAddToCart'
 import type { ProductsResponse } from '@/types/products.type'
-
 import { ChevronRight, Heart, ShoppingCart } from 'lucide-react'
 import { useState } from 'react'
-import { toast } from 'react-toastify'
 
 const ProductContent = ({ productObject }: { productObject: ProductsResponse['data'][0] }) => {
-  const [addingProductId, setAddingProductId] = useState<number | null>(null)
   const [productCount, setProductCount] = useState(1)
 
-  const { addItem } = useCart()
-
-  const handleAddToCart = (data: AddCartItemRequest) => {
-    if (data) {
-      setAddingProductId(data.product_id)
-      addItem(data, {
-        onSuccess: (data) => {
-          toast.success('product store success')
-        },
-        onError: (error) => {
-          console.log(error)
-          toast.error(error.message)
-        },
-        onSettled() {
-          setAddingProductId(null)
-        },
-      })
-    }
-  }
+  const { handleAddToCart, addingProductId } = useAddToCart()
 
   const ProductQuantityChange = (count: number) => {
     setProductCount(count)
