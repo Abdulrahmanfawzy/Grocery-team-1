@@ -6,7 +6,7 @@ export function HeroSection() {
     <section className="relative overflow-hidden bg-app-main">
       <div className="absolute inset-0 bg-[url('/src/features/home/assets/hero-produce.png')] 
       bg-size-[0]"  aria-hidden="true" />
-      
+
       <div className="box-container relative flex min-h-70 items-center 
        sm:min-h-82.5 sm:py-14 md:min-h-90">
         <div className="max-w-xl">

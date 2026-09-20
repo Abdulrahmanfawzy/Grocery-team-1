@@ -113,7 +113,7 @@ export function Navbar() {
             Home
           </NavLink>
 
-          <NavLink to="/products" className={navLinkClass}>
+          <NavLink to="/categories" className={navLinkClass}>
             <Grid2X2 size={13} />
             Categories
           </NavLink>
@@ -149,8 +149,8 @@ export function Navbar() {
                 <DropdownMenuItem
                   onClick={handleClearCategory}
                   className={`cursor-pointer text-xs ${!selectedCategory
-                      ? 'bg-app-main/10 text-app-main font-medium'
-                      : ''
+                    ? 'bg-app-main/10 text-app-main font-medium'
+                    : ''
                     }`}
                 >
                   All Categories
@@ -167,8 +167,8 @@ export function Navbar() {
                       )
                     }
                     className={`cursor-pointer gap-2 text-xs ${selectedCategory === category.name_en
-                        ? 'bg-app-main/10 text-app-main font-medium'
-                        : ''
+                      ? 'bg-app-main/10 text-app-main font-medium'
+                      : ''
                       }`}
                   >
                     <img
@@ -350,8 +350,8 @@ export function Navbar() {
                   <DropdownMenuItem
                     onClick={handleClearCategory}
                     className={`cursor-pointer text-xs ${!selectedCategory
-                        ? 'bg-app-main/10 text-app-main font-medium'
-                        : ''
+                      ? 'bg-app-main/10 text-app-main font-medium'
+                      : ''
                       }`}
                   >
                     All Categories
@@ -368,9 +368,9 @@ export function Navbar() {
                         )
                       }
                       className={`cursor-pointer gap-2 text-xs ${selectedCategory ===
-                          category.name_en
-                          ? 'bg-app-main/10 text-app-main font-medium'
-                          : ''
+                        category.name_en
+                        ? 'bg-app-main/10 text-app-main font-medium'
+                        : ''
                         }`}
                     >
                       <img
