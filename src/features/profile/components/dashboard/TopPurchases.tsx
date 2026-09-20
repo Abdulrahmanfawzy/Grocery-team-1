@@ -1,30 +1,8 @@
 import { Button } from '@/components/ui/Button'
 import PurchaseItem from './PurchaseItem'
+import type { DashboardData } from '../../types/dashboard.types'
 
-const topPurchases = [
-  {
-    image: '🍌',
-    title: 'Organic Bananas',
-    subtitle: 'Bought 12 times',
-  },
-  {
-    image: '🥛',
-    title: 'Fresh Milk',
-    subtitle: 'Bought 9 times',
-  },
-  {
-    image: '🥚',
-    title: 'Eggs',
-    subtitle: 'Bought 8 times',
-  },
-  {
-    image: '🍞',
-    title: 'Bread',
-    subtitle: 'Bought 7 times',
-  },
-]
-
-export default function TopPurchases() {
+export default function TopPurchases({ top_purchases }: DashboardData) {
   return (
     <section className="rounded-lg border border-gray-200 bg-white p-4">
       <div className="flex items-center justify-between">
@@ -34,8 +12,14 @@ export default function TopPurchases() {
       </div>
 
       <div className="mt-4 space-y-3">
-        {topPurchases.map((item) => (
-          <PurchaseItem key={item.title} {...item} />
+        {top_purchases.map((item) => (
+          <PurchaseItem
+            key={item.id}
+            id={item.id}
+            image={item.image}
+            purchase_count={item.purchase_count}
+            name={item.name}
+          />
         ))}
       </div>
     </section>
