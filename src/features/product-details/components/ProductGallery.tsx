@@ -1,4 +1,4 @@
-import { Badge } from '@/components/ui/Badge'
+import { Badge } from '@/components/ui/badge'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import { useState } from 'react'
 

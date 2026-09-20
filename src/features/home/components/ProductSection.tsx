@@ -1,40 +1,59 @@
-import { useState } from 'react'
-import type { ProductListItem } from '@/types/products/products.type'
+import { useEffect, useMemo, useState } from 'react'
+import type { Category } from '@/types/categories.type'
+import type { Product } from '@/types/products.type'
 import { ProductCard } from './ProductCard'
 import { SectionHeading } from './SectionHeading'
 
 interface ProductSectionProps {
   title: string
-  products: ProductListItem[]
-  isLoading?: boolean
+  products: Product[]
+  categories?: Category[]
+  filterByCategory?: boolean
 }
 
-export function ProductSection({ title, products, isLoading = false }: ProductSectionProps) {
-  const [activeCategory, setActiveCategory] = useState<string>('')
+export function ProductSection({
+  title,
+  products,
+  categories = [],
+  filterByCategory = true,
+}: ProductSectionProps) {
+  const parentCategories = useMemo(
+    () => categories.filter((category) => category.parent_id === null),
+    [categories],
+  )
+  const [activeCategory, setActiveCategory] = useState<number | null>(null)
 
-  const visibleProducts = products.slice(0, 5)
+  useEffect(() => {
+    if (activeCategory === null && parentCategories[0]) {
+      setActiveCategory(parentCategories[0].id)
+    }
+  }, [activeCategory, parentCategories])
+
+  const filteredProducts = useMemo(() => {
+    if (!filterByCategory || activeCategory === null) return products
+
+    const categoryIds = categories
+      .filter((category) => category.id === activeCategory || category.parent_id === activeCategory)
+      .map((category) => category.id)
+
+    return products.filter((product) => categoryIds.includes(product.category.id))
+  }, [activeCategory, categories, filterByCategory, products])
+
+  const visibleProducts = filteredProducts.length > 0 ? filteredProducts : products
 
   return (
     <section className="box-container py-7 sm:py-9">
       <SectionHeading
         title={title}
-        categories={[]}
+        categories={filterByCategory ? parentCategories : []}
         activeCategory={activeCategory}
         onCategoryChange={setActiveCategory}
       />
-      {isLoading ? (
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-5 md:gap-2">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="h-64 animate-pulse rounded border border-slate-100 bg-slate-100" />
-          ))}
-        </div>
-      ) : (
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-5 md:gap-2">
-          {visibleProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      )}
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-5 md:gap-2">
+        {visibleProducts.slice(0, 5).map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
     </section>
   )
 }

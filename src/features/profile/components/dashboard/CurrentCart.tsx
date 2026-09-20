@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { ShoppingCart, ArrowRight } from 'lucide-react'
+import type { DashboardData } from '../../types/dashboard.types'
 
-export default function CurrentCart() {
+export default function CurrentCart({ last_order }: DashboardData) {
   return (
     <section className="rounded-lg border border-gray-200 bg-white p-4">
       <div className="flex items-center justify-between">
@@ -21,20 +22,22 @@ export default function CurrentCart() {
 
       <div className="mt-5 flex  justify-between">
         <div>
-          <p className="text-md font-medium text-gray-700">5 items in cart</p>
+          <p className="text-md font-medium text-gray-700">
+            {last_order.total_items} items in cart
+          </p>
 
-          <p className="mt-1 text-xs text-gray-400">Last updated : 2 hours ago</p>
+          <p className="mt-1 text-xs text-gray-400">Last updated : {last_order.last_purchase}</p>
         </div>
 
-        <span className="text-md text-gray-600">£28.45</span>
+        <span className="text-md text-gray-600">£{last_order.total}</span>
       </div>
 
-     <Link to={"/"}>
-      <Button className={'w-full mt-5 '} size={'lg'}>
-        Continue Shopping
-        <ArrowRight size={12} />
-      </Button>
-     </Link>
+      <Link to={'/'}>
+        <Button className={'w-full mt-5 '} size={'lg'}>
+          Continue Shopping
+          <ArrowRight size={12} />
+        </Button>
+      </Link>
     </section>
   )
 }

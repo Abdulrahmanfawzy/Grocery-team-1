@@ -8,8 +8,15 @@ import { Button, Card } from '../../../components'
 import OTPImg from '@/assets/images/auth/OTP.png'
 import ButtonBack from '../components/ButtonBack'
 import { verifySchema, type VerifyFormValues } from '../schemas/auth.schema'
+import { useSearchParams } from 'react-router-dom'
+import { useRegisterVerifyOtp } from '../hooks/useRegisterVerifyOtp'
+import { useRegisterResendOtp } from '../hooks/useRegisterResendOtp'
 
 export default function VerifyPage() {
+  const [searchParams] = useSearchParams()
+  const challengeId = searchParams.get('challenge_id')
+  const { mutate: verifyOtp, isPending } = useRegisterVerifyOtp()
+  const { mutate: resendOtp } = useRegisterResendOtp()
   const [timeLeft, setTimeLeft] = useState(90)
 
   const form = useForm<VerifyFormValues>({
@@ -20,9 +27,7 @@ export default function VerifyPage() {
   })
 
   const onSubmit = (data: VerifyFormValues) => {
-    console.log('OTP:', data.otp)
-
-    // API
+    verifyOtp({ challenge_id: challengeId || '', otp: data.otp })
   }
 
   useEffect(() => {
@@ -54,6 +59,7 @@ export default function VerifyPage() {
     console.log('Resend OTP')
 
     // API
+    resendOtp(challengeId || '')
   }
 
   return (
@@ -88,7 +94,7 @@ export default function VerifyPage() {
                   <div className="my-6 mt-4 flex justify-center">
                     <InputOTP maxLength={6} value={field.value} onChange={field.onChange}>
                       <InputOTPGroup className="gap-2">
-                        {Array.from({ length: 6 }).map((_, index) => (
+                        {Array.from({ length: 4 }).map((_, index) => (
                           <InputOTPSlot
                             key={index}
                             index={index}
@@ -151,7 +157,13 @@ export default function VerifyPage() {
             </button>
 
             {/* Verify */}
-            <Button type="submit" size="xl" className="w-full" disabled={!form.formState.isValid}>
+            <Button
+              disabled={isPending || !form.formState.isValid}
+              isLoading={isPending}
+              type="submit"
+              size="xl"
+              className="w-full"
+            >
               Verify
             </Button>
           </form>

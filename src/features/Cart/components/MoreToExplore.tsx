@@ -3,63 +3,21 @@ import { Card, CardContent } from "@/components/common/Card";
 import { Button } from "@/components/ui/Button";
 import { Star, ShoppingCart, Plus, Trash2, Minus } from "lucide-react";
 import ProductCarousel from "@/components/common/ProductCarousel";
-import type { Product } from "@/types/products/products.type";
-import { Badge } from "@/components/ui/Badge";
-import Water from "@/assets/water.png";
-import Vcola from "@/assets/vcola.png";
-import Soda from "@/assets/soda.png";
-import teaImage from "@/assets/tea.png";
-
-const products: Product[] = [
-  {
-    id: 1,
-    name: "Spiro Spathis Lemon",
-    price: 8.8,
-    oldPrice: 11,
-    image: Soda,
-    inStock: true,
-    discount: 20,
-    isNew: true,
-    rating: 3.8,
-  },
-  {
-    id: 2,
-    name: "V7 Cola - 300Ml",
-    price: 15,
-    oldPrice: 15,
-    image: Vcola,
-    inStock: true,
-    isNew: false,
-    rating: 4,
-  },
-  {
-    id: 3,
-    name: "Nestlé Pure Life 6 L",
-    price: 60,
-    oldPrice: 60,
-    image: Water,
-    inStock: true,
-    isNew: false,
-    rating: 5,
-  },
-  {
-    id: 4,
-    name: "Black Tea",
-    price: 10,
-    oldPrice: 10,
-    image: teaImage,
-    inStock: true,
-    isNew: false,
-    rating: 4,
-  },
-];
+import { useProducts } from "@/hooks/useProducts";
+import { useCart } from "../hooks/useCart";
+import type { Product } from "@/types/products.type";
+import type { AddCartItemRequest } from "../types/cart.types";
 
 interface ExploreProductCardProps {
   product: Product;
 }
 
-const ExploreProductCard = ({ product }: ExploreProductCardProps) => {
+const ExploreProductCard = ({
+  product,
+}: ExploreProductCardProps) => {
   const [quantity, setQuantity] = useState(1);
+
+  const { addItem, isAddingItem } = useCart();
 
   const increaseQuantity = () => {
     setQuantity((prev) => prev + 1);
@@ -68,6 +26,22 @@ const ExploreProductCard = ({ product }: ExploreProductCardProps) => {
   const decreaseQuantity = () => {
     setQuantity((prev) => Math.max(1, prev - 1));
   };
+
+  const handleAddToCart = () => {
+    const data: AddCartItemRequest = {
+      product_id: product.id,
+      quantity,
+    };
+
+    addItem(data);
+  };
+
+  const price = Number(product.price);
+  const discountPrice = product.discount_price
+    ? Number(product.discount_price)
+    : null;
+
+  const displayPrice = discountPrice ?? price;
 
   return (
     <Card className="overflow-hidden border-border shadow-none">
@@ -80,19 +54,17 @@ const ExploreProductCard = ({ product }: ExploreProductCardProps) => {
             className="h-37.5 w-37.5 object-contain"
           />
 
-          {/* Badges */}
-          <div className="absolute left-2 top-2 flex items-center gap-1.5 ">
-            {product.inStock && <Badge>In Stock</Badge>}
-
-            {product.discount && (
-              <Badge>Save {product.discount}%</Badge>
-            )}
-
-            {product.isNew && <Badge>New</Badge>}
-          </div>
+          {/* Discount */}
+          {discountPrice !== null && discountPrice < price && (
+            <div className="absolute left-2 top-2">
+              <span className="rounded-md bg-app-main px-2 py-1 text-[10px] text-white">
+                Sale
+              </span>
+            </div>
+          )}
         </div>
 
-        {/* Product Info */}
+        {/* Product Details */}
         <div className="px-1 pb-1">
           {/* Name + Price */}
           <div className="flex items-center justify-between gap-2">
@@ -102,12 +74,12 @@ const ExploreProductCard = ({ product }: ExploreProductCardProps) => {
 
             <div className="flex shrink-0 items-center gap-2">
               <span className="text-sm font-medium text-foreground">
-                £ {product.price.toFixed(2)}
+                £ {(displayPrice * quantity).toFixed(2)}
               </span>
 
-              {product.discount && (
+              {discountPrice !== null && discountPrice < price && (
                 <span className="text-sm text-app-secondary line-through">
-                  £ {product.oldPrice}
+                  £ {(price * quantity).toFixed(2)}
                 </span>
               )}
             </div>
@@ -121,7 +93,7 @@ const ExploreProductCard = ({ product }: ExploreProductCardProps) => {
                   key={star}
                   size={18}
                   className={
-                    star <= Math.round(product.rating)
+                    star <= Math.round(product.average_rating)
                       ? "fill-current text-gold"
                       : "fill-current text-gray-200"
                   }
@@ -130,7 +102,7 @@ const ExploreProductCard = ({ product }: ExploreProductCardProps) => {
             </div>
 
             <span className="text-[10px] text-app-secondary">
-              Rating ({product.rating}/5)
+              Rating ({product.average_rating}/5)
             </span>
           </div>
 
@@ -138,10 +110,13 @@ const ExploreProductCard = ({ product }: ExploreProductCardProps) => {
           <div className="mt-2 flex h-8 items-center gap-2">
             <Button
               type="button"
+              onClick={handleAddToCart}
+              disabled={isAddingItem}
               className="h-8 bg-app-main px-5 text-xs text-white hover:bg-app-main/90"
             >
               <ShoppingCart className="size-4" />
-              Add To Cart
+
+              {isAddingItem ? "Adding..." : "Add To Cart"}
             </Button>
 
             {/* Quantity */}
@@ -152,6 +127,7 @@ const ExploreProductCard = ({ product }: ExploreProductCardProps) => {
                 size="icon-xs"
                 className="rounded-none text-app-main"
                 onClick={decreaseQuantity}
+                disabled={isAddingItem}
               >
                 {quantity === 1 ? (
                   <Trash2 className="size-3" />
@@ -170,6 +146,7 @@ const ExploreProductCard = ({ product }: ExploreProductCardProps) => {
                 size="icon-xs"
                 className="rounded-none text-app-main"
                 onClick={increaseQuantity}
+                disabled={isAddingItem}
               >
                 <Plus className="size-3" />
               </Button>
@@ -182,19 +159,38 @@ const ExploreProductCard = ({ product }: ExploreProductCardProps) => {
 };
 
 const MoreToExplore = () => {
+  const { data, isError } = useProducts();
+
+  if (isError) {
+    return (
+      <section className="mt-10 pb-10">
+        <h2 className="text-md font-medium text-foreground">
+          More To Explore
+        </h2>
+
+        <p className="mt-4 text-sm text-error">
+          Failed to load products.
+        </p>
+      </section>
+    );
+  }
+
+  // ProductsResponse.data is the actual products array
+  const products = data?.data ?? [];
+
   return (
     <section className="mt-10 pb-10">
-      {/* Title */}
       <div className="mb-5">
         <h2 className="text-md font-medium text-foreground">
           More To Explore
         </h2>
       </div>
 
-      {/* Common Product Carousel */}
       <ProductCarousel
         products={products}
-        element={(product) => <ExploreProductCard product={product} />}
+        element={(product) => (
+          <ExploreProductCard product={product} />
+        )}
       />
     </section>
   );

@@ -41,6 +41,7 @@ import RestPasswordPage from '@/features/auth/pages/RestPasswordPage'
 import VerifyPage from '@/features/auth/pages/VerifyPage'
 import ProtectedRoute from './ProtectedRoute'
 import GuestRoute from './GuestRoute'
+import VerifyForgetPasswordPage from '@/features/auth/pages/VerifyForgetPasswordPage'
 
 export const routes = createBrowserRouter([
   {
@@ -179,12 +180,16 @@ export const routes = createBrowserRouter([
                 element: <ForgetPasswordPage />,
               },
               {
-                path: 'rest-password',
+                path: 'reset-password',
                 element: <RestPasswordPage />,
               },
               {
                 path: 'verify',
                 element: <VerifyPage />,
+              },
+              {
+                path: 'verify-forget-password',
+                element: <VerifyForgetPasswordPage />,
               },
             ],
           },

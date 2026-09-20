@@ -1,7 +1,7 @@
 type WelcomeStatProps = {
   icon: React.ReactNode
   title: string
-  value: string
+  value: number
 }
 
 export default function WelcomeStat({ icon, title, value }: WelcomeStatProps) {

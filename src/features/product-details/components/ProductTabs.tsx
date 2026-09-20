@@ -2,8 +2,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import ReviewsContent from './ReviewsContent'
 import DescriptionContent from './DescriptionContent'
 import NutritionalContent from './NutritionalContent'
+import type { ProductsResponse } from '@/types/products.type'
 
-const ProductTabs = () => {
+const ProductTabs = ({ product }: { product: ProductsResponse['data'][0] }) => {
+  console.log('ProductTabs', product)
+
   return (
     <div className="p-2">
       <Tabs defaultValue="reviews">
@@ -34,11 +37,11 @@ const ProductTabs = () => {
         {/* ================ Tabs Content  ============== */}
 
         <TabsContent value="description">
-          <DescriptionContent />
+          <DescriptionContent description={product.description} />
         </TabsContent>
 
         <TabsContent value="reviews">
-          <ReviewsContent />
+          <ReviewsContent reviews={product.ratings} />
         </TabsContent>
 
         <TabsContent value="nutritional-facts">
