@@ -1,16 +1,18 @@
-export interface HomeProduct {
-  id: string
-  name: string
-  category: string
-  quantity: string
-  price: number
-  oldPrice?: number
-  image: string
-  badge?: string
+import type { Pagination, Product } from '@/types/products.type'
+
+export interface HomeProduct extends Product {
+  discount_percentage?: number
+  total_sold?: number
 }
 
-export interface ProductSectionProps {
-  title: string
-  products: HomeProduct[]
-  categories: string[]
+export interface HomeProductsResponse {
+  success: boolean
+  message: string
+  data: HomeProduct[]
+  pagination: Pagination
+}
+
+export interface HomeProductsParams {
+  page?: number
+  limit?: number
 }

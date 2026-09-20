@@ -1,33 +1,54 @@
-// import api from '@/lib/axios'
-// import type { ProductsResponse } from '@/types/products.type'
+import api from '@/lib/axios'
 
-// export const getProducts = async (
-//   page: number,
-// ): Promise<ProductsResponse> => {
-//   const response = await api.get<ProductsResponse>(
-//     '/products',
-//     {
-//       params: {
-//         page,
-//       },
-//     },
-//   )
+import type {
+  HomeProductsParams,
+  HomeProductsResponse,
+} from '../types/home.types'
 
-//   return response.data
-// }
+export const getHotDeals = async (
+  params: HomeProductsParams = {},
+): Promise<HomeProductsResponse> => {
+  const response = await api.get<HomeProductsResponse>(
+    '/products/hot-deals',
+    {
+      params: {
+        limit: 10,
+        ...params,
+      },
+    },
+  )
 
-// export interface AddToCartType {
-//   product_id: number
-//   quantity: number
-// }
+  return response.data
+}
 
-// export const addToCart = async (
-//   data: AddToCartType,
-// ) => {
-//   const response = await api.post(
-//     '/cart/items',
-//     data,
-//   )
+export const getNewProducts = async (
+  params: HomeProductsParams = {},
+): Promise<HomeProductsResponse> => {
+  const response = await api.get<HomeProductsResponse>(
+    '/products/new',
+    {
+      params: {
+        limit: 10,
+        ...params,
+      },
+    },
+  )
 
-//   return response.data
-// }
+  return response.data
+}
+
+export const getBestSellers = async (
+  params: HomeProductsParams = {},
+): Promise<HomeProductsResponse> => {
+  const response = await api.get<HomeProductsResponse>(
+    '/products/best-sellers',
+    {
+      params: {
+        limit: 10,
+        ...params,
+      },
+    },
+  )
+
+  return response.data
+}
