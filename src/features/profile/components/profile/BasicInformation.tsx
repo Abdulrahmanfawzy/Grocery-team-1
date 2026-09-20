@@ -48,9 +48,9 @@ export default function BasicInformation() {
       currentFields.map((field) =>
         field.id === id
           ? {
-              ...field,
-              value,
-            }
+            ...field,
+            value,
+          }
           : field,
       ),
     )
