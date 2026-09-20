@@ -10,6 +10,7 @@ import Loader from '../components/Loader'
 export default function DashboardPage() {
   const { data, isLoading } = useDashboard()
 
+
   if (isLoading) {
     return <Loader />
   }
@@ -19,12 +20,12 @@ export default function DashboardPage() {
       {/* Welcome */}
       <DashboardWelcome
         trackOrder={data?.data.track_order ?? 3}
-        loyaltyPoints={data?.data.loyalty_points.points || 10}
+        loyaltyPoints={data?.data?.loyalty_points.points || 10}
       />
 
       {/* Cart & Delivery */}
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        <CurrentCart last_order={data?.data.last_order} />
+        <CurrentCart last_order={data?.data?.last_order || []} />
         <UpcomingDelivery />
       </div>
 
@@ -33,9 +34,9 @@ export default function DashboardPage() {
 
       {/* Recent Orders & Top Purchases */}
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        <RecentOrders recent_orders={data?.data.recent_orders} />
+        <RecentOrders recent_orders={data?.data?.recent_orders || {}} />
 
-        <TopPurchases top_purchases={data?.data.top_purchases} />
+        <TopPurchases top_purchases={data?.data?.top_purchases || {}} />
       </div>
     </div>
   )
