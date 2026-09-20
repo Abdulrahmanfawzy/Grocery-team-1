@@ -5,8 +5,6 @@ import NutritionalContent from './NutritionalContent'
 import type { ProductsResponse } from '@/types/products.type'
 
 const ProductTabs = ({ product }: { product: ProductsResponse['data'][0] }) => {
-  console.log('ProductTabs', product)
-
   return (
     <div className="p-2">
       <Tabs defaultValue="reviews">
