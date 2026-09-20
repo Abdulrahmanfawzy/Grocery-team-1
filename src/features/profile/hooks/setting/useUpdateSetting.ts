@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query"
 import { settingApi } from "../../services/Setting.service"
-import { toast } from "react-toastify"
+import { toast } from "sonner"
 import type { seting } from "../../types/setting.types"
 import { useQueryClient } from "@tanstack/react-query"
 
