@@ -1,13 +1,18 @@
-import type { ProductListItem } from '@/types/products/products.type'
-import type { Category } from '@/types/categories/category.type'
+import type { Pagination, Product } from '@/types/products.type'
 
-export interface ProductHome extends ProductListItem {
-  average_rating?: number,
+export interface HomeProduct extends Product {
+  discount_percentage?: number
+  total_sold?: number
 }
-export interface HomeCategory extends Category {
+
+export interface HomeProductsResponse {
+  success: boolean
+  message: string
+  data: HomeProduct[]
+  pagination: Pagination
 }
-export interface ProductSectionProps {
-  title: string
-  products: ProductListItem[]
-  categories: HomeCategory[]
+
+export interface HomeProductsParams {
+  page?: number
+  limit?: number
 }

@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
+
 import type { Category } from '@/types/categories.type'
 import type { Product } from '@/types/products.type'
-import { ProductCard } from './ProductCard'
+
+import  ProductCard  from '@/components/common/ProductCard'
 import { SectionHeading } from './SectionHeading'
 
 interface ProductSectionProps {
@@ -21,25 +23,37 @@ export function ProductSection({
     () => categories.filter((category) => category.parent_id === null),
     [categories],
   )
+
   const [activeCategory, setActiveCategory] = useState<number | null>(null)
 
   useEffect(() => {
-    if (activeCategory === null && parentCategories[0]) {
-      setActiveCategory(parentCategories[0].id)
+    const firstParentCategory = parentCategories[0]
+
+    if (activeCategory === null && firstParentCategory) {
+      setActiveCategory(firstParentCategory.id)
     }
   }, [activeCategory, parentCategories])
 
   const filteredProducts = useMemo(() => {
-    if (!filterByCategory || activeCategory === null) return products
+    if (!filterByCategory || activeCategory === null) {
+      return products
+    }
 
     const categoryIds = categories
-      .filter((category) => category.id === activeCategory || category.parent_id === activeCategory)
+      .filter(
+        (category) =>
+          category.id === activeCategory ||
+          category.parent_id === activeCategory,
+      )
       .map((category) => category.id)
 
-    return products.filter((product) => categoryIds.includes(product.category.id))
+    return products.filter((product) =>
+      categoryIds.includes(product.category.id),
+    )
   }, [activeCategory, categories, filterByCategory, products])
 
-  const visibleProducts = filteredProducts.length > 0 ? filteredProducts : products
+  const visibleProducts =
+    filteredProducts.length > 0 ? filteredProducts : products
 
   return (
     <section className="box-container py-7 sm:py-9">
@@ -49,11 +63,18 @@ export function ProductSection({
         activeCategory={activeCategory}
         onCategoryChange={setActiveCategory}
       />
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-5 md:gap-2">
-        {visibleProducts.slice(0, 5).map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+
+      {visibleProducts.length === 0 ? (
+        <div className="py-10 text-center text-sm text-slate-400">
+          No products available.
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-5 md:gap-2">
+          {visibleProducts.slice(0, 5).map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
     </section>
   )
 }
