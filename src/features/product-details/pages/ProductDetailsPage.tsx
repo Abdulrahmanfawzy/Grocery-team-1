@@ -82,7 +82,7 @@ function ProductDetails() {
         <div className="mb-14 grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
           {/* ================= LEFT Product Gallery ================= */}
           <div>
-            <ProductGallery images={product.images} productName={product.name} />
+            <ProductGallery images={product.image} productName={product.name} />
           </div>
 
           {/* ================= RIGHT Product Content ================= */}

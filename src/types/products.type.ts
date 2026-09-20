@@ -11,7 +11,7 @@ export interface Product {
   name: string
   description: string
   how_to_use: string | null
-  images: string[]
+  image: string[]
   quantity: number
   price: string
   discount_price: string | null

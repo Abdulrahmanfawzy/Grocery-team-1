@@ -1,4 +1,5 @@
 import { useCategories } from '@/hooks/useCategories'
+import { X } from 'lucide-react'
 import { useSearchParams } from 'react-router-dom'
 
 const CategoryFilter = () => {
@@ -30,16 +31,33 @@ const CategoryFilter = () => {
               key={category.id}
               type="button"
               onClick={() => handleCategoryFilter(category.id)}
-              className={`group cursor-pointer p-4 flex items-center hover:bg-white ${searchParams.get('category_id') === String(category.id) && 'bg-white'} gap-4 text-left`}
+              className={`group cursor-pointer p-4   hover:bg-white ${searchParams.get('category_id') === String(category.id) && 'bg-white'} gap-4 text-left`}
             >
-              <img
-                src={category.image}
-                className="size-6 text-sidebar-color transition-colors group-hover:text-primary"
-              />
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-4">
+                  <img
+                    src={category.image}
+                    className="size-6 text-sidebar-color transition-colors group-hover:text-primary"
+                  />
 
-              <span className="text-base text-sidebar-color transition-colors group-hover:text-primary">
-                {category.name_en}
-              </span>
+                  <span className="text-base text-sidebar-color transition-colors group-hover:text-primary">
+                    {category.name_en}
+                  </span>
+                </div>
+                {searchParams.get('category_id') === String(category.id) && (
+                  <X
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setSearchParams((prev) => {
+                        const params = new URLSearchParams(prev)
+                        params.delete('category_id')
+                        params.set('page', '1')
+                        return params
+                      })
+                    }}
+                  />
+                )}
+              </div>
             </button>
           ))}
       </div>
