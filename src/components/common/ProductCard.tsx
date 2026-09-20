@@ -7,6 +7,7 @@ import QuantitySelector from './QuantitySelector'
 import { useState } from 'react'
 import type { ProductsResponse } from '@/types/products.type'
 import { useCart } from '@/features/Cart/hooks/useCart'
+import { toast } from 'sonner'
 
 const ProductCard = ({
   product,
@@ -33,10 +34,20 @@ const ProductCard = ({
   }
 
   const handleAddToCart = () => {
-    addItem({
-      product_id: product.id,
-      quantity: productCount,
-    })
+    addItem(
+      {
+        product_id: product.id,
+        quantity: productCount,
+      },
+      {
+        onSuccess: () => {
+          toast.success('Item added to cart successfully')
+        },
+        onError: (error) => {
+          toast.error(error?.response?.data?.message || 'Failed to add item to cart')
+        },
+      },
+    )
 
     setProductCount(1)
   }

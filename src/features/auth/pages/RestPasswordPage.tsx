@@ -8,7 +8,7 @@ import { resetPasswordSchema, type ResetPasswordFormValues } from '../schemas/au
 import PasswordInput from '../components/PasswordInput'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useResetPassword } from '../hooks/useResetPassword'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 
 export default function ResetPasswordPage() {
   const [searchParams] = useSearchParams()

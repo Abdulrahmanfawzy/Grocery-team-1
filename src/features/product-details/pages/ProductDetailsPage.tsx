@@ -13,7 +13,7 @@ import type { AddCartItemRequest } from '@/features/Cart/types/cart.types'
 import { useCart } from '@/features/Cart/hooks/useCart'
 import { useState } from 'react'
 import ProductSkeleton from '@/components/common/ProductSkeleton'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { useProductsBoughtTogether } from '@/hooks/useProductsBoughtTogether'
 import { useAddToCart } from '@/hooks/useAddToCart'
 

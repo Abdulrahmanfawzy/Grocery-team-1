@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useCart } from '@/features/Cart/hooks/useCart'
 import type { AddCartItemRequest } from '@/features/Cart/types/cart.types'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 
 export const useAddToCart = () => {
   const [addingProductId, setAddingProductId] = useState<number | null>(null)

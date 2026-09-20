@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { authApi } from '../services/auth.service'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import type { AxiosError } from 'axios'
 import type { ErrorResponse } from '../types/auth.types'
 
