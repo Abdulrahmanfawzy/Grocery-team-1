@@ -1,15 +1,15 @@
-export interface CartProduct {
+export interface Product {
   id: number;
   category_id: number;
   type: string;
   name: string;
   brand: string;
   descreption: string;
-  how_to_use: string | null;
+  how_to_use: string;
   image: string;
   quantity: number;
   price: string;
-  discount_price: string | null;
+  discount_price: string;
   created_at: string | null;
   updated_at: string | null;
 }
@@ -21,7 +21,7 @@ export interface CartItem {
   quantity: number;
   created_at: string;
   updated_at: string;
-  product: CartProduct;
+  product: Product;
 }
 
 export interface Cart {
@@ -29,12 +29,6 @@ export interface Cart {
   user_id: number;
   created_at: string;
   items: CartItem[];
-}
-
-export interface CartResponse {
-  success: boolean;
-  message: string;
-  data: Cart;
 }
 
 export interface AddCartItemRequest {
