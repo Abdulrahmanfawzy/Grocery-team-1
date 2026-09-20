@@ -6,39 +6,11 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { ChevronDown, CircleHelp } from 'lucide-react'
+import type { FqaData } from '../../types/fqa.types copy'
 
-export default function FAQ() {
-  // =====================================================
-  // Types
-  // =====================================================
+export default function FAQ({ data }: { data: FqaData[] }) {
 
-  type FAQ = {
-    question: string
-    answer: string
-  }
 
-  // =====================================================
-  // Data
-  // =====================================================
-
-  const faqs: FAQ[] = [
-    {
-      question: 'How do I track my order?',
-      answer: 'Go to Order History and click on any order to see real-time tracking.',
-    },
-    {
-      question: 'What is your return policy?',
-      answer: 'We accept returns within 7 days for non-perishable items in original packaging.',
-    },
-    {
-      question: 'How do I cancel my subscription?',
-      answer: 'Visit the Subscriptions page and click Cancel on any active subscription.',
-    },
-    {
-      question: 'Do you deliver on weekends?',
-      answer: 'Yes! We deliver 7 days a week including holidays.',
-    },
-  ]
 
   return (
     <Card className="rounded-md border-slate-200 bg-[#f7fbfd] shadow-none">
@@ -54,10 +26,10 @@ export default function FAQ() {
         {/* FAQ */}
 
         <Accordion className="space-y-2 ">
-          {faqs.map((faq, index) => (
+          {data.map((faq: FqaData) => (
             <AccordionItem
-              key={faq.question}
-              value={`faq-${index}`}
+              key={faq.id}
+              value={faq.question}
               className=" rounded-md  bg-[#dedcdd] px-3 "
             >
               <AccordionTrigger

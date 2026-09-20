@@ -1,6 +1,6 @@
 import { Truck } from 'lucide-react'
 
-export default function DeliveryInstructions({ instructions }: { instructions: string }) {
+export default function DeliveryInstructions({ postal_code , provenance }: { postal_code: string, provenance : string }) {
   return (
     <div
       className="
@@ -33,7 +33,7 @@ export default function DeliveryInstructions({ instructions }: { instructions: s
         <div>
           <p className="text-xs font-medium text-app-main">Delivery Instructions</p>
 
-          <p className="mt-1 text-xxs text-app-main">{instructions}</p>
+          <p className="mt-1 text-xxs text-app-main">{postal_code} , {provenance}</p>
         </div>
       </div>
     </div>
