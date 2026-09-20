@@ -101,7 +101,7 @@ export const PaymentSteps = ({
     onContinue,
 }: PaymentStepsProps) => {
     const { data: cartData } = useCart();
-const { defaultAddress } = useAddresses();
+const { defaultAddress } = useAddresses(false);
     const form = useForm<PaymentFormValues>({
         resolver: zodResolver(paymentSchema),
         defaultValues: {
