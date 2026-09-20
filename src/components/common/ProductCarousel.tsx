@@ -14,8 +14,6 @@ interface ProductCarouselPropsType {
 }
 
 const ProductCarousel = ({ products, element }: ProductCarouselPropsType) => {
-  console.log(products)
-
   return (
     <>
       <Carousel

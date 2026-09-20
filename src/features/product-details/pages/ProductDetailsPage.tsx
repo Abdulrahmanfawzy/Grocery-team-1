@@ -13,39 +13,28 @@ import type { AddCartItemRequest } from '@/features/Cart/types/cart.types'
 import { useCart } from '@/features/Cart/hooks/useCart'
 import { useState } from 'react'
 import ProductSkeleton from '@/components/common/ProductSkeleton'
+import { toast } from 'react-toastify'
+import { useProductsBoughtTogether } from '@/hooks/useProductsBoughtTogether'
+import { useAddToCart } from '@/hooks/useAddToCart'
 
 function ProductDetails() {
   // Get Params From URL
   const { productId } = useParams()
 
+  // Fetch Product Details
   const { data: product, isLoading, isSuccess } = useProductDetails(Number(productId))
 
-  const { data: products, isLoading: isProductsLoading } = useProducts({ per_page: 5 })
-  console.log('from page details', products)
+  // Fetch Products Bought Together
+  const { data: productsBoughtTogether, isLoading: isProductsBoughtTogetherLoading } =
+    useProductsBoughtTogether(Number(productId))
 
-  const [addingProductId, setAddingProductId] = useState<number | null>(null)
-  const { addItem } = useCart()
+  // Fetch More Products
+  const { data: products, isLoading: isProductsLoading } = useProducts({})
 
-  const handleAddToCart = (data: AddCartItemRequest) => {
-    if (data) {
-      setAddingProductId(data.product_id)
-      addItem(data, {
-        onSuccess: (data) => {
-          console.log('addItem', data)
+  // Add To Cart Hook
+  const { handleAddToCart, addingProductId } = useAddToCart()
 
-          // toast.success(data.message)
-        },
-        onError: (error) => {
-          console.log('addItem', error.response)
-          toast.error(error?.response?.data?.message)
-        },
-        onSettled() {
-          setAddingProductId(null)
-        },
-      })
-    }
-  }
-
+  // Loading State
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -99,12 +88,11 @@ function ProductDetails() {
         {/* Carousel 1  */}
         <div className="my-14">
           <h2 className="text-20 text-black pb-4 px-2">Frequently Bought Together</h2>
-          {isProductsLoading ? (
+          {isProductsBoughtTogetherLoading ? (
             Array.from({ length: 6 }).map((_, index) => <ProductSkeleton key={index} />)
           ) : (
             <ProductCarousel
-              products={products && products?.data}
-
+              products={productsBoughtTogether && productsBoughtTogether?.data}
               element={(product: ProductsResponse['data'][0]) => (
                 <ProductCard
                   handleAddToCart={handleAddToCart}
@@ -118,7 +106,7 @@ function ProductDetails() {
 
         {/* Carousel 2 */}
         <div className="my-14">
-          <h2 className="text-20 text-black pb-4 px-2">Frequently Bought Together</h2>
+          <h2 className="text-20 text-black pb-4 px-2">More To Explore</h2>
           {isProductsLoading ? (
             Array.from({ length: 6 }).map((_, index) => <ProductSkeleton key={index} />)
           ) : (

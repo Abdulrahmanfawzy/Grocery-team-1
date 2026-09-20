@@ -8,8 +8,8 @@ const FilterByPrice = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const [priceRange, setPriceRange] = useState([
-    searchParams.get('min_price') || 10,
-    searchParams.get('max_price') || 500,
+    Number(searchParams.get('min_price')) || 10,
+    Number(searchParams.get('max_price')) || 500,
   ])
 
   const handlePriceChange = (value: number[]) => {
